@@ -9,7 +9,6 @@ import logo from '../assets/img/logo.png';
 export default function SignForm() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   window.addEventListener('resize', () => setScreenWidth(window.innerWidth));
-  console.log(screenWidth);
   const [isSignUp, setIsSignUp] = useState(false);
   const aside = useRef();
   const main = useRef();

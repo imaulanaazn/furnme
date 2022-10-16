@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 export default function About() {
   return (
     <>
-      <Navbar position="static" bg="bg-orange-100" border="border-slate-700" text="text-slate-600" />
+      <Navbar position="static" bg="white" />
 
       <main className="py-12 w-full lg:pl-52 md:px-36 px-8 bg-orange-200 relative border-y-2 border-dashed border-slate-600">
         <h1 className="md:w-96 font-extrabold lg:text-2xl md:text-3xl text-xl">An abstract and personal approach, defined by a mood of feeling</h1>
@@ -18,18 +18,18 @@ export default function About() {
         <div className="service_and_clients mt-40 flex lg:w-72 justify-between">
           <ul className="service">
             <li><h1 className="font-bold  lg:text-base md:text-xl text-base">Services</h1></li>
-            <li><a href="/#" className="lg:text-base md:text-lg text-base">Furniture</a></li>
-            <li><a href="/#" className="lg:text-base md:text-lg text-base">Design interior</a></li>
-            <li><a href="/#" className="lg:text-base md:text-lg text-base">Custom furniture</a></li>
-            <li><a href="/#" className="lg:text-base md:text-lg text-base">Soufenire</a></li>
+            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">Furniture</a></li>
+            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">Design interior</a></li>
+            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">Custom furniture</a></li>
+            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">Soufenire</a></li>
           </ul>
           <ul className="clients ">
             <h1 className="font-bold lg:text-base md:text-xl text-base">Clients</h1>
-            <li><a href="/#" className="lg:text-base md:text-lg text-base">lorem</a></li>
-            <li><a href="/#" className="lg:text-base md:text-lg text-base">ipsum</a></li>
-            <li><a href="/#" className="lg:text-base md:text-lg text-base">dolor</a></li>
-            <li><a href="/#" className="lg:text-base md:text-lg text-base">sit</a></li>
-            <li><a href="/#" className="lg:text-base md:text-lg text-base">amet</a></li>
+            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">lorem</a></li>
+            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">ipsum</a></li>
+            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">dolor</a></li>
+            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">sit</a></li>
+            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">amet</a></li>
           </ul>
           <img src={highChair} className="hidden lg:block absolute bottom-0 right-0 w-1/2" alt="chair" />
           <img src={lineDecor} className="hidden lg:block absolute top-0 left-0 w-20 translate-x-3/4" alt="decorative line" />

@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import mbuh from '../assets/img/checkout-item1.jpg';
 
 export default function InCartProduct({
-  image, name, size, color, price, index, changeTempArr,
+  name, size, color, price, index, changeTempArr,
 }) {
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(quantity * price);
@@ -10,11 +11,12 @@ export default function InCartProduct({
     setTotal(quantity * price);
     changeTempArr(index, quantity * price);
   }, [quantity]);
+
   return (
     <div className="product-1 my-8 flex w-full items-center text-slate-600 text-center">
       <div className="product-item flex-1 text-left">
         <div className="thumb lg:w-24 w-16 lg:h-24 h-16 mx-auto">
-          <img src={image} className="w-full h-full object-cover object-center" alt="" />
+          <img src={mbuh} className="w-full h-full object-cover object-center" alt="" />
         </div>
         <div className="text md:ml-12 ">
           <h1 className="mt-2 mb-1 font-bold lg:text-base md:text-xl">{name}</h1>
@@ -47,7 +49,6 @@ export default function InCartProduct({
   );
 }
 InCartProduct.propTypes = {
-  image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   size: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,

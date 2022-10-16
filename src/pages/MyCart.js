@@ -8,7 +8,7 @@ import MyCartMain from '../components/MyCartMain';
 import MyCartAside from '../components/MyCartAside';
 
 export default function MyCart() {
-  const [totalCost, setTotalCost] = useState([]);
+  const [totalCost, setTotalCost] = useState(0);
   const preventRefresh = (event) => event.preventDefault();
   return (
     <>

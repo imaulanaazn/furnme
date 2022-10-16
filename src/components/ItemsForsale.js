@@ -29,7 +29,7 @@ export default function ItemsForsale() {
 
   return (
     <section className="our_product w-full md:px-12 px-6 py-20 text-center">
-      <h1 className="text-left font-bold lg:text-2xl md:text-3xl mb-7">Forsale Products</h1>
+      <h1 className="text-left font-bold text-lg lg:text-2xl md:text-3xl mb-7">Forsale Products</h1>
       <div className="product_navbar w-full flex-wrap flex justify-between ">
         <ul className="flex md:w-80 md:flex-none flex-1 justify-between">
           <li className="all-btn text-base"><button type="submit" onClick={() => setProductValue('furniture')}>All product</button></li>
@@ -50,19 +50,21 @@ export default function ItemsForsale() {
       </div>
       <div className="products_wrapper md:my-16 my-12 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
         {data.slice(0, visible).map((gambar) => (
-          <div className="item h-96 w-full  overflow-hidden">
+          <div className="item h-96 w-full  overflow-hidden" key={gambar.id}>
             <div className="thumb group relative w-full h-5/6 bg-slate-200">
               <img src={gambar.webformatURL} alt="" className="w-full h-full object-cover group-hover:brightness-50 transition-all duration-500" />
               <a href="/#" className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/4 group-hover:-translate-y-1/4 opacity-0 group-hover:opacity-100 transition-all duration-500 text-sm text-white py-2 px-3 border border-solid border-white ">view product</a>
             </div>
             <div className="product_detail flex justify-between items-center w-full h-1/6">
-              <p className="text-left text-base">
-
-                {gambar.tags.split(',')[0]}
-                <br />
-                $
-                {gambar.imageHeight}
-              </p>
+              <div>
+                <p className="text-left text-base font-semibold">
+                  {gambar.tags.split(',')[0]}
+                </p>
+                <p className="text-left text-base text-slate-600">
+                  $
+                  {gambar.imageHeight}
+                </p>
+              </div>
               <div className="stars flex w-1/3 justify-evenly">
                 <img src={star} alt="stars icons" width="15" />
                 <img src={star} alt="stars icons" width="15" />
@@ -74,7 +76,7 @@ export default function ItemsForsale() {
           </div>
         ))}
       </div>
-      <button type="submit" ref={viewMoreBtn} onClick={visible === data.length ? undefined : showMoreItems} className="lg:text-sm md:text-base py-1 px-2 border border-solid border-slate-700">view more</button>
+      <button type="submit" ref={viewMoreBtn} onClick={visible === data.length ? undefined : showMoreItems} className="lg:text-sm md:text-base py-2 px-5 border border-solid border-slate-700">view more</button>
     </section>
   );
 }

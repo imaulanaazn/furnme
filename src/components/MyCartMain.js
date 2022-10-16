@@ -25,6 +25,7 @@ export default function MyCartMain({ setTotalCost }) {
         </div>
         {products.map((product, i) => (
           <InCartProduct
+            key={product.name}
             image={product.image}
             name={product.name}
             size={product.size}

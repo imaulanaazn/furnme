@@ -12,7 +12,7 @@ import DiscountedFurniture from '../components/DiscountedFurniture';
 export default function Shop() {
   return (
     <>
-      <Navbar bg="bg-white" border="border-slate-300" />
+      <Navbar bg="bg-white" />
       <ShopHero />
       <TopRated />
       <AllProducts />

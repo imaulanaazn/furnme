@@ -50,7 +50,7 @@ export default function AllProducts() {
       </div>
       <div className="products_wrapper md:my-16 my-12 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
         {data.slice(0, visible).map((gambar) => (
-          <div className="item h-96 w-full  overflow-hidden">
+          <div className="item h-96 w-full  overflow-hidden" key={gambar.id}>
             <div className="thumb group relative w-full h-5/6 bg-slate-200">
               <img src={gambar.webformatURL} alt="" className="w-full h-full object-cover group-hover:brightness-50 transition-all duration-500" />
               <a href="/#" className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/4 group-hover:-translate-y-1/4 opacity-0 group-hover:opacity-100 transition-all duration-500 text-sm text-white py-2 px-3 border border-solid border-white ">view product</a>
@@ -74,7 +74,7 @@ export default function AllProducts() {
           </div>
         ))}
       </div>
-      <button type="submit" ref={viewMoreBtn} onClick={visible === data.length ? undefined : showMoreItems} className="lg:text-sm md:text-lg py-1 px-2 border border-solid border-slate-700">view more</button>
+      <button type="submit" ref={viewMoreBtn} onClick={visible === data.length ? undefined : showMoreItems} className="lg:text-base md:text-lg py-2 px-5 border border-solid border-slate-700">view more</button>
     </section>
   );
 }

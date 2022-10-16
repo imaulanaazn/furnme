@@ -9,7 +9,7 @@ import ItemsForsale from '../components/ItemsForsale';
 export default function Forsale() {
   return (
     <>
-      <Navbar bg="bg-white" border="border-slate-300" position="static" />
+      <Navbar position="static" />
       <ForsaleHero />
       <ItemsForsale />
       <Footer />

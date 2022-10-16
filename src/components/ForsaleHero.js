@@ -13,7 +13,7 @@ import banner3 from '../assets/img/banner3.png';
 export default function ForsaleHero() {
   return (
     <div className="showcase-wrapper w-full md:h-96 h-48 md:my-10 my-5">
-      <div className="swiper mySwiper md:w-11/12 w-full h-full">
+      <div className="swiper mySwiper md:w-11/12 lg:w-10/12 w-full h-full">
         <Swiper
           autoplay={{
             delay: 2500,
@@ -27,15 +27,15 @@ export default function ForsaleHero() {
           spaceBetween={50}
           slidesPerView={1}
         >
-          <SwiperSlide className="swiper-slide bg-black w-full h-full">
+          <SwiperSlide className="swiper-slide bg-black w-full h-full ">
             <img src={banner1} alt="furniture banner" className="w-full h-full object-cover" />
           </SwiperSlide>
 
-          <SwiperSlide className="swiper-slide bg-slate-400 w-full h-full">
+          <SwiperSlide className="swiper-slide bg-slate-400 w-full h-full ">
             <img src={banner2} alt="furniture banner" className="w-full h-full object-cover" />
           </SwiperSlide>
 
-          <SwiperSlide className="swiper-slide bg-slate-500 w-full h-full">
+          <SwiperSlide className="swiper-slide bg-slate-500 w-full h-full ">
             <img src={banner3} alt="furniture banner" className="w-full h-full object-cover" />
           </SwiperSlide>
         </Swiper>

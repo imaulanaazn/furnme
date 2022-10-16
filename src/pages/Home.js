@@ -9,7 +9,7 @@ import HomeDecor from '../components/HomeDecor';
 export default function Home() {
   return (
     <>
-      <Navbar bg="bg-white" border="border-slate-300" />
+      <Navbar bg="bg-white" />
       <HomeHero />
       <BestSelling />
       <ThingsForYou />
