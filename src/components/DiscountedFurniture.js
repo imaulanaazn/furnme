@@ -1,4 +1,4 @@
-import whiteSofa from '../assets/img/white-sofa.jpg';
+import whiteSofa from '../assets/img/white-sofa.webp';
 
 export default function DiscountedFurniture() {
   return (

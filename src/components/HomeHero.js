@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import sofa from '../assets/img/sofa_showcase_bg.png';
-import table from '../assets/img/table_showcase_bg.png';
-import lamp from '../assets/img/lamp_showcase_bg.png';
+import sofa from '../assets/img/sofa_showcase_bg.webp';
+import table from '../assets/img/table_showcase_bg.webp';
+import lamp from '../assets/img/lamp_showcase_bg.webp';
 
 export default function HomeHero() {
   return (

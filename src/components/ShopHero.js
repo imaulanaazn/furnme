@@ -1,4 +1,4 @@
-import sofa from '../assets/img/sofa_showcase_bg.png';
+import sofa from '../assets/img/sofa_showcase_bg.webp';
 
 export default function ShopHero() {
   return (

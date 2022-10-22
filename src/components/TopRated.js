@@ -1,14 +1,14 @@
 // eslint-disable-next-line import/no-unresolved
 import { Swiper, SwiperSlide } from 'swiper/react';
-import darkGraySofa from '../assets/img/dark-gray-sofa.jpg';
-import darkHighChair from '../assets/img/dark-high-chair.jpg';
-import blackStandLamp from '../assets/img/black-stand-lamp.jpg';
-import cuteCactus from '../assets/img/cute-plant.jpg';
+import darkGraySofa from '../assets/img/dark-gray-sofa.webp';
+import darkHighChair from '../assets/img/dark-high-chair.webp';
+import blackStandLamp from '../assets/img/black-stand-lamp.webp';
+import cuteCactus from '../assets/img/cute-plant.webp';
 // eslint-disable-next-line import/no-unresolved
 // eslint-disable-next-line import/no-unresolved
 import 'swiper/css';
-import shelf from '../assets/img/shelf.jpg';
-import darkGrayBed from '../assets/img/dark-gray-bed.jpg';
+import shelf from '../assets/img/shelf.webp';
+import darkGrayBed from '../assets/img/dark-gray-bed.webp';
 import ShopScrollableCard from './ShopScrollableCard';
 import shopCardTotalSlide from './shopCardTotalSlide';
 

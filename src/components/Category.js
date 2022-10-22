@@ -4,12 +4,12 @@ import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ShopScrollableCard from './ShopScrollableCard';
 import shopCardTotalSlide from './shopCardTotalSlide';
-import desk from '../assets/img/productivity-category.jpg';
-import classic from '../assets/img/classic-category.jpg';
-import modern from '../assets/img/modern-category.jpg';
-import decor from '../assets/img/decor-category.jpg';
-import cutePlant from '../assets/img/cute-plant-category.jpg';
-import bench from '../assets/img/bench-category.jpg';
+import desk from '../assets/img/productivity-category.webp';
+import classic from '../assets/img/classic-category.webp';
+import modern from '../assets/img/modern-category.webp';
+import decor from '../assets/img/decor-category.webp';
+import cutePlant from '../assets/img/cute-plant-category.webp';
+import bench from '../assets/img/bench-category.webp';
 
 export default function Category() {
   const totalSlide = shopCardTotalSlide();

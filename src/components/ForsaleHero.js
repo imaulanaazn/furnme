@@ -6,9 +6,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 // eslint-disable-next-line import/no-unresolved
 import 'swiper/css/pagination';
-import banner1 from '../assets/img/banner1.png';
-import banner2 from '../assets/img/banner2.png';
-import banner3 from '../assets/img/banner3.png';
+import banner1 from '../assets/img/banner1.webp';
+import banner2 from '../assets/img/banner2.webp';
+import banner3 from '../assets/img/banner3.webp';
 
 export default function ForsaleHero() {
   return (

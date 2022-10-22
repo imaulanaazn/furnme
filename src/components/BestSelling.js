@@ -1,4 +1,4 @@
-import whiteVase from '../assets/img/white_pale_vase.png';
+import whiteVase from '../assets/img/white_pale_vase.webp';
 
 export default function BestSelling() {
   return (

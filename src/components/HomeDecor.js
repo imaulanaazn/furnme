@@ -1,9 +1,9 @@
-import flamingoDecor from '../assets/img/flamingo_decor.png';
-import goldVase from '../assets/img/gold_vase_decor.png';
-import planDecor from '../assets/img/plant_decor.png';
-import tableDecor from '../assets/img/table_decor.png';
-import vaseDecor from '../assets/img/vase_decor.png';
-import welcomeDecor from '../assets/img/welcome_home_decor.png';
+import flamingoDecor from '../assets/img/flamingo_decor.webp';
+import goldVase from '../assets/img/gold_vase_decor.webp';
+import planDecor from '../assets/img/plant_decor.webp';
+import tableDecor from '../assets/img/table_decor.webp';
+import vaseDecor from '../assets/img/vase_decor.webp';
+import welcomeDecor from '../assets/img/welcome_home_decor.webp';
 import HomeDecorCard from './HomeDecorCard';
 
 export default function HomeDecor() {

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import logo from '../assets/img/logo.png';
-import heart from '../assets/img/heart.png';
-import cart from '../assets/img/shopping-cart.png';
+import logo from '../assets/img/logo.webp';
+import heart from '../assets/img/heart.webp';
+import cart from '../assets/img/shopping-cart.webp';
 
 export default function Navbar(props) {
   const {

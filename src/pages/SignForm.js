@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import google from '../assets/icon/google.svg';
 import facebook from '../assets/icon/facebook.svg';
 import linkedin from '../assets/icon/linkedin.svg';
-import logo from '../assets/img/logo.png';
+import logo from '../assets/img/logo.webp';
 
 export default function SignForm() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);

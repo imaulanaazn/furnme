@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import mbuh from '../assets/img/checkout-item1.jpg';
+import mbuh from '../assets/img/checkout-item1.webp';
 
 export default function InCartProduct({
   name, size, color, price, index, changeTempArr,

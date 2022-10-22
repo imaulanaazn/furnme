@@ -1,4 +1,4 @@
-import floorLamp from '../assets/img/floor_lamp.png';
+import floorLamp from '../assets/img/floor_lamp.webp';
 
 export default function ThingsForYou() {
   return (

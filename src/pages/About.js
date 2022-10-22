@@ -1,6 +1,6 @@
 // import { Link } from 'react-router-dom';
-import lineDecor from '../assets/img/decor_line.png';
-import highChair from '../assets/img/high_chair.png';
+import lineDecor from '../assets/img/decor_line.webp';
+import highChair from '../assets/img/high_chair.webp';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
