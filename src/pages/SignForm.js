@@ -2,6 +2,7 @@ import { gsap } from 'gsap';
 import { useRef, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import Cookies from 'js-cookie';
 import google from '../assets/icon/google.svg';
 import facebook from '../assets/icon/facebook.svg';
 import linkedin from '../assets/icon/linkedin.svg';
@@ -22,11 +23,9 @@ export default function SignForm() {
   const prevValue = !isSignUp;
   const [emailForm, setEmailForm] = useState('');
   const [passwordForm, setPasswordForm] = useState('');
-  const [usernameForm, setUsernameForm] = useState('');
+  // const [usernameForm, setUsernameForm] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  console.log(usernameForm);
 
   useEffect(() => {
     if (isSignUp) {
@@ -101,8 +100,9 @@ export default function SignForm() {
       };
       const response = await handleSignin(signinData);
       if (response?.status === 200) {
-        // check token ? store token : return error
-        // change state on redux from not login to login
+        const { token } = response.data.data;
+        const tokenBase64 = btoa(token);
+        Cookies.set('token', tokenBase64, { expires: 2 });
         dispatch(setLogin());
         navigate('/');
       }
@@ -118,7 +118,7 @@ export default function SignForm() {
         </div>
         <form ref={form} className="bg-white h-full lg:w-3/5 w-full p-10 ml-auto flex flex-col flex-1 items-center justify-center" onSubmit={(event) => { handleSubmit(event.target.value); event.preventDefault(); }}>
           <h1 className="title font-bold lg:text-3xl text-3xl md:text-5xl text-orange-300 mb-6">{prevValue ? 'Sign in to Altar' : 'Create Account'}</h1>
-          <input type="text" ref={username} onChange={(event) => { setUsernameForm(event.target.value); }} placeholder="Enter your username" className="username bg-slate-200 rounded lg:text-xs text-xs md:text-xl lg:h-8 h-8 lg:w-72 md:w-4/5 w-11/12 md:h-12 px-3 mb-1" />
+          <input type="text" ref={username} placeholder="Enter your username" className="username bg-slate-200 rounded lg:text-xs text-xs md:text-xl lg:h-8 h-8 lg:w-72 md:w-4/5 w-11/12 md:h-12 px-3 mb-1" />
           <input type="email" onChange={(event) => { setEmailForm(event.target.value); }} placeholder="Enter your email" className="bg-slate-200 rounded lg:text-xs text-xs md:text-xl lg:h-8 h-8 lg:w-72 md:w-4/5 w-11/12 md:h-12 px-3 mb-1" />
           <input type="password" onChange={(event) => { setPasswordForm(event.target.value); }} placeholder="Enter you passord" className="bg-slate-200 rounded lg:text-xs text-xs md:text-xl lg:h-8 h-8 lg:w-72 md:w-4/5 w-11/12 md:h-12 px-3" />
           <p ref={forgotPass} className="forgot-pass lg:text-sm text-sm md:text-lg mt-3"><a href="/#" className="underline underline-offset-8 decoration-1 decoration-slate-500 hover:decoration-slate-900">Forgot your password?</a></p>

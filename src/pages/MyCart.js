@@ -1,7 +1,8 @@
 import '../styles/cart.css';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 import logo from '../assets/img/logo.webp';
 import heart from '../assets/img/heart.webp';
 import cart from '../assets/img/shopping-cart.webp';
@@ -12,6 +13,13 @@ export default function MyCart() {
   const [totalCost, setTotalCost] = useState(0);
   const preventRefresh = (event) => event.preventDefault();
   const inCartProducts = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const cookie = Cookies.get('token');
+    if (!cookie) {
+      navigate('/SignForm');
+    }
+  });
   return (
     <>
       <header className="lg:w-2/3 w-full absolute lg:px-12 md:px-10 md:pt-5 px-4 pt-3 top-0 left-0 z-10 bg-white">

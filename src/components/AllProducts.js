@@ -27,6 +27,8 @@ export default function AllProducts() {
     getData();
   }, [productValue]);
 
+  console.log(data);
+
   return (
     <section className="our_product w-full md:px-12  px-6 text-center">
       <h1 className="text-left font-bold lg:text-2xl md:text-3xl text-xl mb-7">Our Product</h1>
@@ -52,7 +54,7 @@ export default function AllProducts() {
         {data.slice(0, visible).map((gambar) => (
           <div className="item h-96 w-full  overflow-hidden" key={gambar.id}>
             <div className="thumb group relative w-full h-5/6 bg-slate-200">
-              <img src={gambar.webformatURL} alt="" className="w-full h-full object-cover group-hover:brightness-50 transition-all duration-500" />
+              <img src={`${gambar.webformatURL.slice(0, gambar.webformatURL.length - 7)}340.jpg`} alt="" className="w-full h-full object-cover group-hover:brightness-50 transition-all duration-500" />
               <a href="/#" className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/4 group-hover:-translate-y-1/4 opacity-0 group-hover:opacity-100 transition-all duration-500 text-sm text-white py-2 px-3 border border-solid border-white ">view product</a>
             </div>
             <div className="product_detail flex justify-between items-center w-full h-1/6">
