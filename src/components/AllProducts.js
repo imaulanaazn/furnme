@@ -27,8 +27,6 @@ export default function AllProducts() {
     getData();
   }, [productValue]);
 
-  console.log(data);
-
   return (
     <section className="our_product w-full md:px-12  px-6 text-center">
       <h1 className="text-left font-bold lg:text-2xl md:text-3xl text-xl mb-7">Our Product</h1>
