@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import logo from '../assets/img/logo.webp';
 import heart from '../assets/img/heart.webp';
 import cart from '../assets/img/shopping-cart.webp';
@@ -8,6 +9,7 @@ export default function Navbar(props) {
     // eslint-disable-next-line react/prop-types
     position = 'absolute',
   } = props;
+  const inCartProducts = useSelector((state) => state.cart);
 
   const preventRefresh = (event) => event.preventDefault();
   return (
@@ -55,7 +57,7 @@ export default function Navbar(props) {
               <img src={cart} className="xl:w-5 xl:h-5 lg:w-4 lg:h-4 md:h-6 md:w-6 w-4 h-4" alt="cart" />
               <p className="lg:text-sm md:text-base mx-1 xl:mx-2 text-slate-700">CART</p>
               <div className="user_cart_total rounded-full bg-amber-500 w-5 h-5 xl:w-6 xl:h-6 lg:w-5 lg:h-5 md:h-7 md:w-7 flex items-center justify-center">
-                <p className="text-white lg:text-xs md:text-sm">5</p>
+                <p className="text-white lg:text-xs md:text-sm">{inCartProducts.length}</p>
               </div>
             </div>
           </Link>

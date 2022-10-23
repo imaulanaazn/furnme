@@ -1,6 +1,7 @@
 import '../styles/cart.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import logo from '../assets/img/logo.webp';
 import heart from '../assets/img/heart.webp';
 import cart from '../assets/img/shopping-cart.webp';
@@ -10,6 +11,7 @@ import MyCartAside from '../components/MyCartAside';
 export default function MyCart() {
   const [totalCost, setTotalCost] = useState(0);
   const preventRefresh = (event) => event.preventDefault();
+  const inCartProducts = useSelector((state) => state.cart);
   return (
     <>
       <header className="lg:w-2/3 w-full absolute lg:px-12 md:px-10 md:pt-5 px-4 pt-3 top-0 left-0 z-10 bg-white">
@@ -48,7 +50,7 @@ export default function MyCart() {
                 <img src={cart} className="lg:w-4 lg:h-4 md:h-6 md:w-6 w-4 h-4" alt="cart" />
                 <p className="text-sm mx-1">CART</p>
                 <div className="user_cart_total rounded-full bg-amber-500 w-5 h-5 lg:w-5 lg:h-5 md:h-7 md:w-7 flex items-center justify-center">
-                  <p className="text-white text-xs">5</p>
+                  <p className="text-white text-xs">{inCartProducts.length}</p>
                 </div>
               </div>
             </a>

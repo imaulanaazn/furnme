@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-export default function MyCartAside({ totalCost }) {
+export default function MyCartAside() {
+  const inCartProducts = useSelector((state) => state.cart);
   return (
     <aside className="lg:w-1/3 w-full lg:absolute top-0 right-0 h-screen bg-orange-100 lg:px-12 md:px-20 px-4 flex flex-col text-slate-600 justify-center">
       <h2 className="lg:text-base md:text-2xl text-center font-semibold">
@@ -8,7 +9,7 @@ export default function MyCartAside({ totalCost }) {
         {' '}
         <span className="lg:text-xl md:text-3xl font-bold text-slate-700">
           $
-          {totalCost}
+          {inCartProducts.map((product) => product.total).reduce((a, b) => a + b, 0)}
         </span>
       </h2>
       <p className="lg:text-sm md:text-lg text-center">Total belum termasuk PPN dan Ongkir</p>
@@ -30,7 +31,3 @@ export default function MyCartAside({ totalCost }) {
     </aside>
   );
 }
-
-MyCartAside.propTypes = {
-  totalCost: PropTypes.number.isRequired,
-};

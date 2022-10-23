@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 // import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import InCartProduct from './InCartProduct';
-import products from '../inCartItems';
+// import products from '../inCartItems';
 
 const tempArr = [];
 export default function MyCartMain({ setTotalCost }) {
+  const inCartProducts = useSelector((state) => state.cart);
   const changeTempArr = (index, num) => {
     tempArr[index] = num;
     const totalCostResult = tempArr.reduce(
@@ -23,16 +25,16 @@ export default function MyCartMain({ setTotalCost }) {
           <h1 className="flex-1 lg:text-sm md:text-base">QUANTITY</h1>
           <h1 className="flex-1 lg:text-sm md:text-base">TOTAL</h1>
         </div>
-        {products.map((product, i) => (
+        {inCartProducts.map((product, i) => (
           <InCartProduct
-            key={product.name}
+            key={product.id}
+            id={product.id}
             image={product.image}
             name={product.name}
-            size={product.size}
-            color={product.color}
             price={product.price}
-            tempArr={tempArr}
             index={i}
+            total={product.total}
+            quantity={product.quantity}
             changeTempArr={changeTempArr}
           />
         ))}
