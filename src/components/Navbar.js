@@ -10,8 +10,8 @@ export default function Navbar(props) {
     position = 'absolute',
   } = props;
   const inCartProducts = useSelector((state) => state.cart);
+  const { isLogin } = useSelector((state) => state.auth);
 
-  const preventRefresh = (event) => event.preventDefault();
   return (
     <header className={`w-full lg:px-12 md:px-10 md:pt-5 px-4 pt-3 ${position} top-0 left-0 z-10 bg-white`}>
       <div className="secondary_menu w-full border-b border-solid border-slate-300">
@@ -23,7 +23,7 @@ export default function Navbar(props) {
             </ul>
           </li>
           <li>
-            <ul className="flex">
+            <ul className={isLogin ? 'hidden' : 'flex'}>
               <li><Link to="/signform" className="text-xs lg:text-xs md:text-base text-slate-500 pr-2 xl:pr-3 ">SIGNIN</Link></li>
               <li><Link to="/signform" className="text-xs lg:text-xs md:text-base text-slate-500 pl-2 xl:pl-3 border-l border-solid border-slate-300">SIGNUP</Link></li>
             </ul>
@@ -33,7 +33,7 @@ export default function Navbar(props) {
 
       <nav className="lg:py-7 py-4 flex justify-between md:items-center items-start">
         <div className="logo md:flex-none flex-1">
-          <a href="/#" className="flex items-center">
+          <a href="/#" className="flex items-center" onClick={(event) => { event.preventDefault(); }}>
             <img src={logo} className="xl:w-8 md:w-10 w-6" alt="logo" />
             <p className="justify-self-end font-bold md:text-4xl  text-xl ml-1">ltar</p>
           </a>
@@ -41,7 +41,7 @@ export default function Navbar(props) {
 
         <div className="main_menu group md:flex-none flex-1 flex flex-col items-start text-center">
           <ul className="lg:hidden md:hidden w-11/12">
-            <li className="mx-4 text-sm lg:text-sm md:text-lg text-slate-600 "><a href="/#" onClick={preventRefresh}>MENU</a></li>
+            <li className="mx-4 text-sm lg:text-sm md:text-lg text-slate-600 "><a href="/#" onClick={(event) => { event.preventDefault(); }}>MENU</a></li>
           </ul>
           <ul className="md:flex md:flex-row flex-col md:h-auto h-0 md:group-hover:h-auto group-hover:h-14 overflow-hidden transition-all duration-500 md:w-auto w-11/12">
             <li className="mx-4 xl:mx-5 text-sm lg:text-sm md:text-lg text-slate-600 lg:block md:block"><Link to="/">HOME</Link></li>

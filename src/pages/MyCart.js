@@ -45,7 +45,7 @@ export default function MyCart() {
 
           <div className="user_cart md:w-32 w-30 flex justify-between items-center">
             <img src={heart} className="w-5 h-5 lg:w-5 lg:h-5 md:h-7 md:w-7" alt="heart" />
-            <a href="/#">
+            <a href="/#" onClick={(event) => event.preventDefault()}>
               <div className="cart_icon flex items-center">
                 <img src={cart} className="lg:w-4 lg:h-4 md:h-6 md:w-6 w-4 h-4" alt="cart" />
                 <p className="text-sm mx-1">CART</p>
