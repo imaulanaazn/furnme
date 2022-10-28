@@ -11,7 +11,6 @@ import MyCartAside from '../components/MyCartAside';
 
 export default function MyCart() {
   const [totalCost, setTotalCost] = useState(0);
-  const preventRefresh = (event) => event.preventDefault();
   const inCartProducts = useSelector((state) => state.cart);
   const navigate = useNavigate();
   useEffect(() => {
@@ -35,19 +34,20 @@ export default function MyCart() {
 
         <nav className="lg:py-7 py-4 flex justify-between items-center">
           <div className="logo">
-            <a href="/#" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <img src={logo} className="md:w-10 w-6" alt="logo" />
               <p className="justify-self-end font-bold md:text-4xl  text-xl ml-1">ltar</p>
-            </a>
+            </Link>
           </div>
 
-          <div className="main_menu">
-            <ul className="flex">
-              <li className="mx-4 text-sm lg:text-sm md:text-lg text-slate-600 hidden lg:block md:block"><Link to="/">HOME</Link></li>
-              <li className="mx-4 text-sm lg:text-sm md:text-lg text-slate-600 hidden lg:block md:block"><Link to="/shop">SHOP</Link></li>
-              <li className="mx-4 text-sm lg:text-sm md:text-lg text-slate-600 hidden lg:block md:block"><Link to="/forsale">FORSALE</Link></li>
-              <li className="mx-4 text-sm lg:text-sm md:text-lg text-slate-600 lg:hidden md:hidden"><a href="/#" onClick={preventRefresh}>MENU</a></li>
-
+          <div className="main_menu group md:flex-none flex-1 flex flex-col items-start text-center">
+            <ul className="lg:hidden md:hidden w-11/12">
+              <li className="mx-4 text-sm lg:text-sm md:text-lg text-slate-600 "><a href="/#" onClick={(event) => { event.preventDefault(); }}>MENU</a></li>
+            </ul>
+            <ul className="md:flex md:flex-row flex-col md:h-auto h-0 md:group-hover:h-auto group-hover:h-14 overflow-hidden transition-all duration-500 md:w-auto w-11/12">
+              <li className="mx-4 xl:mx-5 text-sm lg:text-sm md:text-lg text-slate-600 lg:block md:block"><Link to="/">HOME</Link></li>
+              <li className="mx-4 xl:mx-5 text-sm lg:text-sm md:text-lg text-slate-600 lg:block md:block"><Link to="/shop">SHOP</Link></li>
+              <li className="mx-4 xl:mx-5 text-sm lg:text-sm md:text-lg text-slate-600 lg:block md:block"><Link to="/forsale">FORSALE</Link></li>
             </ul>
           </div>
 

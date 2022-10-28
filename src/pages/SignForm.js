@@ -23,7 +23,6 @@ export default function SignForm() {
   const prevValue = !isSignUp;
   const [emailForm, setEmailForm] = useState('');
   const [passwordForm, setPasswordForm] = useState('');
-  // const [usernameForm, setUsernameForm] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -117,6 +116,11 @@ export default function SignForm() {
           <p className="text-2xl font-bold">ltar</p>
         </div>
         <form ref={form} className="bg-white h-full lg:w-3/5 w-full p-10 ml-auto flex flex-col flex-1 items-center justify-center" onSubmit={(event) => { handleSubmit(event.target.value); event.preventDefault(); }}>
+          <p>
+            login with email: player@gmail.com
+            <br />
+            password: rahasia
+          </p>
           <h1 className="title font-bold lg:text-3xl text-3xl md:text-5xl text-orange-300 mb-6">{prevValue ? 'Sign in to Altar' : 'Create Account'}</h1>
           <input type="text" ref={username} placeholder="Enter your username" className="username bg-slate-200 rounded lg:text-xs text-xs md:text-xl lg:h-8 h-8 lg:w-72 md:w-4/5 w-11/12 md:h-12 px-3 mb-1" />
           <input type="email" onChange={(event) => { setEmailForm(event.target.value); }} placeholder="Enter your email" className="bg-slate-200 rounded lg:text-xs text-xs md:text-xl lg:h-8 h-8 lg:w-72 md:w-4/5 w-11/12 md:h-12 px-3 mb-1" />
