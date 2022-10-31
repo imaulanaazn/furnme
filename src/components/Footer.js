@@ -50,7 +50,7 @@ export default function Footer() {
         }}
       >
         <p style={{ borderBottom: '1px dashed black' }}>
-          Build by
+          Built by
           {' '}
           <a target="_blank" href="https://irham-maulana.netlify.app" style={{ color: 'blue' }} rel="noreferrer">Irham Maulana </a>
         </p>
