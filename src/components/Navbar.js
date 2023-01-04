@@ -24,8 +24,8 @@ export default function Navbar(props) {
           </li>
           <li>
             <ul className={isLogin ? 'hidden' : 'flex'}>
-              <li><Link to="/signform" className="text-xs lg:text-xs md:text-base text-slate-500 pr-2 xl:pr-3 ">SIGNIN</Link></li>
-              <li><Link to="/signform" className="text-xs lg:text-xs md:text-base text-slate-500 pl-2 xl:pl-3 border-l border-solid border-slate-300">SIGNUP</Link></li>
+              <li><Link to="/auth" className="text-xs lg:text-xs md:text-base text-slate-500 pr-2 xl:pr-3 ">SIGNIN</Link></li>
+              <li><Link to="/auth" className="text-xs lg:text-xs md:text-base text-slate-500 pl-2 xl:pl-3 border-l border-solid border-slate-300">SIGNUP</Link></li>
             </ul>
           </li>
         </ul>

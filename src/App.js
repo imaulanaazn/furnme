@@ -3,7 +3,7 @@ import Shop from './pages/Shop';
 import Home from './pages/Home';
 import About from './pages/About';
 import Forsale from './pages/Forsale';
-import SignForm from './pages/SignForm';
+import Auth from './pages/Auth';
 import MyCart from './pages/MyCart';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/forsale" element={<Forsale />} />
-        <Route path="/signform" element={<SignForm />} />
+        <Route path="/auth" element={<Auth />} />
         <Route path="/mycart" element={<MyCart />} />
       </Routes>
     </div>

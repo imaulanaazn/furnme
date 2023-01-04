@@ -16,7 +16,7 @@ export default function MyCart() {
   useEffect(() => {
     const cookie = Cookies.get('token');
     if (!cookie) {
-      navigate('/SignForm');
+      navigate('/auth');
     }
   });
   return (
