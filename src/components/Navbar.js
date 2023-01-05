@@ -10,7 +10,6 @@ export default function Navbar(props) {
     position = 'absolute',
   } = props;
   const inCartProducts = useSelector((state) => state.cart);
-  const { isLogin } = useSelector((state) => state.auth);
 
   return (
     <header className={`w-full lg:px-12 md:px-10 md:pt-5 px-4 pt-3 ${position} top-0 left-0 z-10 bg-white`}>
@@ -23,7 +22,7 @@ export default function Navbar(props) {
             </ul>
           </li>
           <li>
-            <ul className={isLogin ? 'hidden' : 'flex'}>
+            <ul className="flex">
               <li><Link to="/auth" className="text-xs lg:text-xs md:text-base text-slate-500 pr-2 xl:pr-3 ">SIGNIN</Link></li>
               <li><Link to="/auth" className="text-xs lg:text-xs md:text-base text-slate-500 pl-2 xl:pl-3 border-l border-solid border-slate-300">SIGNUP</Link></li>
             </ul>

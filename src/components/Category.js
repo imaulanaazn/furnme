@@ -3,7 +3,7 @@ import 'swiper/css';
 // eslint-disable-next-line import/no-unresolved
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ShopScrollableCard from './ShopScrollableCard';
-import shopCardTotalSlide from './shopCardTotalSlide';
+import shopCardTotalSlide from '../utils/shopCardTotalSlide';
 import desk from '../assets/img/productivity-category.webp';
 import classic from '../assets/img/classic-category.webp';
 import modern from '../assets/img/modern-category.webp';

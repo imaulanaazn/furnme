@@ -10,7 +10,7 @@ import 'swiper/css';
 import shelf from '../assets/img/shelf.webp';
 import darkGrayBed from '../assets/img/dark-gray-bed.webp';
 import ShopScrollableCard from './ShopScrollableCard';
-import shopCardTotalSlide from './shopCardTotalSlide';
+import shopCardTotalSlide from '../utils/shopCardTotalSlide';
 
 export default function TopRated() {
   const totalSlide = shopCardTotalSlide();

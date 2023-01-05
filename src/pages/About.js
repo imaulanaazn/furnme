@@ -1,8 +1,20 @@
 // import { Link } from 'react-router-dom';
+import { string } from 'prop-types';
 import lineDecor from '../assets/img/decor_line.webp';
 import highChair from '../assets/img/high_chair.webp';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+
+function ServicesAndClients(props) {
+  const { text } = props;
+  return (
+    <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">{text}</a></li>
+  );
+}
+
+ServicesAndClients.propTypes = {
+  text: string.isRequired,
+};
 
 export default function About() {
   return (
@@ -18,18 +30,18 @@ export default function About() {
         <div className="service_and_clients mt-40 flex lg:w-72 justify-between">
           <ul className="service">
             <li><h1 className="font-bold  lg:text-base md:text-xl text-base">Services</h1></li>
-            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">Furniture</a></li>
-            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">Design interior</a></li>
-            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">Custom furniture</a></li>
-            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">Soufenire</a></li>
+            <ServicesAndClients text="Furniture" />
+            <ServicesAndClients text="Design interior" />
+            <ServicesAndClients text="Custom furniture" />
+            <ServicesAndClients text="Soufenire" />
           </ul>
           <ul className="clients ">
             <h1 className="font-bold lg:text-base md:text-xl text-base">Clients</h1>
-            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">lorem</a></li>
-            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">ipsum</a></li>
-            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">dolor</a></li>
-            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">sit</a></li>
-            <li className="my-1"><a href="/#" className="lg:text-base md:text-lg text-base">amet</a></li>
+            <ServicesAndClients text="lorem" />
+            <ServicesAndClients text="ipsum" />
+            <ServicesAndClients text="dolor" />
+            <ServicesAndClients text="sit" />
+            <ServicesAndClients text="amet" />
           </ul>
           <img src={highChair} className="hidden lg:block absolute bottom-0 right-0 w-1/2" alt="chair" />
           <img src={lineDecor} className="hidden lg:block absolute top-0 left-0 w-20 translate-x-3/4" alt="decorative line" />
