@@ -3,12 +3,12 @@ import { useRef, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useGoogleLogin } from '@react-oauth/google';
-import { useDispatch } from 'react-redux';
+import Cookies from 'js-cookie';
 import google from '../assets/icon/google.svg';
 import facebook from '../assets/icon/facebook.svg';
 import linkedin from '../assets/icon/linkedin.svg';
 import logo from '../assets/img/logo.webp';
-import { handleGoogleAuth } from '../redux/slices/authSlice';
+import { handleGoogleAuth, handleSignup, handleSignin } from '../utils/handleAuth';
 
 function animateForm({
   screenWidth,
@@ -85,7 +85,6 @@ function animateForm({
 }
 
 export default function Auth() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   window.addEventListener('resize', () => setScreenWidth(window.innerWidth));
@@ -113,20 +112,36 @@ export default function Auth() {
 
   // CODE FOR HANDLING FORM SUBMITION
   async function handleSubmit() {
-    console.log(formData);
+    const result = isSignUp
+      ? await handleSignup(formData).then((response) => response).catch((err) => err)
+      : await handleSignin(formData).then((response) => response).catch((err) => err);
+    setFormData({ username: '', email: '', password: '' });
+    if (!result.data) {
+      console.log(result.response);
+    } else {
+      console.log(isSignUp ? 'registrasi berhasi' : 'login berhasil');
+      const { token } = result.data;
+      const tokenBase64 = btoa(token);
+      Cookies.set('token', tokenBase64, { expires: 1 });
+      navigate('/');
+    }
   }
 
   // CODE FOR HANDLING GOOGLE SIGNIN SIGNUP
   const googleLogin = useGoogleLogin({
     onSuccess: async (response) => {
-      const { data: result } = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`);
-      const token = response?.access_token;
       try {
-        dispatch(handleGoogleAuth({ result, token }));
-        await axios.post('http://localhost:4000/auth/google', result);
-        navigate('/');
-        // post data response ke backend untuk di registrasi
-        // (jika belum di registrasi) atau login (jika sudah di registrasi)
+        const { data: profileObj } = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`);
+        const result = await handleGoogleAuth(profileObj);
+        if (!result.data) {
+          console.log(result.response);
+        } else {
+          console.log(isSignUp ? 'registrasi berhasi' : 'login berhasil');
+          const { token } = result.data;
+          const tokenBase64 = btoa(token);
+          Cookies.set('token', tokenBase64, { expires: 1 });
+          navigate('/');
+        }
       } catch (error) {
         console.log(error);
       }
@@ -145,11 +160,12 @@ export default function Auth() {
         </div>
 
         {/* FORM SIGIN AND SIGNUP */}
-        <form ref={form} className="bg-white h-full lg:w-3/5 w-full p-10 ml-auto flex flex-col flex-1 items-center justify-center" onSubmit={(event) => { handleSubmit(event.target.value); event.preventDefault(); }}>
+        <form ref={form} className="bg-white h-full lg:w-3/5 w-full p-10 ml-auto flex flex-col flex-1 items-center justify-center" onSubmit={(event) => { handleSubmit(); event.preventDefault(); }}>
           <h1 className="title font-bold lg:text-3xl text-3xl md:text-5xl text-orange-300 mb-6">{isSignUp ? 'Create Account' : 'Sign in to Altar'}</h1>
           <input
             type="text"
             name="username"
+            required={!!isSignUp}
             value={formData.username}
             ref={username}
             onChange={(event) => { setFormData({ ...formData, username: event.target.value }); }}
@@ -159,6 +175,7 @@ export default function Auth() {
           <input
             type="email"
             name="email"
+            required
             value={formData.email}
             onChange={(event) => { setFormData({ ...formData, email: event.target.value }); }}
             placeholder="Enter your email"
@@ -167,6 +184,7 @@ export default function Auth() {
           <input
             type="password"
             name="password"
+            required
             value={formData.password}
             onChange={(event) => { setFormData({ ...formData, password: event.target.value }); }}
             placeholder="Enter you password"
@@ -201,7 +219,7 @@ export default function Auth() {
 
         <aside ref={aside} className="lg:bg-orange-300 bg-white lg:h-full h-auto lg:w-2/5 w-full ml-0 -translate-y-full flex flex-col items-center justify-center px-12 text-center">
           <button
-            type="submit"
+            type="button"
             onClick={() => { setIsSignUp((prevValue) => !prevValue); }}
             className="secondary-btn border border-white border solid rounded-full h-9 w-40 rounded-full lg:text-white text-orange-300 font-normal lg:text-base md:text-lg lg:mt-24 m-0"
           >
