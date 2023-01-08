@@ -9,6 +9,7 @@ import facebook from '../assets/icon/facebook.svg';
 import linkedin from '../assets/icon/linkedin.svg';
 import logo from '../assets/img/logo.webp';
 import { handleGoogleAuth, handleSignup, handleSignin } from '../utils/handleAuth';
+import validateToken from '../utils/validateToken';
 
 function animateForm({
   screenWidth,
@@ -110,6 +111,23 @@ export default function Auth() {
     });
   }, [isSignUp, screenWidth]);
 
+  useEffect(() => {
+    async function authorization() {
+      const token = Cookies.get('token');
+      if (token) {
+        await validateToken(token)
+          .then((res) => {
+            console.log(res);
+            if (res.data.isTokenValid) {
+              navigate('/');
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    }
+    authorization();
+  }, []);
+
   // CODE FOR HANDLING FORM SUBMITION
   async function handleSubmit() {
     const result = isSignUp
@@ -137,7 +155,7 @@ export default function Auth() {
           console.log(result.response);
         } else {
           console.log(isSignUp ? 'registrasi berhasi' : 'login berhasil');
-          const { token } = result.data;
+          const { token } = result.data.data;
           const tokenBase64 = btoa(token);
           Cookies.set('token', tokenBase64, { expires: 1 });
           navigate('/');
