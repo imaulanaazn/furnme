@@ -4,12 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useGoogleLogin } from '@react-oauth/google';
 import Cookies from 'js-cookie';
+import { useDispatch, useSelector } from 'react-redux';
 import google from '../assets/icon/google.svg';
 import facebook from '../assets/icon/facebook.svg';
 import linkedin from '../assets/icon/linkedin.svg';
 import logo from '../assets/img/logo.webp';
 import { handleGoogleAuth, handleSignup, handleSignin } from '../utils/handleAuth';
-import validateToken from '../utils/validateToken';
+import { setIsLogin } from '../redux/slices/auth';
 
 function animateForm({
   screenWidth,
@@ -86,7 +87,9 @@ function animateForm({
 }
 
 export default function Auth() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isLogin } = useSelector((state) => state.auth);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   window.addEventListener('resize', () => setScreenWidth(window.innerWidth));
   const [isSignUp, setIsSignUp] = useState(false);
@@ -97,6 +100,12 @@ export default function Auth() {
   const welcome = useRef();
   const username = useRef();
   const forgotPass = useRef();
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate('/');
+    }
+  }, [isLogin]);
 
   useEffect(() => {
     animateForm({
@@ -111,23 +120,6 @@ export default function Auth() {
     });
   }, [isSignUp, screenWidth]);
 
-  useEffect(() => {
-    async function authorization() {
-      const token = Cookies.get('token');
-      if (token) {
-        await validateToken(token)
-          .then((res) => {
-            console.log(res);
-            if (res.data.isTokenValid) {
-              navigate('/');
-            }
-          })
-          .catch((err) => console.log(err));
-      }
-    }
-    authorization();
-  }, []);
-
   // CODE FOR HANDLING FORM SUBMITION
   async function handleSubmit() {
     const result = isSignUp
@@ -138,9 +130,10 @@ export default function Auth() {
       console.log(result.response);
     } else {
       console.log(isSignUp ? 'registrasi berhasi' : 'login berhasil');
-      const { token } = result.data;
+      const { token } = result.data.data;
       const tokenBase64 = btoa(token);
       Cookies.set('token', tokenBase64, { expires: 1 });
+      dispatch(setIsLogin({ isLogin: true }));
       navigate('/');
     }
   }
@@ -158,6 +151,7 @@ export default function Auth() {
           const { token } = result.data.data;
           const tokenBase64 = btoa(token);
           Cookies.set('token', tokenBase64, { expires: 1 });
+          dispatch(setIsLogin({ isLogin: true }));
           navigate('/');
         }
       } catch (error) {
@@ -186,7 +180,11 @@ export default function Auth() {
             required={!!isSignUp}
             value={formData.username}
             ref={username}
-            onChange={(event) => { setFormData({ ...formData, username: event.target.value }); }}
+            onChange={(event) => {
+              setFormData(
+                { ...formData, username: event.target.value },
+              );
+            }}
             placeholder="Enter your username"
             className="username bg-slate-200 rounded lg:text-xs text-xs md:text-xl lg:h-8 h-8 lg:w-72 md:w-4/5 w-11/12 md:h-12 px-3 mb-1"
           />
@@ -204,7 +202,9 @@ export default function Auth() {
             name="password"
             required
             value={formData.password}
-            onChange={(event) => { setFormData({ ...formData, password: event.target.value }); }}
+            onChange={(event) => {
+              setFormData({ ...formData, password: event.target.value });
+            }}
             placeholder="Enter you password"
             className="bg-slate-200 rounded lg:text-xs text-xs md:text-xl lg:h-8 h-8 lg:w-72 md:w-4/5 w-11/12 md:h-12 px-3"
           />

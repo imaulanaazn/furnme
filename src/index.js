@@ -7,17 +7,18 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import store from './redux/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AuthorizeUser from './middleware/auth';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
       <GoogleOAuthProvider clientId="590607018597-gos2k1ldcc4bltqkpug8kad95bcqnutd.apps.googleusercontent.com">
-        <App />
+        <AuthorizeUser>
+          <App />
+        </AuthorizeUser>
       </GoogleOAuthProvider>
-      ;
     </BrowserRouter>
-    ,
   </Provider>,
 );
 

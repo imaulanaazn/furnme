@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import logo from '../assets/img/logo.webp';
 import heart from '../assets/img/heart.webp';
 import cart from '../assets/img/shopping-cart.webp';
+import { setIsLogin } from '../redux/slices/auth';
 
 export default function Navbar(props) {
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector((state) => state.auth);
   const {
     // eslint-disable-next-line react/prop-types
     position = 'absolute',
@@ -23,8 +26,17 @@ export default function Navbar(props) {
           </li>
           <li>
             <ul className="flex">
-              <li><Link to="/auth" className="text-xs lg:text-xs md:text-base text-slate-500 pr-2 xl:pr-3 ">SIGNIN</Link></li>
-              <li><Link to="/auth" className="text-xs lg:text-xs md:text-base text-slate-500 pl-2 xl:pl-3 border-l border-solid border-slate-300">SIGNUP</Link></li>
+              <li className={`${isLogin ? 'hidden' : ''}`}><Link to="/auth" className="text-xs lg:text-xs md:text-base text-slate-500 pr-2 xl:pr-3 ">SIGNIN</Link></li>
+              <li className={`${isLogin ? 'hidden' : ''}`}><Link to="/auth" className="text-xs lg:text-xs md:text-base text-slate-500 pl-2 xl:pl-3 border-l border-solid border-slate-300">SIGNUP</Link></li>
+              <li className={`${isLogin ? '' : 'hidden'}`}>
+                <Link
+                  to="/auth"
+                  className="text-xs lg:text-xs md:text-base text-slate-500 pr-2 xl:pr-3 "
+                  onClick={() => { dispatch(setIsLogin({ isLogin: false })); }}
+                >
+                  LOGOUT
+                </Link>
+              </li>
             </ul>
           </li>
         </ul>

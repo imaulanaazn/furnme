@@ -1,13 +1,28 @@
 /* eslint-disable react/prop-types */
-import { Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import validateToken from '../utils/validateToken';
+import { setIsLogin } from '../redux/slices/auth';
 
 export default function AuthorizeUser({ children }) {
-  const token = Cookies.get('token');
-
-  if (!token) {
-    return <Navigate to="/auth" replace />;
-  }
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    async function authorization() {
+      const token = Cookies.get('token');
+      if (token) {
+        await validateToken(token)
+          .then((res) => {
+            if (res.data.isTokenValid) {
+              dispatch(setIsLogin({ isLogin: true }));
+            } else {
+              dispatch(setIsLogin({ isLogin: false }));
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    }
+    authorization();
+  }, []);
   return children;
 }
