@@ -18,7 +18,7 @@ function App() {
         <Route path="/forsale" element={<Forsale />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/mycart" element={<MyCart />} />
-        <Route path="/product" element={<ProductDetail />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>
     </div>
   );

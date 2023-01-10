@@ -23,20 +23,16 @@ export default function ProductDetail() {
             <h4 className="text-base font-thin mb-10">Shirts</h4>
             <h1 className="text-5xl font-medium">Mens Shirt</h1>
             <h2 className="text-3xl font-normal mt-2">$43</h2>
-            <p className="text-base text-slate-700 my-10">
+            <p className="text-base text-slate-700 my-10 max-w-md">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Inventore illo, natus rem debitis impedit error blanditiis
               nobis repellendus provident assumenda id. Qui, laudantium.
             </p>
             <div className="flex items-center md:justify-start justify-between space-x-5 my-7">
-              <div className="quantity flex">
-                <button type="button" className="h-10 pl-4 border-l border-y border-slate-600">-</button>
-                <input className="w-24 h-8 px-4 h-10 border-y border-slate-600 outline-0" type="number" id="amount" />
-                <button type="button" className="h-10 pr-4 border-r border-y border-slate-600">+</button>
-              </div>
+              <input className="w-24 h-8 px-4 h-10 border border-slate-600 outline-0" type="number" id="amount" />
               <button
                 type="button"
-                className="flex items-center h-10 px-4 border border-slate-600  hover:bg-white hover:border hover:border-gray-600"
+                className="flex items-center h-10 px-4 border border-orange-200 bg-orange-200 hover:bg-orange-300 hover:border hover:border-gray-600"
               >
                 <i className="fa-solid fa-cart-shopping text-xl mr-3" />
                 <span>Add To Cart</span>
