@@ -1,24 +1,10 @@
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../redux/slices/cartSlice';
 
 export default function HomeDecorCard({
   thumb, name, price, colSpan, id,
 }) {
-  const dispatch = useDispatch();
   const priceRef = useRef();
-  const cardData = {
-    id,
-    image: thumb,
-    name,
-    price,
-    quantity: 1,
-  };
-  const addItemToCart = (event) => {
-    event.preventDefault();
-    dispatch(addToCart(cardData));
-  };
   return (
     <div className={`card bg-orange-100 h-96 w-full py-12 px-6 ${colSpan}`}>
       <div className="home_decor_thumb h-1/2 w-full relative">
@@ -31,7 +17,7 @@ export default function HomeDecorCard({
           {price}
         </h4>
         {/* eslint-disable-next-line no-restricted-globals */}
-        <a href="/#" onClick={() => addItemToCart(event)} className="font-bold text-xs bg-orange-800 py-2 px-4 rounded-sm w-1/2 mx-auto text-orange-200">Buy</a>
+        <a href={`/product/${id}`} className="font-bold text-xs bg-orange-800 py-2 px-4 rounded-sm w-1/2 mx-auto text-orange-200">Buy</a>
       </div>
     </div>
   );

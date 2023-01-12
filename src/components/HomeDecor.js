@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 // import flamingoDecor from '../assets/img/flamingo_decor.webp';
 // import goldVase from '../assets/img/gold_vase_decor.webp';
 // import planDecor from '../assets/img/plant_decor.webp';
@@ -11,13 +11,12 @@ import HomeDecorCard from './HomeDecorCard';
 
 export default function HomeDecor() {
   const [furnitures, setFurnitures] = useState(null);
-  useEffect(() => {
-    async function getFurnitures() {
-      const { data: result } = await axios('http://localhost:4000/product');
-      setFurnitures(result.data);
-    }
-    getFurnitures();
-  }, []);
+
+  async function getFurnitures() {
+    const { data: result } = await axios('http://localhost:4000/product');
+    setFurnitures(result.data);
+  }
+  getFurnitures();
 
   return (
     <section className="home_decor lg:px-12 px-6 text-center my-20">
