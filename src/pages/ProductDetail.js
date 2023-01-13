@@ -9,40 +9,34 @@ import validateToken from '../utils/validateToken';
 
 export default function ProductDetail() {
   const [furniture, setFurniture] = useState(null);
-  const { id } = useParams();
-  const [userId, setUserId] = useState(null);
-  const [cartData, setCartData] = useState({
-    userId: '',
-    products: { productId: '', quantity: '' },
-  });
+  const { id: productId } = useParams();
+  const [prodQuantity, setProdQuantity] = useState('');
 
   useEffect(() => {
-    async function getData() {
-      const { data: result } = await axios(`http://localhost:4000/product/${id}`);
+    async function getProductData() {
+      const { data: result } = await axios(`http://localhost:4000/product/${productId}`);
       setFurniture(result?.data);
     }
-    getData();
-    async function getUser() {
-      const { data } = await validateToken(Cookies.get('token'));
-      setUserId(data.user.id);
-    }
-    getUser();
-  }, [id]);
+    getProductData();
+  }, [productId]);
 
-  useEffect(() => {
-    setCartData({ ...cartData, userId, products: { productId: id } });
-  }, [userId]);
+  async function getUserId() {
+    const { data } = await validateToken(Cookies.get('token'));
+    const userId = data.user.id;
+    return userId;
+  }
 
   async function submitCartData(e) {
     e.preventDefault();
-    const cartDataResult = await axios.post('http://localhost:4000/cart', cartData);
-    setCartData({
-      ...cartData,
+    const userId = await getUserId();
+    const cartData = {
+      userId,
       products: {
-        productId: cartData.products.productId,
-        quantity: '',
+        productId,
+        quantity: prodQuantity,
       },
-    });
+    };
+    const cartDataResult = await axios.post('http://localhost:4000/cart', cartData);
     console.log(cartDataResult);
   }
 
@@ -77,16 +71,8 @@ export default function ProductDetail() {
                 type="number"
                 id="amount"
                 required
-                value={cartData.products.quantity}
-                onChange={(e) => {
-                  setCartData({
-                    ...cartData,
-                    products: {
-                      productId: cartData.products.productId,
-                      quantity: e.target.value,
-                    },
-                  });
-                }}
+                value={prodQuantity}
+                onChange={(e) => { setProdQuantity(e.target.value); }}
               />
               <button
                 type="submit"
