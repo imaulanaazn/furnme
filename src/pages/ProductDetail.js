@@ -1,24 +1,51 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-// import blueShirt from '../assets/img/blue-shirt.jpg';
-// import redShirt from '../assets/img/red-shirt.jpg';
-// import whiteShirt from '../assets/img/white-shirt.jpg';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-// import blackShirt from '../assets/img/black-shirt.jpg';
+import Cookies from 'js-cookie';
 import Navbar from '../components/Navbar';
+import validateToken from '../utils/validateToken';
 
 export default function ProductDetail() {
   const [furniture, setFurniture] = useState(null);
   const { id } = useParams();
+  const [userId, setUserId] = useState(null);
+  const [cartData, setCartData] = useState({
+    userId: '',
+    products: { productId: '', quantity: '' },
+  });
+
   useEffect(() => {
     async function getData() {
       const { data: result } = await axios(`http://localhost:4000/product/${id}`);
       setFurniture(result?.data);
     }
     getData();
+    async function getUser() {
+      const { data } = await validateToken(Cookies.get('token'));
+      setUserId(data.user.id);
+    }
+    getUser();
   }, [id]);
+
+  useEffect(() => {
+    setCartData({ ...cartData, userId, products: { productId: id } });
+  }, [userId]);
+
+  async function submitCartData(e) {
+    e.preventDefault();
+    const cartDataResult = await axios.post('http://localhost:4000/cart', cartData);
+    setCartData({
+      ...cartData,
+      products: {
+        productId: cartData.products.productId,
+        quantity: '',
+      },
+    });
+    console.log(cartDataResult);
+  }
+
   return (
     <>
       <Navbar position="static" />
@@ -44,21 +71,32 @@ export default function ProductDetail() {
             <p className="text-base text-slate-700 my-10 max-w-md">
               {furniture?.desc}
             </p>
-            <div className="flex items-center md:justify-start justify-between space-x-5 my-7">
+            <form className="flex items-center md:justify-start justify-between space-x-5 my-7" onSubmit={(e) => { submitCartData(e); }}>
               <input
                 className="w-24 h-8 px-4 h-10 border border-slate-600 outline-0"
                 type="number"
                 id="amount"
+                required
+                value={cartData.products.quantity}
+                onChange={(e) => {
+                  setCartData({
+                    ...cartData,
+                    products: {
+                      productId: cartData.products.productId,
+                      quantity: e.target.value,
+                    },
+                  });
+                }}
               />
               <button
-                type="button"
+                type="submit"
                 className="flex items-center h-10 px-4 border border-orange-200
                  bg-orange-200 hover:bg-orange-300 hover:border hover:border-gray-600"
               >
                 <i className="fa-solid fa-cart-shopping text-xl mr-3" />
                 <span>Add To Cart</span>
               </button>
-            </div>
+            </form>
             <button
               type="button"
               className="flex items-center justify-center border border-rose-400
