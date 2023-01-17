@@ -21,23 +21,28 @@ export default function ProductDetail() {
   }, [productId]);
 
   async function getUserId() {
-    const { data } = await validateToken(Cookies.get('token'));
-    const userId = data.user.id;
+    const token = Cookies.get('token');
+    const data = await validateToken(token);
+    const userId = data?.data?.user?.id;
     return userId;
   }
 
   async function submitCartData(e) {
     e.preventDefault();
-    const userId = await getUserId();
-    const cartData = {
-      userId,
-      products: {
-        productId,
-        quantity: prodQuantity,
-      },
-    };
-    const cartDataResult = await axios.post('http://localhost:4000/cart', cartData);
-    console.log(cartDataResult);
+    const userId = await getUserId()
+      .then((res) => res)
+      .catch((err) => err);
+    if (userId) {
+      const cartData = {
+        userId,
+        products: {
+          productId,
+          quantity: prodQuantity,
+        },
+      };
+      const cartDataResult = await axios.post('http://localhost:4000/cart', cartData);
+      console.log(cartDataResult);
+    }
   }
 
   return (

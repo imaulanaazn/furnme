@@ -1,18 +1,33 @@
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import logo from '../assets/img/logo.webp';
 import heart from '../assets/img/heart.webp';
 import cart from '../assets/img/shopping-cart.webp';
 import { setIsLogin } from '../redux/slices/auth';
+import validateToken from '../utils/validateToken';
 
 export default function Navbar(props) {
   const dispatch = useDispatch();
+  const [userId, setUserId] = useState('');
+
   const { isLogin } = useSelector((state) => state.auth);
   const {
     // eslint-disable-next-line react/prop-types
     position = 'absolute',
   } = props;
   const inCartProducts = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    async function getUserId() {
+      const token = Cookies.get('token');
+      const data = await validateToken(token);
+      const id = data?.data?.user?.id;
+      setUserId(id);
+    }
+    getUserId();
+  }, []);
 
   return (
     <header className={`w-full lg:px-12 md:px-10 md:pt-5 px-4 pt-3 ${position} top-0 left-0 z-10 bg-white`}>
@@ -63,7 +78,7 @@ export default function Navbar(props) {
 
         <div className="user_cart lg:w-40 lg:w-32 md:w-40 w-30 flex justify-between items-center md:flex-none flex-1">
           <img src={heart} className="w-5 h-5 xl:w-6 xl:h-6 lg:w-5 lg:h-5 md:h-7 md:w-7" alt="heart" />
-          <Link to="/mycart">
+          <Link to={`/cart/${userId}`}>
             <div className="cart_icon flex items-center">
               <img src={cart} className="xl:w-5 xl:h-5 lg:w-4 lg:h-4 md:h-6 md:w-6 w-4 h-4" alt="cart" />
               <p className="lg:text-sm md:text-base mx-1 xl:mx-2 text-slate-700">CART</p>

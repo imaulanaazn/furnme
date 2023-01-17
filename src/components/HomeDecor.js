@@ -13,8 +13,8 @@ export default function HomeDecor() {
   const [furnitures, setFurnitures] = useState(null);
 
   async function getFurnitures() {
-    const { data: result } = await axios('http://localhost:4000/product');
-    setFurnitures(result.data);
+    const { data } = await axios('http://localhost:4000/product');
+    setFurnitures(data);
   }
   getFurnitures();
 
