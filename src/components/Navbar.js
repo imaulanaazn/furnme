@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 import logo from '../assets/img/logo.webp';
 import heart from '../assets/img/heart.webp';
 import cart from '../assets/img/shopping-cart.webp';
@@ -11,13 +12,13 @@ import validateToken from '../utils/validateToken';
 export default function Navbar(props) {
   const dispatch = useDispatch();
   const [userId, setUserId] = useState('');
+  const [totalCartItems, setCartTotal] = useState(0);
 
   const { isLogin } = useSelector((state) => state.auth);
   const {
     // eslint-disable-next-line react/prop-types
     position = 'absolute',
   } = props;
-  const inCartProducts = useSelector((state) => state.cart);
 
   useEffect(() => {
     async function getUserId() {
@@ -28,6 +29,22 @@ export default function Navbar(props) {
     }
     getUserId();
   }, []);
+
+  useEffect(() => {
+    async function getUserCart() {
+      const token = Cookies.get('token');
+      if (token) {
+        await axios.get(`http://localhost:4000/cart/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then(({ data }) => setCartTotal(data))
+          .catch((err) => console.log(err));
+      }
+    }
+    getUserCart();
+  }, [userId]);
 
   return (
     <header className={`w-full lg:px-12 md:px-10 md:pt-5 px-4 pt-3 ${position} top-0 left-0 z-10 bg-white`}>
@@ -83,7 +100,7 @@ export default function Navbar(props) {
               <img src={cart} className="xl:w-5 xl:h-5 lg:w-4 lg:h-4 md:h-6 md:w-6 w-4 h-4" alt="cart" />
               <p className="lg:text-sm md:text-base mx-1 xl:mx-2 text-slate-700">CART</p>
               <div className="user_cart_total rounded-full bg-amber-500 w-5 h-5 xl:w-6 xl:h-6 lg:w-5 lg:h-5 md:h-7 md:w-7 flex items-center justify-center">
-                <p className="text-white lg:text-xs md:text-sm">{inCartProducts.length}</p>
+                <p className="text-white lg:text-xs md:text-sm">{totalCartItems?.length}</p>
               </div>
             </div>
           </Link>
