@@ -28,7 +28,7 @@ export default function MyCartAside() {
         <h2 className="lg:text-sm md:text-base">Add A Note</h2>
         <textarea name="notes" id="" cols="30" className="lg:py-2 md:py-5 py-3 lg:px-4 md:px-5 px-4 mt-2 w-full lg:text-xs md:text-base" rows="1" placeholder="Add a note here..." />
       </div>
-      <button type="submit" className="w-1/2 mx-auto lg:py-2 md:py-4 py-3 lg:px-4 md:px-8 px-6 bg-gray-800 text-white text-sm font-semibold rounded-full ">Checkout</button>
+      <a href="/checkout" type="submit" className="w-1/2 mx-auto lg:py-2 md:py-4 py-3 lg:px-4 md:px-8 px-6 bg-gray-800 text-white text-sm font-semibold rounded-full ">Checkout</a>
     </aside>
   );
 }

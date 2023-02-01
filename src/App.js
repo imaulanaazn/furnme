@@ -7,6 +7,7 @@ import Forsale from './pages/Forsale';
 import Auth from './pages/Auth';
 import MyCart from './pages/MyCart';
 import ProductDetail from './pages/ProductDetail';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/forsale" element={<Forsale />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/cart/:id" element={<MyCart />} />
         <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>

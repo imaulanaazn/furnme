@@ -14,8 +14,9 @@ export default function ProductDetail() {
 
   useEffect(() => {
     async function getProductData() {
-      const { data: result } = await axios(`http://localhost:4000/product/${productId}`);
-      setFurniture(result?.data);
+      const { data } = await axios(`http://localhost:4000/product/${productId}`);
+      console.log(data);
+      setFurniture(data);
     }
     getProductData();
   }, [productId]);

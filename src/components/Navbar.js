@@ -33,7 +33,7 @@ export default function Navbar(props) {
   useEffect(() => {
     async function getUserCart() {
       const token = Cookies.get('token');
-      if (token) {
+      if (token && userId) {
         await axios.get(`http://localhost:4000/cart/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
