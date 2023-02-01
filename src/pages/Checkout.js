@@ -1,11 +1,27 @@
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
+function CheckoutSuccees() {
+  return (
+    <div className="z-50 absolute w-full h-full bg-[rgba(0,0,0,.3)] flex items-center justify-center">
+      <div className="w-80 h-96 bg-white shadow-md rounded-lg flex flex-col items-center justify-center">
+        <div className="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center">
+          <i className="fa-solid fa-check text-green-300 text-5xl font-bold" />
+        </div>
+
+        <h1 className="text-xl font-bold text-center mt-10 mb-4">
+          Checkout success
+        </h1>
+        <a href="/" className="text-center font-semibold py-2 px-10 bg-orange-200 text-orange-700">Close</a>
+      </div>
+    </div>
+  );
+}
+
 export default function Checkout() {
-  const navigate = useNavigate();
   const [formValues, setFormValues] = useState({});
   const [isChecked, setIsChecked] = useState(false);
   const [isFormFilled, setIsFormFilled] = useState(false);
+  const [isCheckoutSuccess, setIsCheckoutSuccess] = useState(false);
   function formHandle(e) {
     e.preventDefault();
     setIsFormFilled(true);
@@ -19,15 +35,16 @@ export default function Checkout() {
     // });
   }
 
-  function continueProccess(e) {
+  function showSuccessPrompt(e) {
     e.preventDefault();
     if (isChecked) {
-      navigate('/');
+      setIsCheckoutSuccess(true);
     }
   }
 
   return (
     <div className="flex justify-center items-center min-h-screen p-[25px] w-full mx-auto bg-orange-100">
+      {isCheckoutSuccess ? <CheckoutSuccees /> : null}
       {
             !isFormFilled ? (
               <form onSubmit={(e) => { formHandle(e); }} className="w-[700px] shadow-[0_5px_10px_rgba(0,0,0,0.1)] p-5 max-w-lg bg-white rounded-md">
@@ -134,7 +151,7 @@ export default function Checkout() {
                   <p className="text-base font-normal">i have transfer the money</p>
                 </div>
 
-                <button type="button" onClick={(e) => { continueProccess(e); }} className={`py-3 px-6 ${isChecked ? 'bg-orange-200 text-orange-800' : 'bg-slate-200 text-slate-400'} `}>Continue</button>
+                <button type="button" onClick={(e) => { showSuccessPrompt(e); }} className={`py-3 px-6 ${isChecked ? 'bg-orange-200 text-orange-800' : 'bg-slate-200 text-slate-400'} `}>Complete Checkout</button>
 
               </div>
             )
