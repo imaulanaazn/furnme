@@ -9,11 +9,15 @@ export const cartSlice = createSlice({
     setCartTotal: (state, { payload }) => {
       state[payload.index] = payload.value;
     },
+    removeCartTotal: (state, { payload }) => {
+      state.splice(payload.index, 1);
+    },
   },
 });
 
 export const {
   setCartTotal,
+  removeCartTotal,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
