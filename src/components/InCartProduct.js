@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unsafe-optional-chaining */
 import axios from 'axios';
@@ -35,6 +36,12 @@ export default function InCartProduct({
   }, [quantity]);
 
   function removeProduct() {
+    async function deleteProduct() {
+      await axios.delete(`http://localhost:4000/cart/${cartItems[index]._id}`)
+        .then(({ data }) => console.log(data))
+        .catch((err) => console.log(err));
+    }
+    deleteProduct();
     const newCartItems = cartItems.map((cartItem, i) => (i !== index ? cartItem : null))
       .filter((cartItem) => cartItem && cartItem);
     setCartItems(newCartItems);

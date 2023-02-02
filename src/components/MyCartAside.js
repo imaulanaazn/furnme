@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 export default function MyCartAside() {
   const data = useSelector((state) => state.cart);
-  console.log(data);
   return (
     <aside className="lg:w-1/3 w-full lg:absolute top-0 right-0 h-screen bg-orange-100 lg:px-12 md:px-20 px-4 flex flex-col text-slate-600 justify-center">
       <h2 className="lg:text-base md:text-2xl text-center font-semibold">
