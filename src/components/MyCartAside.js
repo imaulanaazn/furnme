@@ -2,8 +2,13 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyCartAside({ cartItems }) {
+  const navigate = useNavigate();
+  const [isChecked, setIsChecked] = useState(false);
+  const [note, setNote] = useState('');
   const data = useSelector((state) => state.cart);
   async function updateCart(cartItem) {
     const res = await axios.put(`http://localhost:4000/cart/${cartItem._id}`, {
@@ -15,8 +20,13 @@ export default function MyCartAside({ cartItems }) {
     return res;
   }
 
-  function checkoutHandle() {
-    cartItems.map((cartItem) => updateCart(cartItem));
+  function checkoutHandle(e) {
+    e.preventDefault();
+    if (isChecked) {
+      localStorage.setItem('note', JSON.stringify(note));
+      cartItems.map((cartItem) => updateCart(cartItem));
+      navigate('/checkout');
+    }
   }
 
   return (
@@ -32,7 +42,7 @@ export default function MyCartAside({ cartItems }) {
       {/* <p className="lg:text-sm md:text-lg
       text-center">Total belum termasuk PPN dan Ongkir</p> */}
       <div className="term flex items-center lg:text-sm md:text-base mx-auto mt-2">
-        <input type="checkbox" name="agree" required />
+        <input type="checkbox" name="agree" required onClick={() => { setIsChecked((prev) => !prev); }} />
         <label htmlFor="agree" className="ml-2 ">
           {' '}
           I agree to
@@ -43,9 +53,9 @@ export default function MyCartAside({ cartItems }) {
 
       <div className="note my-6 text-left text-slate-600">
         <h2 className="lg:text-sm md:text-base">Add A Note</h2>
-        <textarea name="notes" id="" cols="30" className="lg:py-2 md:py-5 py-3 lg:px-4 md:px-5 px-4 mt-2 w-full lg:text-xs md:text-base" rows="1" placeholder="Add a note here..." />
+        <textarea onChange={(e) => { setNote(e.target.value); }} value={note} name="notes" id="" cols="30" className="lg:py-2 md:py-5 py-3 lg:px-4 md:px-5 px-4 mt-2 w-full lg:text-xs md:text-base" rows="1" placeholder="Add a note here..." />
       </div>
-      <a href="/checkout" onClick={() => { checkoutHandle(); }} className="text-center  mx-auto lg:py-3 md:py-4 py-3 px-10 bg-orange-200 text-orange-800 text-sm font-semibold">Checkout</a>
+      <button type="button" aria-disabled href="/checkout" onClick={(e) => { checkoutHandle(e); }} className="text-center  mx-auto lg:py-3 md:py-4 py-3 px-10 bg-orange-200 text-orange-800 text-sm font-semibold">Checkout</button>
     </aside>
   );
 }

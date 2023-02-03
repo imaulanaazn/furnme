@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import getUserId from '../utils/getUserId';
 
 function CheckoutSuccees() {
@@ -27,6 +28,8 @@ export default function Checkout() {
   const [isCheckoutSuccess, setIsCheckoutSuccess] = useState(false);
   const [userId, setUserId] = useState('');
   const [userCartProd, setUserCartProd] = useState('');
+  const [userCartProdId, setUserCartProdId] = useState('');
+  const totalCount = useSelector((state) => state.cart);
 
   useEffect(() => {
     async function getUserInfo() {
@@ -46,6 +49,7 @@ export default function Checkout() {
             productId: cartItem._id,
             quantity: cartItem.products.quantity,
           }]);
+          setUserCartProdId((prevValue) => [...prevValue, cartItem._id]);
         });
       }
     }
@@ -60,17 +64,28 @@ export default function Checkout() {
     setIsFormFilled(true);
   }
 
+  function deleteUserCart() {
+    async function deleteCart(cartId) {
+      await axios.delete(`http://localhost:4000/cart/${cartId}`)
+        .then((res) => console.log(res));
+    }
+    userCartProdId.forEach((cartId) => {
+      deleteCart(cartId);
+    });
+  }
+
   async function completeCheckout(e) {
     e.preventDefault();
-
+    const notes = localStorage.getItem('note');
     const res = await axios.post('http://localhost:4000/orders', {
       userId,
       products: userCartProd,
-      notes: 'hello',
-      amount: 1230,
+      notes: JSON.parse(notes),
+      amount: totalCount.reduce((a, b) => a + b, 0),
       ...formValues,
     });
-
+    if (res) { deleteUserCart(); }
+    localStorage.removeItem('note');
     console.log(res);
 
     if (isChecked) {
