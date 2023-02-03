@@ -1,8 +1,24 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
-export default function MyCartAside() {
+export default function MyCartAside({ cartItems }) {
   const data = useSelector((state) => state.cart);
+  async function updateCart(cartItem) {
+    const res = await axios.put(`http://localhost:4000/cart/${cartItem._id}`, {
+      products: {
+        productId: cartItem.products.productId,
+        quantity: cartItem.products.quantity,
+      },
+    });
+    return res;
+  }
+
+  function checkoutHandle() {
+    cartItems.map((cartItem) => updateCart(cartItem));
+  }
+
   return (
     <aside className="lg:w-1/3 w-full lg:absolute top-0 right-0 h-screen bg-orange-100 lg:px-12 md:px-20 px-4 flex flex-col text-slate-600 justify-center">
       <h2 className="lg:text-base md:text-2xl text-center font-semibold">
@@ -29,7 +45,7 @@ export default function MyCartAside() {
         <h2 className="lg:text-sm md:text-base">Add A Note</h2>
         <textarea name="notes" id="" cols="30" className="lg:py-2 md:py-5 py-3 lg:px-4 md:px-5 px-4 mt-2 w-full lg:text-xs md:text-base" rows="1" placeholder="Add a note here..." />
       </div>
-      <a href="/checkout" className="text-center  mx-auto lg:py-3 md:py-4 py-3 px-10 bg-orange-200 text-orange-800 text-sm font-semibold">Checkout</a>
+      <a href="/checkout" onClick={() => { checkoutHandle(); }} className="text-center  mx-auto lg:py-3 md:py-4 py-3 px-10 bg-orange-200 text-orange-800 text-sm font-semibold">Checkout</a>
     </aside>
   );
 }
