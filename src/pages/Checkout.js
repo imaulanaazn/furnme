@@ -1,4 +1,7 @@
-import { useState } from 'react';
+/* eslint-disable no-underscore-dangle */
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import getUserId from '../utils/getUserId';
 
 function CheckoutSuccees() {
   return (
@@ -22,21 +25,54 @@ export default function Checkout() {
   const [isChecked, setIsChecked] = useState(false);
   const [isFormFilled, setIsFormFilled] = useState(false);
   const [isCheckoutSuccess, setIsCheckoutSuccess] = useState(false);
+  const [userId, setUserId] = useState('');
+  const [userCartProd, setUserCartProd] = useState('');
+
+  useEffect(() => {
+    async function getUserInfo() {
+      const id = await getUserId();
+      setUserId(id);
+    }
+    getUserInfo();
+  }, []);
+
+  useEffect(() => {
+    async function getUserCart() {
+      const cartItems = await axios.get(`http://localhost:4000/cart/${userId}`)
+        .then((res) => res.data);
+      if (cartItems) {
+        cartItems.forEach((cartItem) => {
+          setUserCartProd((prevValue) => [...prevValue, {
+            productId: cartItem._id,
+            quantity: cartItem.products.quantity,
+          }]);
+        });
+      }
+    }
+
+    if (userId) {
+      getUserCart();
+    }
+  }, [userId]);
+
   function formHandle(e) {
     e.preventDefault();
     setIsFormFilled(true);
-    // setFormValues({
-    //   address: '',
-    //   city: '',
-    //   email: '',
-    //   fullname: '',
-    //   state: '',
-    //   zipcode: '',
-    // });
   }
 
-  function showSuccessPrompt(e) {
+  async function completeCheckout(e) {
     e.preventDefault();
+
+    const res = await axios.post('http://localhost:4000/orders', {
+      userId,
+      products: userCartProd,
+      notes: 'hello',
+      amount: 1230,
+      ...formValues,
+    });
+
+    console.log(res);
+
     if (isChecked) {
       setIsCheckoutSuccess(true);
     }
@@ -54,7 +90,7 @@ export default function Checkout() {
 
                     <div className="inputBox mx-0 my-[15px]">
                       <span className="block mb-2.5 text-base">full name :</span>
-                      <input required value={formValues.fullname} onChange={(e) => setFormValues({ ...formValues, fullname: e.target.value })} type="text" className="w-full border text-[15px] normal-case px-[15px] py-2.5 border-solid border-[#ccc] focus:border focus:border-solid focus:border-black" placeholder="your name" />
+                      <input required value={formValues.fullName} onChange={(e) => setFormValues({ ...formValues, fullName: e.target.value })} type="text" className="w-full border text-[15px] normal-case px-[15px] py-2.5 border-solid border-[#ccc] focus:border focus:border-solid focus:border-black" placeholder="your name" />
                     </div>
                     <div className="inputBox mx-0 my-[15px]">
                       <span className="block mb-2.5 text-base">email :</span>
@@ -99,8 +135,8 @@ export default function Checkout() {
                 <h1 className="text-lg font-semibold mb-5">purchase Details</h1>
                 <ul>
                   <li className="flex justify-between">
-                    <span className=" text-slate-700 text-base my-2">Fullname :</span>
-                    <span className=" text-slate-700 text-base my-2">{formValues.fullname}</span>
+                    <span className=" text-slate-700 text-base my-2">FullName :</span>
+                    <span className=" text-slate-700 text-base my-2">{formValues.fullName}</span>
                   </li>
                   <li className="flex justify-between">
                     <span className=" text-slate-700 text-base my-2">E-mail :</span>
@@ -151,7 +187,7 @@ export default function Checkout() {
                   <p className="text-base font-normal">i have transfer the money</p>
                 </div>
 
-                <button type="button" onClick={(e) => { showSuccessPrompt(e); }} className={`py-3 px-6 ${isChecked ? 'bg-orange-200 text-orange-800' : 'bg-slate-200 text-slate-400'} `}>Complete Checkout</button>
+                <button type="button" onClick={(e) => { completeCheckout(e); }} className={`py-3 px-6 ${isChecked ? 'bg-orange-200 text-orange-800' : 'bg-slate-200 text-slate-400'} `}>Complete Checkout</button>
 
               </div>
             )

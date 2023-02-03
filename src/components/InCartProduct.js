@@ -70,7 +70,7 @@ export default function InCartProduct({
       </p>
 
       <div className="quantity flex-1 flex justify-evenly">
-        {!quantity ? <button type="submit" className="md:text-base" disabled>-</button>
+        {quantity <= 1 ? <button type="submit" className="md:text-base" disabled>-</button>
           : <button type="submit" className="md:text-base" onClick={() => { setQuantity(quantity - 1); }}>-</button>}
         <p className="lg:text-sm md:text-base">{quantity}</p>
         <button type="submit" className="md:text-base" onClick={() => { setQuantity(quantity + 1); }}>+</button>
