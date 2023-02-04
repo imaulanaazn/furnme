@@ -1,19 +1,25 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable no-underscore-dangle */
 // eslint-disable-next-line import/no-unresolved
 import { Swiper, SwiperSlide } from 'swiper/react';
-import darkGraySofa from '../assets/img/dark-gray-sofa.webp';
-import darkHighChair from '../assets/img/dark-high-chair.webp';
-import blackStandLamp from '../assets/img/black-stand-lamp.webp';
-import cuteCactus from '../assets/img/cute-plant.webp';
-// eslint-disable-next-line import/no-unresolved
-// eslint-disable-next-line import/no-unresolved
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import 'swiper/css';
-import shelf from '../assets/img/shelf.webp';
-import darkGrayBed from '../assets/img/dark-gray-bed.webp';
 import ShopScrollableCard from './ShopScrollableCard';
 import shopCardTotalSlide from '../utils/shopCardTotalSlide';
 
 export default function TopRated() {
   const totalSlide = shopCardTotalSlide();
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    async function getProducts() {
+      await axios.get('http://localhost:4000/product/toprated')
+        .then((result) => result.data && setProducts(result.data))
+        .catch((err) => console.log(err));
+    }
+
+    getProducts();
+  }, []);
 
   return (
     <section className="top_rated w-full md:px-12 px-6  lg:my-28 my-12">
@@ -24,24 +30,11 @@ export default function TopRated() {
           spaceBetween={15}
           slidesPerView={totalSlide}
         >
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200 ">
-            <ShopScrollableCard image={darkGraySofa} name="Dark gray sofa" />
-          </SwiperSlide>
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200 ">
-            <ShopScrollableCard image={darkHighChair} name="aesthetic high chair" />
-          </SwiperSlide>
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200 ">
-            <ShopScrollableCard image={blackStandLamp} name="Beautiful lamp" />
-          </SwiperSlide>
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200 ">
-            <ShopScrollableCard image={cuteCactus} name="Cute litle cactus" />
-          </SwiperSlide>
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200 ">
-            <ShopScrollableCard image={shelf} name="Shelf" />
-          </SwiperSlide>
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200 ">
-            <ShopScrollableCard image={darkGrayBed} name="Comfortable bed" />
-          </SwiperSlide>
+          {products && products.map((product) => (
+            <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200 ">
+              <ShopScrollableCard image={product.img} name={product.title} id={product._id} />
+            </SwiperSlide>
+          )) }
         </Swiper>
       </div>
     </section>
