@@ -1,18 +1,25 @@
+/* eslint-disable no-underscore-dangle */
 // eslint-disable-next-line import/no-unresolved
 import 'swiper/css';
 // eslint-disable-next-line import/no-unresolved
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import ShopScrollableCard from './ShopScrollableCard';
 import shopCardTotalSlide from '../utils/shopCardTotalSlide';
-import desk from '../assets/img/productivity-category.webp';
-import classic from '../assets/img/classic-category.webp';
-import modern from '../assets/img/modern-category.webp';
-import decor from '../assets/img/decor-category.webp';
-import cutePlant from '../assets/img/cute-plant-category.webp';
-import bench from '../assets/img/bench-category.webp';
 
 export default function Category() {
   const totalSlide = shopCardTotalSlide();
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    async function getProducts() {
+      await axios.get('http://localhost:4000/product/toprated')
+        .then((result) => result.data && setProducts(result.data))
+        .catch((err) => console.log(err));
+    }
+
+    getProducts();
+  }, []);
 
   return (
     <section className="category w-full md:px-12 px-6 my-28">
@@ -23,24 +30,11 @@ export default function Category() {
           spaceBetween={15}
           slidesPerView={totalSlide}
         >
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200">
-            <ShopScrollableCard image={cutePlant} name="cute plant" />
-          </SwiperSlide>
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200">
-            <ShopScrollableCard image={decor} name="home decor" />
-          </SwiperSlide>
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200">
-            <ShopScrollableCard image={modern} name="modern" />
-          </SwiperSlide>
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200">
-            <ShopScrollableCard image={classic} name="classic" />
-          </SwiperSlide>
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200">
-            <ShopScrollableCard image={bench} name="aesthetic" />
-          </SwiperSlide>
-          <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200">
-            <ShopScrollableCard image={desk} name="productivity" />
-          </SwiperSlide>
+          {products && products.map((product) => (
+            <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200">
+              <ShopScrollableCard image={product.img} name={product.title} id={product._id} />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </section>
