@@ -46,7 +46,7 @@ export default function AllProducts() {
       <h1 className="text-left font-bold lg:text-2xl md:text-3xl text-xl mb-7">Our Product</h1>
       <AllProductsNavbar setCategory={setCategory} />
       <div className="products_wrapper md:my-16 my-12 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-5">
-        {products?.map((product) => (
+        {products?.slice(0, visible).map((product) => (
           <div className="item h-96 w-full  overflow-hidden" key={product._id}>
             <div className="thumb group relative w-full h-5/6 bg-slate-200">
               <img src={product.img} alt="" className="w-full h-full object-cover group-hover:brightness-50 transition-all duration-500" />
