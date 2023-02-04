@@ -1,12 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios';
 import { useState } from 'react';
-// import flamingoDecor from '../assets/img/flamingo_decor.webp';
-// import goldVase from '../assets/img/gold_vase_decor.webp';
-// import planDecor from '../assets/img/plant_decor.webp';
-// import tableDecor from '../assets/img/table_decor.webp';
-// import vaseDecor from '../assets/img/vase_decor.webp';
-// import welcomeDecor from '../assets/img/welcome_home_decor.webp';
 import HomeDecorCard from './HomeDecorCard';
 
 export default function HomeDecor() {
@@ -27,16 +21,6 @@ export default function HomeDecor() {
           i === 4 ? (<HomeDecorCard key={furniture._id} thumb={furniture.img} id={`${furniture._id}`} name={furniture.title} price={furniture.price} colSpan="col-span-2" />)
             : <HomeDecorCard key={furniture._id} thumb={furniture.img} id={`${furniture._id}`} name={furniture.title} price={furniture.price} colSpan="col-span-1" />
         ))}
-        {/* <HomeDecorCard thumb={flamingoDecor} id="2"
-        name="Flamingo Statue" price={70} colSpan="col-span-1" />
-        <HomeDecorCard thumb={goldVase} id="3" name="Vase Emas" price={76} colSpan="col-span-1" />
-        <HomeDecorCard thumb={planDecor} id="4" name="Plant" price={43} colSpan="col-span-1" />
-        <HomeDecorCard thumb={tableDecor} id="5"
-        name="Table decoration" price={210} colSpan="md:col-span-2" />
-        <HomeDecorCard thumb={vaseDecor} id="6"
-        name="Vase Dengan Motif" price={221} colSpan="col-span-1" />
-        <HomeDecorCard thumb={welcomeDecor} id="7"
-        name="Welcome Greetings" price={21} colSpan="col-span-1" /> */}
       </div>
     </section>
   );

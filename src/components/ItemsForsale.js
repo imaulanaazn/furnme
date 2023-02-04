@@ -40,6 +40,8 @@ export default function ItemsForsale() {
     }
   }, [category]);
 
+  console.log(products);
+
   return (
     <section className="our_product w-full md:px-12 px-6 py-20 text-center">
       <h1 className="text-left font-bold text-lg lg:text-2xl md:text-3xl mb-7">Forsale Products</h1>
@@ -54,7 +56,7 @@ export default function ItemsForsale() {
             <div className="product_detail flex justify-between items-center w-full h-1/6">
               <div>
                 <p className="text-left text-base font-semibold">
-                  {product.categories}
+                  {product.title}
                 </p>
                 <p className="text-left text-base text-slate-600">
                   $
