@@ -31,7 +31,7 @@ export default function Category() {
           slidesPerView={totalSlide}
         >
           {products && products.map((product) => (
-            <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200">
+            <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200" key={product._id}>
               <ShopScrollableCard image={product.img} name={product.title} id={product._id} />
             </SwiperSlide>
           ))}

@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useGoogleLogin } from '@react-oauth/google';
 import Cookies from 'js-cookie';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import google from '../assets/icon/google.svg';
 import facebook from '../assets/icon/facebook.svg';
 import linkedin from '../assets/icon/linkedin.svg';
@@ -89,7 +89,6 @@ function animateForm({
 export default function Auth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLogin } = useSelector((state) => state.auth);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   window.addEventListener('resize', () => setScreenWidth(window.innerWidth));
   const [isSignUp, setIsSignUp] = useState(false);
@@ -100,12 +99,6 @@ export default function Auth() {
   const welcome = useRef();
   const username = useRef();
   const forgotPass = useRef();
-
-  useEffect(() => {
-    if (isLogin) {
-      navigate('/');
-    }
-  }, [isLogin]);
 
   useEffect(() => {
     animateForm({
@@ -127,9 +120,8 @@ export default function Auth() {
       : await handleSignin(formData).then((response) => response).catch((err) => err);
     setFormData({ username: '', email: '', password: '' });
     if (!result.data) {
-      console.log(result.response);
+      alert(result.response.data.message);
     } else {
-      console.log(isSignUp ? 'registrasi berhasi' : 'login berhasil');
       const { token } = result.data.data;
       const tokenBase64 = btoa(token);
       Cookies.set('token', tokenBase64, { expires: 1 });
@@ -156,9 +148,13 @@ export default function Auth() {
         }
       } catch (error) {
         console.log(error);
+        prompt('terjadi kesalahan, silahkan coba beberapa saat lagi');
       }
     },
-    onError: (err) => console.log(err),
+    onError: (err) => {
+      prompt('terjadi kesalahan, silahkan coba beberapa saat lagi');
+      console.log(err);
+    },
   });
 
   return (

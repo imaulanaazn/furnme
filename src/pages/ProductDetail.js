@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -11,6 +11,7 @@ export default function ProductDetail() {
   const [furniture, setFurniture] = useState(null);
   const { id: productId } = useParams();
   const [prodQuantity, setProdQuantity] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getProductData() {
@@ -40,8 +41,11 @@ export default function ProductDetail() {
           quantity: prodQuantity,
         },
       };
-      const cartDataResult = await axios.post('http://localhost:4000/cart', cartData);
-      console.log(cartDataResult);
+      await axios.post('http://localhost:4000/cart', cartData)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    } else {
+      navigate('/auth');
     }
   }
 

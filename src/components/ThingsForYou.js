@@ -9,11 +9,18 @@ export default function ThingsForYou() {
         </div>
       </figure>
       <div className="produc_desc flex-1 lg:block flex flex-col justify-center items-center lg:w-1/2 w-full text-center">
-        <h2 className="text-orange-800 font-bold lg:text-base md:text-2xl">Things for you</h2>
-        <h1 className="text-slate-800 font-extrabold lg:text-2xl md:text-3xl my-4">Floor Lamp</h1>
-        <p className="w-3/4 lg:text-sm md:text-lg text-slate-500 lg:m-auto m-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus nam, animi omnis voluptas saepe amet expedita at qui sit facilis reiciendis ratione? Quis, animi nam. Doloribus recusandae ipsum dicta quas optio debitis at quibusdam rerum a accusamus!</p>
-        <p className="font-bold lg:text-base md:text-lg text-slate-600 my-4">$50</p>
-        <button type="button" className="lg:text-sm md:text-lg font-bold  text-orange-800 bg-orange-100 py-3 px-5">Buy Now</button>
+        <h1 className="text-slate-800 font-extrabold lg:text-2xl md:text-3xl my-4">Proffesional</h1>
+        <p className="w-3/4 lg:text-base md:text-lg text-slate-500 lg:m-auto m-3">
+          Our knowledgeable and friendly staff is always on hand to assist
+          you in choosing the perfect piece for your space. Whether you&apos;re
+          looking for a cozy armchair for your reading nook, a spacious
+          sofa for your family room, or a stylish dining table for your
+          kitchen, we&apos;ve got you covered. We only partner with top
+          furniture brands to ensure that our customers receive the
+          highest-quality pieces available. Our products are carefully
+          crafted from high-quality materials and are built to last,
+          making them a smart investment for your home.
+        </p>
       </div>
     </section>
   );

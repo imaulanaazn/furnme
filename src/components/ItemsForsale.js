@@ -40,8 +40,6 @@ export default function ItemsForsale() {
     }
   }, [category]);
 
-  console.log(products);
-
   return (
     <section className="our_product w-full md:px-12 px-6 py-20 text-center">
       <h1 className="text-left font-bold text-lg lg:text-2xl md:text-3xl mb-7">Forsale Products</h1>
@@ -74,7 +72,7 @@ export default function ItemsForsale() {
           </div>
         ))}
       </div>
-      <button type="submit" ref={viewMoreBtn} onClick={visible === products.length ? undefined : showMoreItems} className="lg:text-sm md:text-base py-2 px-5 border border-solid border-slate-700">view more</button>
+      <button type="submit" ref={viewMoreBtn} onClick={showMoreItems} className={`${visible === products.length || products.length < 12 ? 'hidden' : ''} lg:text-sm md:text-base py-2 px-5 border border-solid border-slate-700`}>view more</button>
     </section>
   );
 }

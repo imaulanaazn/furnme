@@ -22,10 +22,12 @@ export default function MyCartAside({ cartItems }) {
 
   function checkoutHandle(e) {
     e.preventDefault();
-    if (isChecked) {
+    if (data.length > 0 && isChecked) {
       localStorage.setItem('note', JSON.stringify(note));
       cartItems.map((cartItem) => updateCart(cartItem));
       navigate('/checkout');
+    } else {
+      alert('make sure that your cart is not empty and check the agree');
     }
   }
 

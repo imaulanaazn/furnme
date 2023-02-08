@@ -71,7 +71,7 @@ export default function AllProducts() {
           </div>
         ))}
       </div>
-      <button type="submit" ref={viewMoreBtn} onClick={visible === products.length ? undefined : showMoreItems} className="lg:text-base md:text-lg py-2 px-5 border border-solid border-slate-700">view more</button>
+      <button type="submit" ref={viewMoreBtn} onClick={showMoreItems} className={`${visible === products.length || products.length < 12 ? 'hidden' : ''} lg:text-base md:text-lg py-2 px-5 border border-solid border-slate-700`}>view more</button>
     </section>
   );
 }

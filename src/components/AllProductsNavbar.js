@@ -12,7 +12,7 @@ export default function AllProductsNavbar(props) {
         <li className="bed-btn text-base hidden md:block"><button type="submit" onClick={() => setCategory('bed')}>Bed</button></li>
         <li className="decor-btn text-base hidden md:block"><button type="submit" onClick={() => setCategory('decorative')}>Decorative</button></li>
       </ul>
-      <div className="category">
+      {/* <div className="category">
         <label htmlFor="category" className="text-base">Sort by :</label>
         <select id="category">
           <option className="text-base" value="price">price</option>
@@ -20,7 +20,7 @@ export default function AllProductsNavbar(props) {
           <option className="text-base" value="seller">seller</option>
           <option className="text-base" value="discount">discount</option>
         </select>
-      </div>
+      </div> */}
     </div>
   );
 }
