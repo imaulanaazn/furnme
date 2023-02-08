@@ -86,7 +86,6 @@ export default function Checkout() {
     });
     if (res) { deleteUserCart(); }
     localStorage.removeItem('note');
-    console.log(res);
 
     if (isChecked) {
       setIsCheckoutSuccess(true);
