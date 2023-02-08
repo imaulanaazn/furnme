@@ -10,6 +10,7 @@ import { setIsLogin } from '../redux/slices/auth';
 import validateToken from '../utils/validateToken';
 
 export default function Navbar(props) {
+  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
   const dispatch = useDispatch();
   const [userId, setUserId] = useState('');
   const [totalCartItems, setCartTotal] = useState(0);
@@ -34,7 +35,7 @@ export default function Navbar(props) {
     async function getUserCart() {
       const token = Cookies.get('token');
       if (token && userId) {
-        await axios.get(`http://localhost:4000/cart/${userId}`, {
+        await axios.get(`${ROOT_URL}/cart/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

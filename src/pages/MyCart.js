@@ -8,6 +8,7 @@ import MyCartMain from '../components/MyCartMain';
 import MyCartAside from '../components/MyCartAside';
 
 export default function MyCart() {
+  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
   const [cartItems, setCartItems] = useState(null);
   const { id: userId } = useParams();
   const token = Cookies.get('token');
@@ -15,7 +16,7 @@ export default function MyCart() {
   useEffect(() => {
     async function getUserCart() {
       if (token) {
-        await axios.get(`http://localhost:4000/cart/${userId}`, {
+        await axios.get(`${ROOT_URL}/cart/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

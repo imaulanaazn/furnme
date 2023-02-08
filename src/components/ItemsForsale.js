@@ -5,6 +5,7 @@ import star from '../assets/icon/star.svg';
 import ItemsForsaleNavbar from './ItemsForsaleNavbar';
 
 export default function ItemsForsale() {
+  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
   const [visible, setVisible] = useState(12);
   const [category, setCategory] = useState('');
   const [products, setProducts] = useState([]);
@@ -21,13 +22,13 @@ export default function ItemsForsale() {
   if (visible === products.length) hideViewMoreBtn();
 
   async function getAllProduct() {
-    await axios.get('http://localhost:4000/product/discount')
+    await axios.get(`${ROOT_URL}/product/discount`)
       .then((result) => result.data && setProducts(result.data))
       .catch((err) => console.log(err));
   }
 
   async function getDicountedProductsByCategory() {
-    await axios.get(`http://localhost:4000/product/categories?discounted=true&category=${category}`)
+    await axios.get(`${ROOT_URL}/product/categories?discounted=true&category=${category}`)
       .then((result) => result.data && setProducts(result.data))
       .catch((err) => console.log(err));
   }

@@ -22,6 +22,7 @@ function CheckoutSuccees() {
 }
 
 export default function Checkout() {
+  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
   const [formValues, setFormValues] = useState({});
   const [isChecked, setIsChecked] = useState(false);
   const [isFormFilled, setIsFormFilled] = useState(false);
@@ -41,7 +42,7 @@ export default function Checkout() {
 
   useEffect(() => {
     async function getUserCart() {
-      const cartItems = await axios.get(`http://localhost:4000/cart/${userId}`)
+      const cartItems = await axios.get(`${ROOT_URL}/cart/${userId}`)
         .then((res) => res.data);
       if (cartItems) {
         cartItems.forEach((cartItem) => {
@@ -66,7 +67,7 @@ export default function Checkout() {
 
   function deleteUserCart() {
     async function deleteCart(cartId) {
-      await axios.delete(`http://localhost:4000/cart/${cartId}`)
+      await axios.delete(`${ROOT_URL}/cart/${cartId}`)
         .then((res) => console.log(res));
     }
     userCartProdId.forEach((cartId) => {
@@ -77,7 +78,7 @@ export default function Checkout() {
   async function completeCheckout(e) {
     e.preventDefault();
     const notes = localStorage.getItem('note');
-    const res = await axios.post('http://localhost:4000/orders', {
+    const res = await axios.post(`${ROOT_URL}/orders`, {
       userId,
       products: userCartProd,
       notes: JSON.parse(notes),

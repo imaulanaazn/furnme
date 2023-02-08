@@ -10,13 +10,14 @@ import { setCartTotal, removeCartTotal } from '../redux/slices/cartSlice';
 export default function InCartProduct({
   productId, qty, cartItems, setCartItems, index,
 }) {
+  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
   const dispatch = useDispatch();
   const [prodData, setProdData] = useState(null);
   const [quantity, setQuantity] = useState(qty);
 
   useEffect(() => {
     async function getProdData() {
-      await axios(`http://localhost:4000/product/${productId}`)
+      await axios(`${ROOT_URL}/product/${productId}`)
         .then(({ data }) => setProdData(data))
         .catch((err) => console.log(err));
     }
@@ -37,7 +38,7 @@ export default function InCartProduct({
 
   function removeProduct() {
     async function deleteProduct() {
-      await axios.delete(`http://localhost:4000/cart/${cartItems[index]._id}`)
+      await axios.delete(`${ROOT_URL}/cart/${cartItems[index]._id}`)
         .then(({ data }) => console.log(data))
         .catch((err) => console.log(err));
     }

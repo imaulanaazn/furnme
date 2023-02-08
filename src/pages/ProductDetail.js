@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 import validateToken from '../utils/validateToken';
 
 export default function ProductDetail() {
+  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
   const [furniture, setFurniture] = useState(null);
   const { id: productId } = useParams();
   const [prodQuantity, setProdQuantity] = useState('');
@@ -15,7 +16,7 @@ export default function ProductDetail() {
 
   useEffect(() => {
     async function getProductData() {
-      const { data } = await axios(`http://localhost:4000/product/${productId}`);
+      const { data } = await axios(`${ROOT_URL}/product/${productId}`);
       setFurniture(data);
     }
     getProductData();
@@ -41,7 +42,7 @@ export default function ProductDetail() {
           quantity: prodQuantity,
         },
       };
-      await axios.post('http://localhost:4000/cart', cartData)
+      await axios.post(`${ROOT_URL}/cart`, cartData)
         .then((res) => console.log(res))
         .catch((err) => console.log(err));
     } else {

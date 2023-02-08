@@ -9,11 +9,12 @@ import ShopScrollableCard from './ShopScrollableCard';
 import shopCardTotalSlide from '../utils/shopCardTotalSlide';
 
 export default function TopRated() {
+  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
   const totalSlide = shopCardTotalSlide();
   const [products, setProducts] = useState([]);
   useEffect(() => {
     async function getProducts() {
-      await axios.get('http://localhost:4000/product/toprated')
+      await axios.get(`${ROOT_URL}/product/toprated`)
         .then((result) => result.data && setProducts(result.data))
         .catch((err) => console.log(err));
     }

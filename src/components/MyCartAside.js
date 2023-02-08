@@ -6,12 +6,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function MyCartAside({ cartItems }) {
+  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [note, setNote] = useState('');
   const data = useSelector((state) => state.cart);
   async function updateCart(cartItem) {
-    const res = await axios.put(`http://localhost:4000/cart/${cartItem._id}`, {
+    const res = await axios.put(`${ROOT_URL}/cart/${cartItem._id}`, {
       products: {
         productId: cartItem.products.productId,
         quantity: cartItem.products.quantity,

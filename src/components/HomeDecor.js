@@ -4,10 +4,11 @@ import { useState } from 'react';
 import HomeDecorCard from './HomeDecorCard';
 
 export default function HomeDecor() {
+  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
   const [furnitures, setFurnitures] = useState(null);
 
   async function getFurnitures() {
-    const { data } = await axios('http://localhost:4000/product');
+    const { data } = await axios(`${ROOT_URL}/product`);
     setFurnitures(data);
   }
   getFurnitures();

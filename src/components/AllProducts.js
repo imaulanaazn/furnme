@@ -10,6 +10,7 @@ export default function AllProducts() {
   const [category, setCategory] = useState('');
   const [products, setProducts] = useState([]);
   const viewMoreBtn = useRef(null);
+  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
 
   const showMoreItems = () => {
     setVisible((prevValue) => prevValue + 4);
@@ -22,13 +23,13 @@ export default function AllProducts() {
   if (visible === products.length) hideViewMoreBtn();
 
   async function getAllProduct() {
-    await axios.get('http://localhost:4000/product')
+    await axios.get(`${ROOT_URL}/product`)
       .then((result) => result.data && setProducts(result.data))
       .catch((err) => console.log(err));
   }
 
   async function getProductsByCategory() {
-    await axios.get(`http://localhost:4000/product/categories?category=${category}`)
+    await axios.get(`${ROOT_URL}/product/categories?category=${category}`)
       .then((result) => result.data && setProducts(result.data))
       .catch((err) => console.log(err));
   }
