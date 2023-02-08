@@ -10,8 +10,9 @@ export default function AuthorizeUser({ children }) {
   useEffect(() => {
     async function authorization() {
       const token = Cookies.get('token');
-      if (token) {
-        await validateToken(token)
+      const decodedToken = atob(token);
+      if (decodedToken) {
+        await validateToken(decodedToken)
           .then((res) => {
             if (res.data.isTokenValid) {
               dispatch(setIsLogin({ isLogin: true }));

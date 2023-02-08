@@ -24,7 +24,8 @@ export default function Navbar(props) {
   useEffect(() => {
     async function getUserId() {
       const token = Cookies.get('token');
-      const data = await validateToken(token);
+      const decodedToken = atob(token);
+      const data = await validateToken(decodedToken);
       const id = data?.data?.user?.id;
       setUserId(id);
     }
@@ -34,10 +35,11 @@ export default function Navbar(props) {
   useEffect(() => {
     async function getUserCart() {
       const token = Cookies.get('token');
-      if (token && userId) {
+      const decodedToken = atob(token);
+      if (decodedToken && userId) {
         await axios.get(`${ROOT_URL}/cart/${userId}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${decodedToken}`,
           },
         })
           .then(({ data }) => setCartTotal(data))

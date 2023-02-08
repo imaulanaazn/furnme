@@ -12,13 +12,14 @@ export default function MyCart() {
   const [cartItems, setCartItems] = useState(null);
   const { id: userId } = useParams();
   const token = Cookies.get('token');
+  const decodedToken = atob(token);
 
   useEffect(() => {
     async function getUserCart() {
-      if (token) {
+      if (decodedToken) {
         await axios.get(`${ROOT_URL}/cart/${userId}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${decodedToken}`,
           },
         })
           .then(({ data }) => setCartItems(data))
