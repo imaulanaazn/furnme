@@ -98,7 +98,7 @@ export default function Navbar(props) {
 
         <div className="user_cart lg:w-40 lg:w-32 md:w-40 w-30 flex justify-between items-center md:flex-none flex-1">
           <img src={heart} className="w-5 h-5 xl:w-6 xl:h-6 lg:w-5 lg:h-5 md:h-7 md:w-7" alt="heart" />
-          <Link to={`/cart/${userId}`}>
+          <Link to={userId ? `/cart/${userId}` : '/auth'}>
             <div className="cart_icon flex items-center">
               <img src={cart} className="xl:w-5 xl:h-5 lg:w-4 lg:h-4 md:h-6 md:w-6 w-4 h-4" alt="cart" />
               <p className="lg:text-sm md:text-base mx-1 xl:mx-2 text-slate-700">CART</p>
