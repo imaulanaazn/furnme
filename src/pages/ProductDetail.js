@@ -44,8 +44,15 @@ export default function ProductDetail() {
         },
       };
       await axios.post(`${ROOT_URL}/cart`, cartData)
-        .then((res) => console.log(res))
+        .then((res) => {
+          if (res.status === 200) {
+            alert('product added');
+          } else {
+            alert('error happend, try again later');
+          }
+        })
         .catch((err) => console.log(err));
+      setProdQuantity('');
     } else {
       navigate('/auth');
     }
