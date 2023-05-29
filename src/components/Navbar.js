@@ -24,10 +24,12 @@ export default function Navbar(props) {
   useEffect(() => {
     async function getUserId() {
       const token = Cookies.get('token');
-      const decodedToken = atob(token);
-      const data = await validateToken(decodedToken);
-      const id = data?.data?.user?.id;
-      setUserId(id);
+      if (token) {
+        const decodedToken = atob(token);
+        const data = await validateToken(decodedToken);
+        const id = data?.data?.user?.id;
+        setUserId(id);
+      }
     }
     getUserId();
   }, []);
