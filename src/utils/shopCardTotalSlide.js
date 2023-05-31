@@ -5,10 +5,12 @@ const shopCardTotalSlide = () => {
 
   window.addEventListener('resize', () => setScreenWidth(window.outerWidth));
   let totalSlide = 0;
-  if (screenWidth >= 1024) {
+  if (screenWidth > 1024) {
     totalSlide = 4;
-  } else if (screenWidth >= 768) {
+  } else if (screenWidth > 768) {
     totalSlide = 3;
+  } else if (screenWidth > 375) {
+    totalSlide = 2;
   } else {
     totalSlide = 1;
   }

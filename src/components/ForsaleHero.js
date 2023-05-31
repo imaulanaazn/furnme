@@ -12,7 +12,7 @@ import banner3 from '../assets/img/banner3.webp';
 
 export default function ForsaleHero() {
   return (
-    <div className="showcase-wrapper w-full md:h-96 h-48 md:my-10 my-5">
+    <div className="forsale-hero w-full md:h-96 h-48 md:my-10 my-5">
       <div className="swiper mySwiper md:w-11/12 lg:w-10/12 w-full h-full">
         <Swiper
           autoplay={{

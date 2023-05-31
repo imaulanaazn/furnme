@@ -1,6 +1,6 @@
 
 
-  .swiper-slide {
+  .top_rated .swiper-slide, .category .swiper-slide {
     text-align: center;
     font-size: 18px;
     /* Center slide text vertically */
@@ -18,7 +18,7 @@
     align-items: center;
   }
 
-  .swiper-slide img {
+  .top_rated .swiper-slide img, .category .swiper-slide img {
     display: block;
     width: 100%;
     height: 100%;
