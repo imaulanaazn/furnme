@@ -6,12 +6,12 @@ export default function TrendingProductsCard({
 }) {
   const priceRef = useRef();
   return (
-    <div className={`card bg-orange-100 h-96 w-full md:py-10 md:px-8 py-8 px-6 rounded-xl ${colSpan}`}>
-      <div className="home_decor_thumb h-3/5 w-full relative">
+    <div className={`card bg-orange-100 h-96 w-full md:py-8 md:px-7 sm:py-7 sm:px-6 py-8 px-6 rounded-xl ${colSpan}`}>
+      <div className="home_decor_thumb h-4/6 w-full relative">
         <img src={thumb} className="h-full m-auto" alt="" />
       </div>
 
-      <div className="h-2/5 w-full flex flex-col justify-end gap-y-2 ">
+      <div className="h-2/6 w-full flex flex-col justify-end sm:gap-y-2 gap-y-2 ">
         <h3 className="max-w-1/2 lg:text-lg md:text-xl text-base text-left font-semibold">{name}</h3>
         <div className="flex justify-between">
           {/* eslint-disable-next-line no-restricted-globals */}
