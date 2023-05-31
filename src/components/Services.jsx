@@ -19,25 +19,25 @@ export default function Services() {
         </p>
       </div>
       <div className="xl:w-2/5 lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 lg:gap-3 gap-4">
-        <div className="bg-gray-800 flex flex-col justify-center xl:h-48 lg:h-52 md:h-72 sm:h-64 h-80 lg:p-4 p-7 text-white text-center">
+        <div className="bg-orange-100 flex flex-col justify-center xl:h-48 lg:h-52 md:h-72 sm:h-64 h-80 lg:p-4 p-7 text-orange-800 text-center">
           <i className="mb-5 fa-solid fa-certificate lg:text-4xl sm:text-6xl text-5xl" />
           <p className="md:text-base sm:text-lg">
             Easily Warranty Digitaly With E-Warranty
           </p>
         </div>
-        <div className="bg-gray-200 flex flex-col justify-center xl:h-48 lg:h-52 md:h-72 sm:h-64 h-80 lg:p-4 p-7 text-center">
+        <div className="bg-orange-50 flex flex-col justify-center xl:h-48 lg:h-52 md:h-72 sm:h-64 h-80 lg:p-4 p-7 text-center">
           <i className="mb-5 fa-solid fa-truck-fast lg:text-4xl sm:text-6xl text-5xl" />
           <p className="md:text-base sm:text-lg">
             Free Shipping and Installation Fees
           </p>
         </div>
-        <div className="sm:bg-gray-200 bg-gray-800 flex flex-col justify-center xl:h-48 lg:h-52 md:h-72 sm:h-64 h-80 lg:p-4 p-7 text-center sm:text-black text-white">
+        <div className="sm:bg-orange-50 bg-orange-100 flex flex-col justify-center xl:h-48 lg:h-52 md:h-72 sm:h-64 h-80 lg:p-4 p-7 text-center sm:text-black text-orange-800">
           <i className="mb-5 fa-solid fa-money-bill-transfer lg:text-4xl sm:text-6xl text-5xl" />
           <p className="md:text-base sm:text-lg">
             100% Satisfication Guarantee
           </p>
         </div>
-        <div className="sm:bg-gray-800 bg-gray-200 flex flex-col justify-center xl:h-48 lg:h-52 md:h-72 sm:h-64 h-80 lg:p-4 p-7 sm:text-white text-black text-center">
+        <div className="sm:bg-orange-100 bg-orange-50 flex flex-col justify-center xl:h-48 lg:h-52 md:h-72 sm:h-64 h-80 lg:p-4 p-7 sm:text-orange-800 text-black text-center">
           <i className="mb-5 fa-solid fa-pen-ruler lg:text-4xl sm:text-6xl text-5xl" />
           <p className="md:text-base sm:text-lg">
             Free Design Interior Service
