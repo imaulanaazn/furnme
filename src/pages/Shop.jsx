@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 // import TopRated from '../components/TopRated';
 import Products from '../components/Products';
 import Recommendation from '../components/Recommendation';
+import RecentlyViewed from '../components/RecentlyViewed';
 // import Category from '../components/Category';
 
 export default function Shop() {
@@ -13,6 +14,7 @@ export default function Shop() {
       {/* <TopRated /> */}
       <Recommendation />
       <Products />
+      <RecentlyViewed />
       {/* <Category /> */}
       <Footer />
     </>
