@@ -45,7 +45,7 @@ export default function AllProducts() {
   console.log(products);
 
   return (
-    <section className="our-product w-full md:px-12 sm:px-10 px-6 pt-48">
+    <section className="our-product w-full md:px-12 sm:px-10 px-6 mt-36">
       <h1 className="text-left font-bold lg:text-2xl md:text-3xl sm:text-2xl text-xl mb-5">Products</h1>
       <p className="md:text-lg text-base flex-1">Discover Endless Possibilities: Elevate Your Space with Exquisite Furniture Creations</p>
 
