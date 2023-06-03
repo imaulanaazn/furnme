@@ -4,12 +4,15 @@ import { useSelector } from 'react-redux';
 import Shop from './pages/Shop';
 import Home from './pages/Home';
 import About from './pages/About';
-import Forsale from './pages/Forsale';
 import Auth from './pages/Auth';
 import MyCart from './pages/MyCart';
 import ProductDetail from './pages/ProductDetail';
 import Checkout from './pages/Checkout';
 import Success from './pages/Success';
+// eslint-disable-next-line import/no-unresolved
+import 'swiper/css';
+// eslint-disable-next-line import/no-unresolved
+import 'swiper/css/pagination';
 
 function App() {
   const { isLogin } = useSelector((state) => state.auth);
@@ -19,7 +22,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/shop" element={<Shop />} />
-        <Route path="/forsale" element={<Forsale />} />
         <Route path="/auth" element={isLogin ? <Navigate to="/" /> : <Auth />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/success" element={<Success />} />

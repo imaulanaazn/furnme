@@ -82,7 +82,6 @@ export default function Navbar(props) {
           <ul className="md:flex md:flex-row flex-col md:h-auto h-0 md:group-hover:h-auto group-hover:h-14 overflow-hidden transition-all duration-500 md:w-auto w-11/12">
             <li className="mx-4 xl:mx-5 text-sm lg:text-sm md:text-lg text-slate-600 lg:block md:block"><Link to="/">HOME</Link></li>
             <li className="mx-4 xl:mx-5 text-sm lg:text-sm md:text-lg text-slate-600 lg:block md:block"><Link to="/shop">SHOP</Link></li>
-            <li className="mx-4 xl:mx-5 text-sm lg:text-sm md:text-lg text-slate-600 lg:block md:block"><Link to="/forsale">FORSALE</Link></li>
           </ul>
         </div>
 
@@ -129,12 +128,6 @@ export default function Navbar(props) {
               <a href="/#">
                 <i className="fa-solid fa-cart-shopping pr-3" />
                 Shop
-              </a>
-            </li>
-            <li className="my-2 p-1">
-              <a href="/#">
-                <i className="fa-solid fa-percent pr-3" />
-                Forsale
               </a>
             </li>
           </ul>
