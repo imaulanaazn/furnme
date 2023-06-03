@@ -14,7 +14,6 @@ export default function Footer() {
           <ul>
             <li className="my-1"><a href="/" className="lg:text-sm md:text-base ">Home</a></li>
             <li className="my-1"><a href="shop" className="lg:text-sm md:text-base ">Shop</a></li>
-            <li className="my-1"><a href="forsale" className="lg:text-sm md:text-base ">Forsale</a></li>
             <li className="my-1"><a href="about" className="lg:text-sm md:text-base ">About</a></li>
             <li className="my-1"><a href="#contact" className="lg:text-sm md:text-base ">Contact</a></li>
             <li className="my-1"><a href="signform" className="lg:text-sm md:text-base ">Signin</a></li>
