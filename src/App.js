@@ -9,6 +9,10 @@ import MyCart from './pages/MyCart';
 import ProductDetail from './pages/ProductDetail';
 import Checkout from './pages/Checkout';
 import Success from './pages/Success';
+// eslint-disable-next-line import/no-unresolved
+import 'swiper/css';
+// eslint-disable-next-line import/no-unresolved
+import 'swiper/css/pagination';
 
 function App() {
   const { isLogin } = useSelector((state) => state.auth);
