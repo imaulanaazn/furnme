@@ -1,8 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
-import Shop from './pages/Shop';
 import Home from './pages/Home';
+import Shop from './pages/Shop';
+import Forsale from './pages/Forsale';
 import About from './pages/About';
 import Auth from './pages/Auth';
 import MyCart from './pages/MyCart';
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/forsale" element={<Forsale />} />
         <Route path="/auth" element={isLogin ? <Navigate to="/" /> : <Auth />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/success" element={<Success />} />
