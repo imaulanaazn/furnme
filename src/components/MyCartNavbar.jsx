@@ -4,7 +4,6 @@ import logo from '../assets/img/logo.webp';
 export default function MyCartNavbar() {
   return (
     <header className="w-full absolute px-4 pt-3 top-0 left-0 z-10 bg-white lg:w-2/3 lg:px-12 md:px-10 md:pt-3">
-
       <nav className="lg:py-7 py-4 flex justify-between items-center">
         <div className="logo">
           <Link to="/" className="flex items-center">

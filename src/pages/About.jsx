@@ -19,9 +19,9 @@ ServicesAndClients.propTypes = {
 export default function About() {
   return (
     <>
-      <Navbar position="static" bg="white" />
+      <Navbar />
 
-      <main className="py-12 w-full lg:pl-52 md:px-36 px-8 bg-orange-200 relative border-y-2 border-dashed border-slate-600">
+      <main className="lg:pt-64 md:pt-52 pt-44 pb-12 w-full lg:pl-52 md:px-24 sm:px-20 px-4 bg-orange-100 relative">
         <h1 className="md:w-96 font-extrabold lg:text-2xl md:text-3xl text-xl">An abstract and personal approach, defined by a mood of feeling</h1>
         <h2 className="font-black text-right lg:text-9xl md:text-7xl text-5xl ml-auto w-full mt-6 mb-12">About</h2>
         <h1 className="lg:w-72 md:w-80 font-bold lg:text-xl md:text-2xl text-lg">With our tastefull crew, we created a product with high taste of art and functionality, high quality is one of our highlighted aspect and cheap price is our prioritise.</h1>
@@ -44,7 +44,7 @@ export default function About() {
             <ServicesAndClients text="amet" />
           </ul>
           <img src={highChair} className="hidden lg:block absolute bottom-0 right-0 w-1/2" alt="chair" />
-          <img src={lineDecor} className="hidden lg:block absolute top-0 left-0 w-20 translate-x-3/4" alt="decorative line" />
+          <img src={lineDecor} className="hidden lg:block absolute top-40 left-0 w-20 translate-x-3/4" alt="decorative line" />
         </div>
       </main>
 
