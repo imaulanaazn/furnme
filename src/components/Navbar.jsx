@@ -26,7 +26,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="w-full overflow-x-clip xl:px-20 lg:px-12 md:px-16 md:pt-5 sm:px-10 px-4 pt-3 absolute top-0 left-0 z-10 bg-white">
+    <header className="w-full overflow-x-clip xl:px-20 lg:px-12 md:px-16 md:pt-5 sm:px-10 px-6 pt-3 absolute top-0 left-0 z-10 bg-white">
 
       {/* TOP MENU */}
       <div className="secondary_menu w-full border-b border-solid border-slate-300">
