@@ -3,20 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import logo from '../assets/img/logo.webp';
-import heart from '../assets/img/heart.webp';
-import cart from '../assets/img/shopping-cart.webp';
 import { setIsLogin } from '../redux/slices/auth';
 import validateToken from '../utils/validateToken';
 
-export default function Navbar(props) {
+export default function Navbar() {
   const dispatch = useDispatch();
   const [userId, setUserId] = useState('');
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
   const { isLogin } = useSelector((state) => state.auth);
-  const {
-    // eslint-disable-next-line react/prop-types
-    position = 'absolute',
-  } = props;
 
   useEffect(() => {
     async function getUserId() {
@@ -32,10 +26,11 @@ export default function Navbar(props) {
   }, []);
 
   return (
-    <header className={`w-full overflow-x-clip lg:px-12 md:px-10 md:pt-5 px-4 pt-3 ${position} top-0 left-0 z-10 bg-white`}>
+    <header className="w-full overflow-x-clip xl:px-20 lg:px-12 md:px-16 md:pt-5 sm:px-10 px-4 pt-3 absolute top-0 left-0 z-10 bg-white">
 
       {/* TOP MENU */}
       <div className="secondary_menu w-full border-b border-solid border-slate-300">
+        {/* TOP MENU - ABOUT & CONTACT */}
         <ul className="w-full flex justify-between py-2">
           <li>
             <ul className="flex">
@@ -43,6 +38,8 @@ export default function Navbar(props) {
               <li><a href="#contact" className="text-xs lg:text-xs md:text-base text-slate-500 ml-4 xl:ml-6">CONTACT</a></li>
             </ul>
           </li>
+
+          {/* TOP MENU - AUTH PAGE */}
           <li>
             <ul className="flex">
               <li className={`${isLogin ? 'hidden' : ''}`}>
@@ -71,6 +68,7 @@ export default function Navbar(props) {
 
       {/* BOTTOM MENU */}
       <nav className="lg:py-7 py-4 flex justify-between md:items-center items-start">
+        {/* BOTTOM MENU - LOGO */}
         <div className="logo sm:flex-1 flex-0">
           <a href="/#" className="flex items-center" onClick={(event) => { event.preventDefault(); }}>
             <img src={logo} className="xl:w-8 md:w-10 w-6" alt="logo" />
@@ -78,6 +76,7 @@ export default function Navbar(props) {
           </a>
         </div>
 
+        {/* BOTTOM MENU - MAIN MENU */}
         <div className="main_menu group flex-1 lg:flex hidden flex-col items-center text-center">
           <ul className="md:flex md:flex-row flex-col md:h-auto h-0 md:group-hover:h-auto group-hover:h-14 overflow-hidden transition-all duration-500 md:w-auto w-11/12">
             <li className="mx-4 xl:mx-5 text-sm lg:text-sm md:text-lg text-slate-600 lg:block md:block"><Link to="/">HOME</Link></li>
@@ -86,30 +85,34 @@ export default function Navbar(props) {
           </ul>
         </div>
 
+        {/* BOTTOM MENU - USER ACT */}
         <div className="act flex justify-between items-center flex-1 gap-4">
-          <div className="search-bar max-w-xs sm:w-auto w-9/12 ml-auto">
-            <div className="flex items-center">
-              <input className="appearance-none border-b border-gray-500 w-full text-gray-700 py-2 px-3 leading-tight focus:outline-none mr-3" type="text" placeholder="Search..." />
-              <button className="flex-shrink-0 bg-orange-300 hover:bg-orange-400 text-sm border-none text-white md:py-2 md:px-3 py-1 px-2 rounded" type="button">
-                <i className="fa-solid fa-magnifying-glass text-white md:text-lg text-base" />
-              </button>
-            </div>
+          <div className="search-bar max-w-xs sm:w-auto w-9/12 ml-auto flex items-center bg-orange-50 rounded">
+            <input className="appearance-none w-full text-gray-800 py-2 px-3 leading-tight focus:outline-none mr-3 bg-transparent" type="text" placeholder="search..." />
+            <button className="flex-shrink-0 bg-orange-300 hover:bg-orange-400 text-sm border-none text-white md:py-2 md:px-3 py-1 px-2 rounded" type="button">
+              <i className="fa-solid fa-magnifying-glass text-white md:text-lg text-base" />
+            </button>
           </div>
           <button type="button" onClick={() => { setMobileMenuVisible(!mobileMenuVisible); }} className="lg:hidden inline">
             <i className="fa-solid fa-bars text-xl" />
           </button>
-          <img src={heart} className="lg:block hidden w-5 h-5 xl:w-6 xl:h-6 lg:w-5 lg:h-5 md:h-7 md:w-7" alt="heart" />
+          <Link to="/" className="lg:block hidden">
+            <i className="fa-solid fa-heart text-xl text-rose-500" />
+          </Link>
           <Link to={userId ? `/cart/${userId}` : '/auth'} className="lg:inline hidden">
             <div className="cart_icon flex items-center">
-              <img src={cart} className="xl:w-5 xl:h-5 lg:w-4 lg:h-4 md:h-6 md:w-6 w-4 h-4" alt="cart" />
+              <i className="fa-solid fa-cart-shopping text-xl text-orange-300" />
             </div>
           </Link>
         </div>
       </nav>
 
       {/* MAIN MENU ON MOBILE */}
-      <div className={`mobile-menu w-full h-screen lg:hidden flex absolute top-0 right-0 z-10 transition-all duration-400 ${mobileMenuVisible ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="mobile-menu_backdrop bg-black opacity-20 sm:w-2/5 w-1/5" />
+      <div className={`mobile-menu w-full h-screen lg:hidden z-50 flex absolute top-0 right-0 z-10 transition-all duration-400 ${mobileMenuVisible ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div
+          className="mobile-menu_backdrop bg-black opacity-20 sm:w-2/5 w-1/5"
+          onClick={() => { setMobileMenuVisible(!mobileMenuVisible); }}
+        />
         <div className="mobile-menu_lists sm:w-3/5 w-4/5 px-6 py-7 bg-white">
           <button
             type="button"
@@ -120,20 +123,32 @@ export default function Navbar(props) {
           </button>
           <ul className="text-center">
             <li className="my-2 p-1">
-              <a href="/">
+              <a href="/" className="text-orange-300">
+                <i className="fa-solid fa-cart-shopping pr-3" />
+                My Cart
+              </a>
+            </li>
+            <li className="my-2 p-1">
+              <a href="/" className="text-orange-300">
+                <i className="fa-solid fa-heart pr-3" />
+                Likes
+              </a>
+            </li>
+            <li className="my-2 p-1">
+              <a href="/" className="text-orange-300">
                 <i className="fa-solid fa-house pr-3" />
                 Home
               </a>
             </li>
             <li className="my-2 p-1">
-              <a href="/shop">
-                <i className="fa-solid fa-cart-shopping pr-3" />
+              <a href="/shop" className="text-orange-300">
+                <i className="fa-solid fa-store pr-3" />
                 Shop
               </a>
             </li>
             <li className="my-2 p-1">
-              <a href="/featured">
-                <i className="fa-solid fa-cart-shopping pr-3" />
+              <a href="/featured" className="text-orange-300">
+                <i className="fa-solid fa-tags pr-3" />
                 Forsale
               </a>
             </li>
