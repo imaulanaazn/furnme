@@ -44,7 +44,7 @@ export default function AllProducts() {
 
   return (
     <section className="our-products w-full xl:px-20 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12">
-      <h1 className="text-left font-bold md:text-2xl sm:text-xl text-lg mb-5">Products</h1>
+      <h1 className="text-left font-bold lg:text-2xl md:text-3xl sm:text-2xl text-xl mb-5">Products</h1>
       <p className="md:text-lg text-base flex-1">Discover Endless Possibilities: Elevate Your Space with Exquisite Furniture Creations</p>
 
       {/* <AllProductsNavbar setCategory={setCategory} className="hidden" /> */}
