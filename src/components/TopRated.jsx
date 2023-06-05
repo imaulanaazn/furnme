@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'swiper/css';
 import ShopScrollableCard from './ShopScrollableCard';
-import shopCardTotalSlide from '../utils/shopCardTotalSlide';
+import totalCards from '../utils/totalCards';
 
 export default function TopRated() {
   const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
-  const totalSlide = shopCardTotalSlide();
+  const cardsPerPage = totalCards({
+    xl: 5, lg: 4, md: 3, sm: 2, xs: 1,
+  });
   const [products, setProducts] = useState([]);
   useEffect(() => {
     async function getProducts() {
@@ -29,7 +31,7 @@ export default function TopRated() {
         <Swiper
           className="swiper-wrapper"
           spaceBetween={15}
-          slidesPerView={totalSlide}
+          slidesPerView={cardsPerPage}
         >
           {products && products.map((product) => (
             <SwiperSlide className="swiper-slide flex items-center justify-center bg-slate-200 " key={product._id}>

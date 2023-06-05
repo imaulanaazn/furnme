@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <>
 
-      <footer className="grid lg:grid-cols-4 md:text-center grid-cols-2 gap-x-6 gap-y-6 lg:gap-y-0 py-14 xl:px-20 lg:px-12 md:px-16 sm:px-10 px-4">
+      <footer className="grid lg:grid-cols-4 md:text-center grid-cols-2 gap-x-6 gap-y-6 lg:gap-y-0 py-14 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12">
         <div className="subs col-span-2 md:col-span-1 ml-auto flex flex-col">
           <h1 className="font-bold  lg:tex-base md:text-lg text-slate-700 mb-4">Subscribe</h1>
           <p className="lg:text-sm md:text-base text-slate-600">Subscribe to our newsletter to be the first to hear about new arrivals, sales and special offers!</p>

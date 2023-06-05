@@ -1,9 +1,9 @@
 export default function Services() {
   return (
-    <div className="services-container flex lg:flex-row flex-col xl:gap-48 lg:gap-38 gap-10 lg:px-12 sm:px-10 px-6 my-20">
+    <div className="services-container flex lg:flex-row flex-col xl:gap-48 lg:gap-38 gap-10 xl:px-20 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12">
       <div className="services-text xl:w-3/5 lg:w-1/2">
         <h1 className="font-extrabold lg:text-5xl sm:text-5xl text-3xl mb-10">ALTAR</h1>
-        <h2 className="font-bold sm:text-xl text-lg mb-5">Services</h2>
+        <h2 className="font-bold md:text-2xl sm:text-xl text-lg mb-5">Services</h2>
         <p className="text-slate-600 lg:text-base sm:text-lg mb-5">
           Through our services, we strive to provide our customers with satisfication.
           At Furnme, you can get free delivery installation services with a certain minimum

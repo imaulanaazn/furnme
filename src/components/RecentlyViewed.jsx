@@ -1,16 +1,18 @@
 /* eslint-disable import/no-unresolved */
 import { Swiper, SwiperSlide } from 'swiper/react';
-import shopCardTotalSlide from '../utils/shopCardTotalSlide';
+import totalCards from '../utils/totalCards';
 
 export default function RecentlyViewed() {
-  const totalSlide = shopCardTotalSlide();
+  const cardsPerPage = totalCards({
+    xl: 5, lg: 4, md: 3, sm: 2, xs: 1,
+  });
   return (
     <section className="our-product w-full md:px-12 sm:px-10 px-6 my-32">
       <h1 className="text-left font-bold lg:text-2xl md:text-3xl sm:text-2xl text-xl mb-5">Recently Viewed</h1>
       <Swiper
         className="swiper-wrapper"
         spaceBetween={20}
-        slidesPerView={totalSlide + 0.5}
+        slidesPerView={cardsPerPage}
       >
         <SwiperSlide>
           <div className="item w-full overflow-hidden">

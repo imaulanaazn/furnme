@@ -14,9 +14,9 @@ export default function TrendingProducts() {
   getFurnitures();
 
   return (
-    <section className="home_decor lg:px-12 sm:px-10 px-6 text-center my-20">
-      <h1 className="lg:text-2xl md:text-2xl sm:text-xl text-lg font-bold text-center my-4">Trending Products</h1>
-      <p className="lg:text-base md:text-xl sm:text-lg font-normal text-slate-600 text-center lg:w-3/4 w-full mb-10 mx-auto sm:max-w-[34rem] max-w-[28rem]">
+    <section className="trending_products text-center xl:px-20 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12">
+      <h1 className="md:text-2xl sm:text-xl text-lg font-bold text-center my-4">Trending Products</h1>
+      <p className="lg:text-base sm:text-lg font-normal text-slate-600 text-center lg:w-3/4 w-full mb-10 mx-auto sm:max-w-[34rem] max-w-[28rem]">
         Lorem ipsum iat optio totam mollitia atquefacilis
         eligendi quibusdam amet, commodi hic iste! Assumenda!
       </p>
