@@ -8,7 +8,7 @@ import banner3 from '../assets/img/forsale-banner-3.jpg';
 
 export default function DiscountedProdSlide() {
   return (
-    <div className="forsale-hero w-full md:h-96 h-48 md:my-10 my-5 lg:px-12 md:px-10 px-4">
+    <div className="forsale-hero w-full md:h-96 h-48 xl:px-20 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12">
       <div className="swiper mySwiper w-full h-full">
         <Swiper
           autoplay={{
