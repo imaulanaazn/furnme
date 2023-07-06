@@ -10,7 +10,7 @@ import SpecialDiscount from '../components/SpecialDiscount';
 export default function Home() {
   return (
     <>
-      <Navbar bg="bg-white" />
+      <Navbar />
       <HomeHero />
       <LookingForProducts />
       <SpecialDiscount />
