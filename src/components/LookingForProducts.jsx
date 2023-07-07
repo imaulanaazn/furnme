@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from 'react';
 import { getCategories } from '../utils/fetchData';
 
@@ -21,7 +22,7 @@ export default function LookingForProducts() {
       <div className="products_wrapper md:my-12 my-7 grid xl:grid-cols-7 lg:grid-cols-6 sm:grid-cols-4 grid-cols-3 sm:gap-3 gap-2">
         {
           categories.map((category) => (
-            <div className="item w-full overflow-hidden">
+            <div className="item w-full overflow-hidden" key={category._id}>
               <a href="/#">
                 <div className="thumb group relative w-full pb-[100%] bg-slate-200 bg-cover rounded-lg hover:brightness-75 transition-all duration-400" style={{ backgroundImage: `url(${category.thumbnail})` }}>
                   <p className="absolute z-10 text-white top-3/4 left-1/2 -translate-x-1/2 md:text-base text-sm w-max">{category.name}</p>
