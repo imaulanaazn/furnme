@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getCategories } from '../utils/fetchData';
 
 export default function LookingForProducts() {
-  const [categories, setCategories] = useState('');
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
     async function callApi() {
       const res = await getCategories();
@@ -20,7 +20,7 @@ export default function LookingForProducts() {
       <h1 className="md:text-2xl sm:text-xl text-lg font-bold text-center my-4">What Are You Looking For?</h1>
       <div className="products_wrapper md:my-12 my-7 grid xl:grid-cols-7 lg:grid-cols-6 sm:grid-cols-4 grid-cols-3 sm:gap-3 gap-2">
         {
-          categories?.map((category) => (
+          categories.map((category) => (
             <div className="item w-full overflow-hidden">
               <a href="/#">
                 <div className="thumb group relative w-full pb-[100%] bg-slate-200 bg-cover rounded-lg hover:brightness-75 transition-all duration-400" style={{ backgroundImage: `url(${category.thumbnail})` }}>
