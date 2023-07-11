@@ -20,6 +20,8 @@ export default function SpecialDiscount() {
     callAPI();
   }, []);
 
+  console.log(specialDiscountData);
+
   return (
     <section className="our-product w-full xl:px-20 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12">
       <h1 className="md:text-2xl sm:text-xl text-lg font-bold text-center mb-12">Special Discount</h1>
@@ -29,7 +31,7 @@ export default function SpecialDiscount() {
         slidesPerView={cardsPerPage}
       >
         {
-          specialDiscountData.map((data) => (
+          specialDiscountData?.map((data) => (
             <SwiperSlide key={data._id}>
               <div className="item w-full overflow-hidden">
                 <a href="/#">

@@ -5,7 +5,7 @@ import TrendingProductsCard from './TrendingProductsCard';
 
 export default function TrendingProducts() {
   const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
-  const [furnitures, setFurnitures] = useState(null);
+  const [furnitures, setFurnitures] = useState([]);
 
   async function getFurnitures() {
     const { data } = await axios(`${ROOT_URL}/product`);
