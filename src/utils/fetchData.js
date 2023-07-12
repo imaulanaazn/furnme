@@ -40,4 +40,23 @@ async function getSpecialDiscount() {
   }
 }
 
-export { getCategories, getSpecialDiscount };
+async function getTrendingProducts() {
+  try {
+    const res = await axios.get(`${ROOT_URL}/products/trending`);
+    const { data } = res;
+
+    return {
+      success: true,
+      data,
+      message: 'data retreived successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'failed to retreive data',
+    };
+  }
+}
+
+export { getCategories, getSpecialDiscount, getTrendingProducts };

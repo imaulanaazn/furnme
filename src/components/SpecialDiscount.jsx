@@ -14,7 +14,7 @@ export default function SpecialDiscount() {
   useEffect(() => {
     async function callAPI() {
       await getSpecialDiscount()
-        .then((res) => setSpecialDiscountData(res.data))
+        .then((res) => setSpecialDiscountData(res?.data))
         .catch((err) => console.log(err));
     }
     callAPI();
@@ -35,14 +35,18 @@ export default function SpecialDiscount() {
             <SwiperSlide key={data._id}>
               <div className="item w-full overflow-hidden">
                 <a href="/#">
-                  <div className="thumb group relative w-full pb-[100%] bg-slate-200 bg-cover rounded-lg hover:brightness-75 transition-all duration-400" style={{ backgroundImage: `url(${data.images[0]})` }}>
-                    <i className="fa-solid fa-tags pr-3 absolute top-0 left-0 md:text-3xl text-2xl" />
-
-                  </div>
+                  <div className="thumb group w-full pb-[100%] bg-slate-200 bg-cover rounded-lg hover:brightness-75 transition-all duration-400" style={{ backgroundImage: `url(${data.images[0]})` }} />
                 </a>
                 <div className="product_detail mt-4">
                   <div className="name-price flex justify-between items-start">
-                    <p className="text-left lg:text-sm md:text-lg text-base font-semibold">{data.name}</p>
+                    <p className="text-left lg:text-sm md:text-lg text-base font-semibold">
+                      {data.name}
+                      <br />
+                      <span className="text-rose-700 text-sm">
+                        {data.discount}
+                        %
+                      </span>
+                    </p>
                     <p className="text-left lg:text-sm md:text-lg text-base font-semibold">
                       $
                       {data.price - ((data.price * data.discount) / 100)}
@@ -61,7 +65,9 @@ export default function SpecialDiscount() {
                       <i className="fa-solid fa-star md:text-base sm:text-lg text-sm text-yellow-500" />
                       <i className="fa-solid fa-star md:text-base sm:text-lg text-sm text-yellow-500" />
                     </div>
-                    <i className="fa-solid fa-cart-shopping lg:text-2xl md:text-xl text-lg bg-orange-200 py-1 px-2 rounded-md text-orange-800" />
+                    <button type="button">
+                      <i className="fa-solid fa-cart-shopping lg:text-2xl md:text-xl text-lg bg-orange-200 py-1 px-2 rounded-md text-orange-800" />
+                    </button>
                   </div>
                 </div>
               </div>

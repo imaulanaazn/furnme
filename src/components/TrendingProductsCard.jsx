@@ -8,7 +8,9 @@ export default function TrendingProductsCard({
   return (
     <div className={`card bg-orange-100 h-96 w-full md:py-8 md:px-7 sm:py-7 sm:px-6 py-8 px-6 ${colSpan}`}>
       <div className="home_decor_thumb h-4/6 w-full relative">
-        <img src={thumb} className="h-full m-auto" alt="" />
+        <a href="/#">
+          <img src={thumb} className="h-full m-auto" alt="" />
+        </a>
       </div>
 
       <div className="h-2/6 w-full flex flex-col justify-end sm:gap-y-2 gap-y-2 ">

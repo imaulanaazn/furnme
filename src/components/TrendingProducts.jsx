@@ -1,17 +1,19 @@
 /* eslint-disable no-underscore-dangle */
-import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TrendingProductsCard from './TrendingProductsCard';
+import { getTrendingProducts } from '../utils/fetchData';
 
 export default function TrendingProducts() {
-  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
-  const [furnitures, setFurnitures] = useState([]);
+  const [trendingProducts, setTrendingProducts] = useState([]);
 
-  async function getFurnitures() {
-    const { data } = await axios(`${ROOT_URL}/product`);
-    setFurnitures(data);
-  }
-  getFurnitures();
+  useEffect(() => {
+    async function getData() {
+      await getTrendingProducts()
+        .then((res) => setTrendingProducts(res?.data))
+        .catch((err) => console.log(err));
+    }
+    getData();
+  }, []);
 
   return (
     <section className="trending_products text-center xl:px-20 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12">
@@ -21,24 +23,24 @@ export default function TrendingProducts() {
         eligendi quibusdam amet, commodi hic iste! Assumenda!
       </p>
       <div className="grid_wrapper flex flex-col sm:grid lg:grid-cols-4 grid-cols-2 grid-rows-2 lg:gap-2 gap-5 justify-content-center">
-        {furnitures?.slice(0, 7).map((furniture, i) => (
+        {trendingProducts?.map((product, i) => (
           i === 4 ? (
             <TrendingProductsCard
-              key={furniture._id}
-              thumb={furniture.img}
-              id={`${furniture._id}`}
-              name={furniture.title}
-              price={furniture.price}
+              key={product._id}
+              thumb={product.images[0]}
+              id={`${product._id}`}
+              name={product.name}
+              price={product.price}
               colSpan="col-span-2"
             />
           )
             : (
               <TrendingProductsCard
-                key={furniture._id}
-                thumb={furniture.img}
-                id={`${furniture._id}`}
-                name={furniture.title}
-                price={furniture.price}
+                key={product._id}
+                thumb={product.images[0]}
+                id={`${product._id}`}
+                name={product.name}
+                price={product.price}
                 colSpan="col-span-1"
               />
             )
