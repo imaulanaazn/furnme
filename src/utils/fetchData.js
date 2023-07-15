@@ -59,4 +59,27 @@ async function getTrendingProducts() {
   }
 }
 
-export { getCategories, getSpecialDiscount, getTrendingProducts };
+async function getRecommendedProducts(userId) {
+  try {
+    const res = (await axios.get(`${ROOT_URL}/products/recommended`, {
+      headers: { userid: userId },
+    }));
+    const { data } = res;
+
+    return {
+      success: true,
+      data,
+      message: 'data retreived successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'failed to retreive data',
+    };
+  }
+}
+
+export {
+  getCategories, getSpecialDiscount, getTrendingProducts, getRecommendedProducts,
+};
