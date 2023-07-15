@@ -2,6 +2,7 @@
 /* eslint-disable import/no-unresolved */
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import totalCards from '../utils/totalCards';
 import { getSpecialDiscount } from '../utils/fetchData';
 
@@ -20,8 +21,6 @@ export default function SpecialDiscount() {
     callAPI();
   }, []);
 
-  console.log(specialDiscountData);
-
   return (
     <section className="our-product w-full xl:px-20 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12">
       <h1 className="md:text-2xl sm:text-xl text-lg font-bold text-center mb-12">Special Discount</h1>
@@ -34,9 +33,9 @@ export default function SpecialDiscount() {
           specialDiscountData?.map((data) => (
             <SwiperSlide key={data._id}>
               <div className="item w-full overflow-hidden">
-                <a href="/#">
+                <Link to={`/product/${data._id}`}>
                   <div className="thumb group w-full pb-[100%] bg-slate-200 bg-cover rounded-lg hover:brightness-75 transition-all duration-400" style={{ backgroundImage: `url(${data.images[0]})` }} />
-                </a>
+                </Link>
                 <div className="product_detail mt-4">
                   <div className="name-price flex justify-between items-start">
                     <p className="text-left lg:text-sm md:text-lg text-base font-semibold">
