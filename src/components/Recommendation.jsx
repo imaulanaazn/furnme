@@ -21,8 +21,6 @@ export default function Recommendation() {
     callApi();
   }, []);
 
-  console.log(recommendedProducts);
-
   return (
     <section className="our-product w-full xl:px-20 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12 pt-32">
       <h1 className="text-left font-bold lg:text-2xl md:text-3xl sm:text-2xl text-xl mb-5">Reccomendation for you</h1>

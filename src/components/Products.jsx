@@ -1,53 +1,98 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
-// import AllProductsNavbar from './AllProductsNavbar';
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+import {
+  useEffect, useState, useRef,
+} from 'react';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+
+import { getAllProducts } from '../utils/fetchData';
+import ProductsFilter from './ProductsFilter';
 
 export default function AllProducts() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [visible, setVisible] = useState(12);
-  // const [category, setCategory] = useState('');
   const [products, setProducts] = useState([]);
+  const [filter, setFilter] = useState({
+    category: [],
+    minPrice: undefined,
+    maxPrice: undefined,
+    rating: 0,
+    discount: false,
+    flashSale: false,
+    limit: 10,
+  });
   const [filterVisible, setFilterVisible] = useState(false);
   const viewMoreBtn = useRef(null);
 
-  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
-
-  const hideViewMoreBtn = () => {
+  function hideViewMoreBtn() {
     viewMoreBtn.current.classList.add('hidden');
-  };
-
-  if (visible === products.length) hideViewMoreBtn();
-
-  async function getAllProduct() {
-    await axios.get(`${ROOT_URL}/product`)
-      .then((result) => result.data && setProducts(result.data))
-      .catch((err) => console.log(err));
   }
 
-  // async function getProductsByCategory() {
-  //   await axios.get(`${ROOT_URL}/product/categories?category=${category}`)
-  //     .then((result) => result.data && setProducts(result.data))
-  //     .catch((err) => console.log(err));
-  // }
+  useEffect(() => {
+    async function callApi() {
+      await getAllProducts(filter)
+        .then((res) => setProducts(res?.data))
+        .catch((err) => console.log(err));
+    }
+    callApi();
+  }, [searchParams]);
 
   useEffect(() => {
-    // if (category) {
-    //   getProductsByCategory();
-    // } else {
-    //   getAllProduct();
-    // }
-    getAllProduct();
+    if (visible === products.length) hideViewMoreBtn();
+  }, [visible]);
+
+  useEffect(() => {
+    const category = searchParams.get('category');
+    const minPrice = searchParams.get('minPrice');
+    const maxPrice = searchParams.get('maxPrice');
+    const rating = searchParams.get('rating');
+    const discount = searchParams.get('discount');
+    const flashSale = searchParams.get('flashSale');
+    const limit = searchParams.get('limit');
+    console.log(maxPrice);
+    setFilter({
+      category: category ? category.split(',') : [],
+      minPrice: minPrice ? parseInt(minPrice, 10) : undefined,
+      maxPrice: maxPrice ? parseInt(maxPrice, 10) : undefined,
+      rating: rating ? parseFloat(rating) : 0,
+      discount: discount === 'true',
+      flashSale: flashSale === 'true',
+      limit: limit ? parseInt(limit, 10) : 10,
+    });
   }, []);
 
-  console.log(products);
+  useEffect(() => {
+    const {
+      category,
+      minPrice,
+      maxPrice,
+      rating,
+      discount,
+      flashSale,
+      limit,
+    } = filter;
+
+    // Update the query params in the URL
+    searchParams.set('category', category);
+    if (minPrice !== undefined) searchParams.set('minPrice', minPrice);
+    if (maxPrice !== undefined) searchParams.set('maxPrice', maxPrice);
+    searchParams.set('rating', rating);
+    searchParams.set('discount', discount);
+    searchParams.set('flashSale', flashSale);
+    searchParams.set('limit', limit);
+
+    // Navigate to the current URL with updated query params
+    navigate(`?${searchParams.toString()}`);
+  }, [filter]);
+
+  console.log(filter);
 
   return (
     <section className="our-products w-full xl:px-20 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12">
       <h1 className="text-left font-bold lg:text-2xl md:text-3xl sm:text-2xl text-xl mb-5">Products</h1>
       <p className="md:text-lg text-base flex-1">Discover Endless Possibilities: Elevate Your Space with Exquisite Furniture Creations</p>
 
-      {/* <AllProductsNavbar setCategory={setCategory} className="hidden" /> */}
       <div className="products-wrapper lg:flex xl:gap-7 lg:gap-5 lg:mt-10 mt-6 relative">
         <button
           type="button"
@@ -56,86 +101,31 @@ export default function AllProducts() {
         >
           Filter
         </button>
-        <div
-          className={`filter-side xl:w-2/12 lg:w-3/12 sm:w-min w-full lg:shadow-none shadow-lg rounded-lg 
-          lg:static absolute top-20 left-0 z-10 bg-white lg:p-0 p-5 lg:h-auto ${filterVisible ? 'h-auto' : 'h-0 py-0'} 
-          overflow-hidden transition-all duration-400`}
-        >
-          <div className="mb-5">
-            <h6 className="font-semibold mb-4">Kategori</h6>
-            <div className="flex items-center gap-2 my-2">
-              <input className="w-6 h-6 hover:cursor-pointer" id="filter-table" type="checkbox" />
-              <label htmlFor="filter-table" className="text-slate-600 hover:cursor-pointer">Table</label>
-            </div>
-            <div className="flex items-center gap-2 my-2">
-              <input className="w-6 h-6 hover:cursor-pointer" id="filter-chair" type="checkbox" />
-              <label htmlFor="filter-chair" className="text-slate-600 hover:cursor-pointer">Chair</label>
-            </div>
-            <div className="flex items-center gap-2 my-2">
-              <input className="w-6 h-6 hover:cursor-pointer" id="filter-bed" type="checkbox" />
-              <label htmlFor="filter-bed" className="text-slate-600 hover:cursor-pointer">Bed</label>
-            </div>
-          </div>
-
-          <div className="my-5">
-            <h6 className="font-semibold mb-4">Price</h6>
-            <input type="number" className="border border-solid border-slate-400 p-2 rounded-md lg:w-full" placeholder="max price" />
-            <input type="number" className="border border-solid border-slate-400 p-2 rounded-md lg:w-full mt-3" placeholder="min price" />
-          </div>
-
-          <div className="my-5">
-            <h6 className="font-semibold mb-4">Rating</h6>
-            <div className="flex items-center gap-2 my-2">
-              <input className="w-6 h-6 hover:cursor-pointer" id="filter-rating" type="checkbox" />
-              <label htmlFor="filter-rating" className="text-slate-600 hover:cursor-pointer">
-                <i className="fa-solid fa-star md:text-base sm:text-lg text-sm text-yellow-500 mr-1" />
-                4 Keatas
-              </label>
-            </div>
-          </div>
-
-          <div className="my-5">
-            <h6 className="font-semibold mb-4">Promo</h6>
-            <div className="flex items-center gap-2 my-2">
-              <input className="w-6 h-6 hover:cursor-pointer" id="filter-discount" type="checkbox" />
-              <label htmlFor="filter-discount" className="text-slate-600 hover:cursor-pointer">
-                Discount
-              </label>
-            </div>
-            <div className="flex items-center gap-2 my-2">
-              <input className="w-6 h-6 hover:cursor-pointer" id="filter-flash-sale" type="checkbox" />
-              <label htmlFor="filter-flash-sale" className="text-slate-600 hover:cursor-pointer">
-                Flash sale
-              </label>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            className="lg:hidden py-2 px-3 rounded-md mt-5 bg-orange-100"
-          >
-            Apply filter
-          </button>
-        </div>
+        <ProductsFilter filter={filter} setFilter={setFilter} filterVisible={filterVisible} />
 
         <div className="products-side xl:w-10/12 lg:w-9/12 w-full">
           <div className="products grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2  sm:gap-6 gap-10">
             {products?.slice(0, visible).map((product) => (
               <div className="item w-full overflow-hidden" key={product._id}>
-                <a href="/#">
-                  <div className="thumb group relative w-full pb-[100%] bg-slate-200 bg-cover rounded-lg hover:brightness-75 transition-all duration-400" style={{ backgroundImage: `url(${product.img})` }} />
-                </a>
+                <Link to={`/product/${product._id}`}>
+                  <div className="thumb group relative w-full pb-[100%] bg-slate-200 bg-cover rounded-lg hover:brightness-75 transition-all duration-400" style={{ backgroundImage: `url(${product.images[0]})` }} />
+                </Link>
                 <div className="product_detail mt-4">
                   <div className="name-price flex justify-between items-start">
-                    <p className="text-left lg:text-sm md:text-lg text-base font-semibold">{product.title}</p>
+                    <p className="text-left lg:text-sm md:text-lg text-base font-semibold">
+                      {product.name}
+                      <br />
+                      <span className="text-rose-700 text-sm">
+                        {product.discount ? `${product.discount}%` : ''}
+                      </span>
+                    </p>
                     <p className="text-left lg:text-sm md:text-lg text-base font-semibold">
                       $
                       {product.price}
                       <br />
                       <span className="text-slate-600 font-light text-sm">
                         <del>
-                          $
-                          {product.price}
+                          {product.discount ? `$${product.price - ((product.price * product.discount) / 100)}` : ' '}
                         </del>
                       </span>
                     </p>
@@ -146,7 +136,9 @@ export default function AllProducts() {
                       <i className="fa-solid fa-star md:text-base sm:text-lg text-base text-yellow-500" />
                       <i className="fa-solid fa-star md:text-base sm:text-lg text-base text-yellow-500" />
                     </div>
-                    <i className="fa-solid fa-cart-shopping text-2xl bg-orange-200 py-1 px-2 rounded-md text-orange-800" />
+                    <button type="button">
+                      <i className="fa-solid fa-cart-shopping text-2xl bg-orange-200 py-1 px-2 rounded-md text-orange-800" />
+                    </button>
                   </div>
                 </div>
               </div>
