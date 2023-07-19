@@ -5,17 +5,16 @@ import Footer from '../components/Footer';
 import Products from '../components/Products';
 import Recommendation from '../components/Recommendation';
 import RecentlyViewed from '../components/RecentlyViewed';
-// import Category from '../components/Category';
+import NewArrival from '../components/NewArrival';
 
 export default function Shop() {
   return (
     <>
       <Navbar bg="bg-white" />
-      {/* <TopRated /> */}
       <Recommendation />
+      <NewArrival />
       <Products />
       <RecentlyViewed />
-      {/* <Category /> */}
       <Footer />
     </>
   );
