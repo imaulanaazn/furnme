@@ -50,7 +50,7 @@ export default function AllProducts() {
     const discount = searchParams.get('discount');
     const flashSale = searchParams.get('flashSale');
     const limit = searchParams.get('limit');
-    console.log(maxPrice);
+
     setFilter({
       category: category ? category.split(',') : [],
       minPrice: minPrice ? parseInt(minPrice, 10) : undefined,
@@ -85,8 +85,6 @@ export default function AllProducts() {
     // Navigate to the current URL with updated query params
     navigate(`?${searchParams.toString()}`);
   }, [filter]);
-
-  console.log(filter);
 
   return (
     <section className="our-products w-full xl:px-20 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12">
