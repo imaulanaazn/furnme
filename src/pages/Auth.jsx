@@ -3,6 +3,7 @@ import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
+// import { GoogleLogin } from '@react-oauth/google';
 import logo from '../assets/img/logo.webp';
 import { handleSignup, handleSignin } from '../utils/handleAuth';
 import { setIsLogin } from '../redux/slices/auth';
@@ -39,7 +40,7 @@ function animateForm({
       x: '0',
       opacity: 1,
       duration: '1.2',
-      display: screenWidth > 1024 ? 'flex' : 'none',
+      display: screenWidth >= 1024 ? 'flex' : 'none',
     });
     gsap.to(username.current, {
       display: 'initial',
@@ -64,7 +65,7 @@ function animateForm({
       x: '0',
       opacity: 1,
       duration: '1.2',
-      display: screenWidth > 1024 ? 'flex' : 'none',
+      display: screenWidth >= 1024 ? 'flex' : 'none',
     });
     gsap.to(welcome.current, {
       x: '2.5rem',
@@ -119,58 +120,13 @@ export default function Auth() {
     if (!result.data) {
       alert(result.response.data.message);
     } else {
-      const { token } = result.data.data;
+      const { token } = result.data;
       const tokenBase64 = btoa(token);
       Cookies.set('token', tokenBase64, { expires: 1 });
       dispatch(setIsLogin({ isLogin: true }));
       navigate('/');
     }
   }
-
-  // CODE FOR HANDLING GOOGLE SIGNIN SIGNUP
-  // const googleLogin = useGoogleLogin({
-  //   onSuccess: async (response) => {
-  //     try {
-  //       const { data: profileObj } = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`);
-  //       const result = await handleGoogleAuth(profileObj);
-  //       if (!result.data) {
-  //         console.log(result.response);
-  //       } else {
-  //         console.log(currentForm === 'signup' ? 'registrasi berhasi' : 'login berhasil');
-  //         const { token } = result.data.data;
-  //         const tokenBase64 = btoa(token);
-  //         Cookies.set('token', tokenBase64, { expires: 1 });
-  //         dispatch(setIsLogin({ isLogin: true }));
-  //         navigate('/');
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //       prompt('terjadi kesalahan, silahkan coba beberapa saat lagi');
-  //     }
-  //   },
-  //   onError: (err) => {
-  //     prompt('terjadi kesalahan, silahkan coba beberapa saat lagi');
-  //     console.log(err);
-  //   },
-  // });
-
-  function handleCallbackResponse(response) {
-    console.log(`Encoded JWT code : ${response.credential}`);
-  }
-
-  useEffect(() => {
-    // eslint-disable-next-line no-undef
-    google.accounts.id.initialize({
-      client_id: '310223119949-re14j28iobsac14c7eslf6445h9r3is2.apps.googleusercontent.com',
-      callback: handleCallbackResponse,
-    });
-
-    // eslint-disable-next-line no-undef
-    google.accounts.id.renderButton(
-      document.getElementById('googleAuth'),
-      { theme: 'outline', size: 'large' },
-    );
-  }, []);
 
   return (
     <div className="bg-orange-100 w-screen h-screen flex items-center">
@@ -199,7 +155,7 @@ export default function Auth() {
             ref={username}
             onChange={(event) => { setFormData({ ...formData, username: event.target.value }); }}
             placeholder="Enter your username"
-            className="bg-slate-200 rounded lg:text-xs md:text-xl  text-xs lg:w-72 sm:w-4/5 w-11/12 lg:h-8 md:h-12 h-8  px-3 mb-2"
+            className="rounded border border-stone-300 lg:text-xs md:text-xl text-xs lg:w-72 sm:w-4/5 w-11/12 lg:h-9 md:h-12 h-8 px-3 mb-2"
           />
           <input
             type="email"
@@ -208,7 +164,7 @@ export default function Auth() {
             value={formData.email}
             onChange={(event) => { setFormData({ ...formData, email: event.target.value }); }}
             placeholder="Enter your email"
-            className="bg-slate-200 rounded lg:text-xs md:text-xl  text-xs lg:w-72 sm:w-4/5 w-11/12 lg:h-8 md:h-12 h-8  px-3 mb-2"
+            className="rounded border border-stone-300 lg:text-xs md:text-xl text-xs lg:w-72 sm:w-4/5 w-11/12 lg:h-9 md:h-12 h-8 px-3 mb-2"
           />
           <input
             type="password"
@@ -217,7 +173,7 @@ export default function Auth() {
             value={formData.password}
             onChange={(event) => { setFormData({ ...formData, password: event.target.value }); }}
             placeholder="Enter you password"
-            className="bg-slate-200 rounded lg:text-xs md:text-xl  text-xs lg:w-72 sm:w-4/5 w-11/12 lg:h-8 md:h-12 h-8  px-3"
+            className="rounded border border-stone-300 lg:text-xs md:text-xl text-xs lg:w-72 sm:w-4/5 w-11/12 lg:h-9 md:h-12 h-8 px-3"
           />
 
           <p ref={forgotPass} className="forgot-pass lg:text-sm md:text-lg text-sm  mt-3">
@@ -226,24 +182,28 @@ export default function Auth() {
             </a>
           </p>
 
-          {/* GOOGLE LOGIN */}
-          {/* <button type="button" onClick={() => googleLogin()}>
-            <img src={google} className="lg:w-5 w-5 md:w-7" alt="facebook" />
-          </button> */}
-          <div id="googleAuth" className="my-4" />
+          {/* <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse);
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          /> */}
 
-          <button type="submit" className="main-btn bg-orange-300 lg:w-40 md:w-48 w-40 lg:h-9 md:h-14 h-9 lg:text-base md:text-lg rounded-full text-white font-normal">
+          <button type="submit" className="main-btn bg-orange-300 lg:w-40 md:w-48 w-40 lg:h-9 md:h-14 h-9 lg:text-base md:text-lg rounded-full text-white font-normal mt-6">
             {currentForm === 'signup' ? 'SIGN UP' : 'SIGN IN'}
           </button>
+
         </form>
 
         {/* TEXT FOR DESKTOP ONLY */}
-        <div ref={welcome} className="welcome lg:flex hidden h-1/2 opacity-0 translate-x-10 absolute top-0 right-0 z-10 w-2/5  flex-col items-center justify-end px-12 text-center">
+        <div ref={welcome} className="welcome md:flex hidden h-1/2 opacity-0 translate-x-10 absolute top-0 right-0 z-10 w-2/5  flex-col items-center justify-end px-12 text-center">
           <h1 className="font-bold text-3xl text-white">Welcome Back</h1>
           <p className="text-sm text-white mt-5">To keep connected with with us please sign in with your personal info </p>
         </div>
 
-        <div ref={welcomeBack} className="welcome-back lg:flex hidden h-1/2 absolute top-0 z-10 w-2/5 flex-col items-center justify-end px-12 text-center">
+        <div ref={welcomeBack} className="welcome-back md:flex hidden h-1/2 absolute top-0 z-10 w-2/5 flex-col items-center justify-end px-12 text-center">
           <h1 className="font-bold text-3xl text-white ">Welcome</h1>
           <p className="text-sm text-white mt-5">Start your journey with us by signing up with your personal info</p>
         </div>
