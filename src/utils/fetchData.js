@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
 
@@ -118,6 +119,81 @@ async function getAllProducts(filter) {
   }
 }
 
+async function getUserCarts() {
+  const token = Cookies.get('token');
+  const decodedToken = atob(token);
+  try {
+    const res = await axios.get(`${ROOT_URL}/carts`, {
+      headers: {
+        Authorization: `Bearer ${decodedToken}`,
+      },
+    });
+    const { data } = res;
+
+    return {
+      success: true,
+      data,
+      message: 'data retreived successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'failed to retreive data',
+    };
+  }
+}
+
+async function updateUserCarts(payload) {
+  const token = Cookies.get('token');
+  const decodedToken = atob(token);
+  try {
+    const res = await axios.post(`${ROOT_URL}/carts`, payload, {
+      headers: {
+        Authorization: `Bearer ${decodedToken}`,
+      },
+    });
+    const { data } = res;
+
+    return {
+      success: true,
+      data,
+      message: 'data retreived successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'failed to retreive data',
+    };
+  }
+}
+
+async function deleteUserCarts(payload) {
+  const token = Cookies.get('token');
+  const decodedToken = atob(token);
+  try {
+    const res = await axios.delete(`${ROOT_URL}/carts?userId=${payload.userId}&productId=${payload.productId}`, {
+      headers: {
+        Authorization: `Bearer ${decodedToken}`,
+      },
+    });
+    const { data } = res;
+
+    return {
+      success: true,
+      data,
+      message: 'data retreived successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'failed to retreive data',
+    };
+  }
+}
+
 export {
   getCategories,
   getSpecialDiscount,
@@ -125,4 +201,7 @@ export {
   getRecommendedProducts,
   getNewArrivalProducts,
   getAllProducts,
+  getUserCarts,
+  updateUserCarts,
+  deleteUserCarts,
 };
