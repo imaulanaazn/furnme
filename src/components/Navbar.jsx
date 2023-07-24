@@ -1,29 +1,40 @@
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
+import { useState } from 'react';
 import logo from '../assets/img/logo.webp';
 import { setIsLogin } from '../redux/slices/auth';
-import validateToken from '../utils/validateToken';
 
 export default function Navbar() {
   const dispatch = useDispatch();
-  const [userId, setUserId] = useState('');
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
   const { isLogin } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    async function getUserId() {
-      const token = Cookies.get('token');
-      if (token) {
-        const decodedToken = atob(token);
-        const data = await validateToken(decodedToken);
-        const id = data?.data?.user?.id;
-        setUserId(id);
-      }
-    }
-    getUserId();
-  }, []);
+  const mobileMenuList = [
+    {
+      name: 'My Cart',
+      icon: 'fa-solid fa-cart-shopping',
+      url: '/cart',
+    },
+    {
+      name: 'Likes',
+      icon: 'fa-solid fa-heart',
+      url: '/',
+    },
+    {
+      name: 'Home',
+      icon: 'fa-solid fa-house',
+      url: '/',
+    },
+    {
+      name: 'Shop',
+      icon: 'fa-solid fa-store',
+      url: '/shop',
+    },
+    {
+      name: 'Forsale',
+      icon: 'fa-solid fa-tags',
+      url: '/forsale',
+    },
+  ];
 
   return (
     <header className="w-full overflow-x-clip xl:px-20 lg:px-12 md:px-16 md:pt-5 sm:px-10 px-6 pt-3 absolute top-0 left-0 z-10 bg-white">
@@ -99,7 +110,7 @@ export default function Navbar() {
           <Link to="/" className="lg:block hidden">
             <i className="fa-solid fa-heart text-xl text-rose-500" />
           </Link>
-          <Link to={userId ? `/cart/${userId}` : '/auth'} className="lg:inline hidden">
+          <Link to="/cart" className="lg:inline hidden">
             <div className="cart_icon flex items-center">
               <i className="fa-solid fa-cart-shopping text-xl text-orange-300" />
             </div>
@@ -122,36 +133,14 @@ export default function Navbar() {
             <i className="fa-solid fa-xmark text-xl" />
           </button>
           <ul className="text-center">
-            <li className="my-2 p-1">
-              <a href="/" className="text-orange-300">
-                <i className="fa-solid fa-cart-shopping pr-3" />
-                My Cart
-              </a>
-            </li>
-            <li className="my-2 p-1">
-              <a href="/" className="text-orange-300">
-                <i className="fa-solid fa-heart pr-3" />
-                Likes
-              </a>
-            </li>
-            <li className="my-2 p-1">
-              <a href="/" className="text-orange-300">
-                <i className="fa-solid fa-house pr-3" />
-                Home
-              </a>
-            </li>
-            <li className="my-2 p-1">
-              <a href="/shop" className="text-orange-300">
-                <i className="fa-solid fa-store pr-3" />
-                Shop
-              </a>
-            </li>
-            <li className="my-2 p-1">
-              <a href="/featured" className="text-orange-300">
-                <i className="fa-solid fa-tags pr-3" />
-                Forsale
-              </a>
-            </li>
+            {mobileMenuList.map((menu) => (
+              <li className="my-2 p-1" key={menu.name}>
+                <Link to={menu.url} className="text-orange-300">
+                  <i className={`${menu.icon}} pr-3`} />
+                  {menu.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
