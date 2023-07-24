@@ -6,7 +6,6 @@ const ROOT_API = process.env.REACT_APP_PUBLIC_API;
 export default async function validateToken() {
   const token = Cookies.get('token');
   const decodedToken = atob(token);
-  console.log(decodedToken);
   try {
     const result = await axios.post(`${ROOT_API}/users/validate`, {}, {
       headers: {
