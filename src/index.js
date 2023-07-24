@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import AuthorizeUser from './middleware/auth';
+// import AuthorizeUser from './middleware/auth';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,9 +14,9 @@ root.render(
     <BrowserRouter>
       {/* <GoogleOAuthProvider
       clientId="590607018597-gos2k1ldcc4bltqkpug8kad95bcqnutd.apps.googleusercontent.com"> */}
-      <AuthorizeUser>
-        <App />
-      </AuthorizeUser>
+      {/* <AuthorizeUser> */}
+      <App />
+      {/* </AuthorizeUser> */}
       {/* </GoogleOAuthProvider> */}
     </BrowserRouter>
   </Provider>,

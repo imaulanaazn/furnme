@@ -1,8 +1,9 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-underscore-dangle */
+import {
+  arrayOf, number, string, func,
+} from 'prop-types';
 import InCartProduct from './InCartProduct';
 
-export default function MyCartMain({ cartItems, setCartItems }) {
+export default function MyCartMain({ cart, updateCart, removeProduct }) {
   return (
     <main className="lg:w-2/3 w-full h-screen lg:pt-20 pt-16">
       <div className="flex-wrapper lg:mx-14 mx-3 mb-10 lg:mt-10 md:mt-8 mt-3">
@@ -12,17 +13,46 @@ export default function MyCartMain({ cartItems, setCartItems }) {
           <h1 className="flex-1 lg:text-sm md:text-base">QUANTITY</h1>
           <h1 className="flex-1 lg:text-sm md:text-base">TOTAL</h1>
         </div>
-        {cartItems?.map((product, i) => (
+        {cart.products?.map((product) => (
           <InCartProduct
-            key={product._id}
-            productId={product?.products?.productId}
-            qty={product?.products?.quantity}
-            cartItems={cartItems}
-            setCartItems={setCartItems}
-            index={i}
+            key={product.productId}
+            userId={cart.userId}
+            product={product}
+            updateCart={updateCart}
+            removeProduct={removeProduct}
           />
         ))}
       </div>
     </main>
   );
 }
+
+MyCartMain.propTypes = {
+  cart: {
+    userId: string,
+    products: arrayOf({
+      productId: string,
+      images: arrayOf(string),
+      name: string,
+      price: number,
+      quantity: number,
+    }),
+  },
+  updateCart: func,
+  removeProduct: func,
+};
+
+MyCartMain.defaultProps = {
+  cart: {
+    userId: string,
+    products: arrayOf({
+      productId: string,
+      images: arrayOf(string),
+      name: string,
+      price: number,
+      quantity: number,
+    }),
+  },
+  updateCart: func,
+  removeProduct: func,
+};

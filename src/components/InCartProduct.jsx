@@ -1,77 +1,43 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable no-unsafe-optional-chaining */
-import axios from 'axios';
-import { any, number, string } from 'prop-types';
+import {
+  arrayOf, number, string, func,
+} from 'prop-types';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setCartTotal, removeCartTotal } from '../redux/slices/cartSlice';
 
 export default function InCartProduct({
-  productId, qty, cartItems, setCartItems, index,
+  product, userId, updateCart, removeProduct,
 }) {
-  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
-  const dispatch = useDispatch();
-  const [prodData, setProdData] = useState(null);
-  const [quantity, setQuantity] = useState(qty);
+  const [quantity, setQuantity] = useState(product.quantity);
 
   useEffect(() => {
-    async function getProdData() {
-      await axios(`${ROOT_URL}/product/${productId}`)
-        .then(({ data }) => setProdData(data))
-        .catch((err) => console.log(err));
-    }
-    getProdData();
-  }, [productId, cartItems]);
-
-  useEffect(() => {
-    const newCartData = [...cartItems];
-    newCartData[index] = {
-      ...cartItems[index],
-      products: {
-        productId: cartItems[index].products.productId,
-        quantity,
-      },
-    };
-    setCartItems(newCartData);
+    updateCart({
+      userId,
+      productId: product.productId,
+      quantity,
+    });
   }, [quantity]);
-
-  function removeProduct() {
-    async function deleteProduct() {
-      await axios.delete(`${ROOT_URL}/cart/${cartItems[index]._id}`)
-        .then(({ data }) => console.log(data))
-        .catch((err) => console.log(err));
-    }
-    deleteProduct();
-    const newCartItems = cartItems.map((cartItem, i) => (i !== index ? cartItem : null))
-      .filter((cartItem) => cartItem && cartItem);
-    setCartItems(newCartItems);
-    if (prodData?.price) dispatch(removeCartTotal({ index }));
-  }
-
-  if (prodData?.price) dispatch(setCartTotal({ index, value: prodData.price * quantity }));
 
   return (
     <div className="product-1 my-8 flex w-full items-center text-slate-600 text-center">
       <div className="product-item flex-1 text-center">
         <div className="thumb lg:w-24 w-16 lg:h-24 h-16 mx-auto">
-          <img src={prodData?.img} className="w-full h-full object-cover object-center" alt="" />
+          <img src={product?.images[0]} className="w-full h-full object-cover object-center" alt="" />
         </div>
         <div className="text">
-          <h1 className="mt-2 text-center font-bold lg:text-base md:text-xl">{prodData?.title}</h1>
+          <h1 className="mt-2 text-center font-bold lg:text-base md:text-xl">{product?.name}</h1>
         </div>
-        <button type="button" onClick={() => { removeProduct(); }}>
+        <button type="button" onClick={() => { removeProduct({ userId, productId: product.productId }); }}>
           <i className="fa-solid fa-trash text-center text-lg mt-1 text-rose-400" />
         </button>
       </div>
 
       <p className="price md:text-base flex-1">
         $
-        {prodData?.price}
+        {product?.price}
       </p>
 
       <div className="quantity flex-1 flex justify-evenly">
-        {quantity <= 1 ? <button type="submit" className="md:text-base" disabled>-</button>
+        {quantity <= 1
+          ? <button type="submit" className="md:text-base" disabled>-</button>
           : <button type="submit" className="md:text-base" onClick={() => { setQuantity(quantity - 1); }}>-</button>}
         <p className="lg:text-sm md:text-base">{quantity}</p>
         <button type="submit" className="md:text-base" onClick={() => { setQuantity(quantity + 1); }}>+</button>
@@ -79,24 +45,34 @@ export default function InCartProduct({
 
       <p className="total md:text-base flex-1">
         $
-        {prodData?.price * quantity}
+        {product.price * quantity}
       </p>
     </div>
   );
 }
 
 InCartProduct.propTypes = {
-  productId: string,
-  qty: number,
-  cartItems: any,
-  setCartItems: any,
-  index: number,
+  userId: string,
+  product: {
+    productId: string,
+    images: arrayOf(string),
+    name: string,
+    price: number,
+    quantity: number,
+  },
+  updateCart: func,
+  removeProduct: func,
 };
 
 InCartProduct.defaultProps = {
-  productId: null,
-  qty: null,
-  cartItems: null,
-  setCartItems: null,
-  index: null,
+  userId: string,
+  product: {
+    productId: string,
+    images: arrayOf(string),
+    name: string,
+    price: number,
+    quantity: number,
+  },
+  updateCart: func,
+  removeProduct: func,
 };

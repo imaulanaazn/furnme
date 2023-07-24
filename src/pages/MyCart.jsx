@@ -1,40 +1,50 @@
+/* eslint-disable react/jsx-no-bind */
 import '../styles/cart.css';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import MyCartNavbar from '../components/MyCartNavbar';
 import MyCartMain from '../components/MyCartMain';
 import MyCartAside from '../components/MyCartAside';
+import { getUserCarts, updateUserCarts, deleteUserCarts } from '../utils/fetchData';
 
 export default function MyCart() {
-  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
-  const [cartItems, setCartItems] = useState(null);
-  const { id: userId } = useParams();
-  const token = Cookies.get('token');
-  const decodedToken = atob(token);
+  const [cart, setCart] = useState({});
 
   useEffect(() => {
-    async function getUserCart() {
-      if (decodedToken) {
-        await axios.get(`${ROOT_URL}/cart/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${decodedToken}`,
-          },
+    async function callAPI() {
+      await getUserCarts()
+        .then((res) => {
+          setCart(res?.data.cart);
         })
-          .then(({ data }) => setCartItems(data))
-          .catch((err) => console.log(err));
-      }
+        .catch((err) => console.log(err));
     }
-    getUserCart();
+    callAPI();
   }, []);
+
+  async function updateCart(payload) {
+    await updateUserCarts(payload)
+      .then((res) => {
+        setCart(res?.data.cart);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  async function removeProduct(payload) {
+    await deleteUserCarts({
+      productId: payload.productId,
+      userId: payload.userId,
+    })
+      .then((res) => {
+        setCart(res?.data);
+      })
+      .catch((err) => console.log(err));
+  }
 
   return (
     <>
       <MyCartNavbar />
       <section className="user_cart lg:flex overflow-hidden">
-        <MyCartMain cartItems={cartItems} setCartItems={setCartItems} />
-        <MyCartAside cartItems={cartItems} />
+        <MyCartMain cart={cart} updateCart={updateCart} removeProduct={removeProduct} />
+        <MyCartAside totalPrice={cart.totalPrice} products={cart.products} />
       </section>
     </>
   );

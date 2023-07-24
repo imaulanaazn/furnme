@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import getUserId from '../utils/getUserId';
+import getUserData from '../utils/getUserData';
 
 function CheckoutSuccees() {
   return (
@@ -34,7 +34,7 @@ export default function Checkout() {
 
   useEffect(() => {
     async function getUserInfo() {
-      const id = await getUserId();
+      const { id } = getUserData();
       setUserId(id);
     }
     getUserInfo();

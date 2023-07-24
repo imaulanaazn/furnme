@@ -1,34 +1,19 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable react/prop-types */
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { number, string, arrayOf } from 'prop-types';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function MyCartAside({ cartItems }) {
-  const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
+export default function MyCartAside({ totalPrice, products }) {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [note, setNote] = useState('');
-  const data = useSelector((state) => state.cart);
-  async function updateCart(cartItem) {
-    const res = await axios.put(`${ROOT_URL}/cart/${cartItem._id}`, {
-      products: {
-        productId: cartItem.products.productId,
-        quantity: cartItem.products.quantity,
-      },
-    });
-    return res;
-  }
 
   function checkoutHandle(e) {
     e.preventDefault();
-    if (data.length > 0 && isChecked) {
+    if (isChecked) {
       localStorage.setItem('note', JSON.stringify(note));
-      cartItems.map((cartItem) => updateCart(cartItem));
       navigate('/checkout');
     } else {
-      alert('make sure that your cart is not empty and check the agree');
+      alert('make sure to check the agreement');
     }
   }
 
@@ -38,12 +23,15 @@ export default function MyCartAside({ cartItems }) {
         Cart Total :
         {' '}
         <span className="lg:text-xl md:text-3xl font-bold text-slate-700">
-          $
-          {data.reduce((a, b) => a + b, 0)}
+          {totalPrice}
         </span>
       </h2>
-      {/* <p className="lg:text-sm md:text-lg
-      text-center">Total belum termasuk PPN dan Ongkir</p> */}
+      <p className="lg:text-sm md:text-lg
+      text-center"
+      >
+        Total belum termasuk PPN dan Ongkir
+
+      </p>
       <div className="term flex items-center lg:text-sm md:text-base mx-auto mt-2">
         <input type="checkbox" name="agree" required onClick={() => { setIsChecked((prev) => !prev); }} />
         <label htmlFor="agree" className="ml-2 ">
@@ -56,9 +44,49 @@ export default function MyCartAside({ cartItems }) {
 
       <div className="note my-6 text-left text-slate-600">
         <h2 className="lg:text-sm md:text-base">Add A Note</h2>
-        <textarea onChange={(e) => { setNote(e.target.value); }} value={note} name="notes" id="" cols="30" className="lg:py-2 md:py-5 py-3 lg:px-4 md:px-5 px-4 mt-2 w-full lg:text-xs md:text-base" rows="1" placeholder="Add a note here..." />
+        <textarea
+          onChange={(e) => { setNote(e.target.value); }}
+          value={note}
+          name="notes"
+          id=""
+          cols="30"
+          className="lg:py-2 md:py-5 py-3 lg:px-4 md:px-5 px-4 mt-2 w-full lg:text-xs md:text-base"
+          rows="8"
+          placeholder="Add a note here..."
+        />
       </div>
-      <button type="button" aria-disabled href="/checkout" onClick={(e) => { checkoutHandle(e); }} className="text-center  mx-auto lg:py-3 md:py-4 py-3 px-10 bg-orange-200 text-orange-800 text-sm font-semibold">Checkout</button>
+      <button
+        disabled={!products.length > 0}
+        type="button"
+        href="/checkout"
+        aria-disabled
+        onClick={(e) => { checkoutHandle(e); }}
+        className={`text-center mx-auto lg:py-3 md:py-4 py-3 px-10 text-sm font-semibold ${products.length > 0 ? 'bg-orange-200 text-orange-800' : 'bg-orange-50 text-stone-400'}`}
+      >
+        Checkout
+      </button>
     </aside>
   );
 }
+
+MyCartAside.propTypes = {
+  totalPrice: number,
+  products: arrayOf({
+    productId: string,
+    images: arrayOf(string),
+    name: string,
+    price: number,
+    quantity: number,
+  }),
+};
+
+MyCartAside.defaultProps = {
+  totalPrice: number,
+  products: arrayOf({
+    productId: string,
+    images: arrayOf(string),
+    name: string,
+    price: number,
+    quantity: number,
+  }),
+};

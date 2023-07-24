@@ -27,7 +27,7 @@ function App() {
         <Route path="/auth" element={isLogin ? <Navigate to="/" /> : <Auth />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/success" element={<Success />} />
-        <Route path="/cart/:id" element={isLogin ? <MyCart /> : <Navigate to="/auth" />} />
+        <Route path="/cart" element={<MyCart />} />
         <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>
     </div>
