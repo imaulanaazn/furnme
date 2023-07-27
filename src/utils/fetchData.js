@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import getUserData from './getUserData';
 
 const ROOT_URL = process.env.REACT_APP_PUBLIC_API;
 
@@ -194,11 +195,33 @@ async function deleteUserCarts(payload) {
   }
 }
 
+async function getRecentlyViewedProd() {
+  const userData = getUserData();
+
+  try {
+    const res = await axios.get(`${ROOT_URL}/users/${userData.id}/recently-viewed`);
+    const { data } = res;
+
+    return {
+      success: true,
+      data,
+      message: 'data retreived successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'failed to retreive data',
+    };
+  }
+}
+
 export {
   getCategories,
   getSpecialDiscount,
   getTrendingProducts,
   getRecommendedProducts,
+  getRecentlyViewedProd,
   getNewArrivalProducts,
   getAllProducts,
   getUserCarts,
