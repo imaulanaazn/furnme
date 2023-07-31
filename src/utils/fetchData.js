@@ -61,10 +61,11 @@ async function getTrendingProducts() {
   }
 }
 
-async function getRecommendedProducts(userId) {
+async function getRecommendedProducts() {
+  const userData = getUserData();
   try {
     const res = (await axios.get(`${ROOT_URL}/products/recommended`, {
-      headers: { userid: userId },
+      headers: { userid: userData.id },
     }));
     const { data } = res;
 
@@ -104,6 +105,25 @@ async function getNewArrivalProducts() {
 async function getAllProducts(filter) {
   try {
     const res = (await axios.get(`${ROOT_URL}/products`, { headers: filter }));
+    const { data } = res;
+
+    return {
+      success: true,
+      data,
+      message: 'data retreived successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'failed to retreive data',
+    };
+  }
+}
+
+async function getProductById(productId) {
+  try {
+    const res = await axios.get(`${ROOT_URL}/products/${productId}`);
     const { data } = res;
 
     return {
@@ -224,6 +244,7 @@ export {
   getRecentlyViewedProd,
   getNewArrivalProducts,
   getAllProducts,
+  getProductById,
   getUserCarts,
   updateUserCarts,
   deleteUserCarts,
