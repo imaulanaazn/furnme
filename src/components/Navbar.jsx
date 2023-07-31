@@ -100,8 +100,8 @@ export default function Navbar() {
         <div className="act flex justify-between items-center flex-1 gap-4">
           <div className="search-bar max-w-xs sm:w-auto w-9/12 ml-auto flex items-center bg-orange-50 rounded">
             <input className="appearance-none w-full text-gray-800 py-2 px-3 leading-tight focus:outline-none mr-3 bg-transparent" type="text" placeholder="search..." />
-            <button className="flex-shrink-0 bg-orange-300 hover:bg-orange-400 text-sm border-none text-white md:py-2 md:px-3 py-1 px-2 rounded" type="button">
-              <i className="fa-solid fa-magnifying-glass text-white md:text-lg text-base" />
+            <button className="flex-shrink-0 bg-orange-200 hover:bg-orange-300 text-sm border-none text-white md:py-2 md:px-3 py-1 px-2 rounded" type="button">
+              <i className="fa-solid fa-magnifying-glass text-orange-800 md:text-lg text-base" />
             </button>
           </div>
           <button type="button" onClick={() => { setMobileMenuVisible(!mobileMenuVisible); }} className="lg:hidden inline">
