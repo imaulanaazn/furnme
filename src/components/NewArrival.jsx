@@ -15,7 +15,7 @@ export default function NewArrival() {
   useEffect(() => {
     async function callApi() {
       await getNewArrivalProducts()
-        .then((res) => setNewArrivalProducts(res?.data))
+        .then((res) => (setNewArrivalProducts(res.data ? res.data : [])))
         .catch((err) => console.log(err));
     }
     callApi();
@@ -30,7 +30,7 @@ export default function NewArrival() {
         slidesPerView={cardsPerPage}
       >
         {
-          newArrivalProducts.map((product) => (
+          newArrivalProducts?.map((product) => (
             <SwiperSlide key={product._id}>
               <div className="item w-full overflow-hidden">
                 <Link to={`/product/${product._id}`}>
@@ -58,9 +58,12 @@ export default function NewArrival() {
                   </div>
                   <div className="rate-cart mt-3 flex justify-between items-center">
                     <div className="stars flex gap-0.5">
-                      <i className="fa-solid fa-star md:text-base sm:text-lg text-sm text-yellow-500" />
-                      <i className="fa-solid fa-star md:text-base sm:text-lg text-sm text-yellow-500" />
-                      <i className="fa-solid fa-star md:text-base sm:text-lg text-sm text-yellow-500" />
+                      {
+                        Array.from({ length: Math.round(product.rating) }, (_, i) => i + 1)
+                          .map(() => (
+                            <i className="fa-solid fa-star md:text-base sm:text-lg text-sm text-yellow-500" />
+                          ))
+                      }
                     </div>
                     <button type="button">
                       <i className="fa-solid fa-cart-shopping lg:text-2xl md:text-xl text-lg bg-orange-200 py-1 px-2 rounded-md text-orange-800" />

@@ -8,6 +8,7 @@ import { getSpecialDiscount } from '../utils/fetchData';
 
 export default function SpecialDiscount() {
   const [specialDiscountData, setSpecialDiscountData] = useState([]);
+  // const [star,setStar] = useState()
 
   const cardsPerPage = totalCards({
     xl: 5.5, lg: 4.5, md: 3.5, sm: 2.5, xs: 1.6,
@@ -60,9 +61,12 @@ export default function SpecialDiscount() {
                   </div>
                   <div className="rate-cart mt-3 flex justify-between items-center">
                     <div className="stars flex gap-0.5">
-                      <i className="fa-solid fa-star md:text-base sm:text-lg text-sm text-yellow-500" />
-                      <i className="fa-solid fa-star md:text-base sm:text-lg text-sm text-yellow-500" />
-                      <i className="fa-solid fa-star md:text-base sm:text-lg text-sm text-yellow-500" />
+                      {
+                        Array.from({ length: Math.round(data.rating) }, (_, i) => i + 1)
+                          .map(() => (
+                            <i className="fa-solid fa-star md:text-base sm:text-lg text-sm text-yellow-500" />
+                          ))
+                      }
                     </div>
                     <button type="button">
                       <i className="fa-solid fa-cart-shopping lg:text-2xl md:text-xl text-lg bg-orange-200 py-1 px-2 rounded-md text-orange-800" />
