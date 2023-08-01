@@ -3,10 +3,12 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 // import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ToastContainer } from 'react-toastify';
 import store from './redux/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthorizeUser from './middleware/auth';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +18,7 @@ root.render(
       clientId="590607018597-gos2k1ldcc4bltqkpug8kad95bcqnutd.apps.googleusercontent.com"> */}
       <AuthorizeUser>
         <App />
+        <ToastContainer />
       </AuthorizeUser>
       {/* </GoogleOAuthProvider> */}
     </BrowserRouter>
