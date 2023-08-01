@@ -1,11 +1,26 @@
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import getUserData from '../utils/getUserData';
+import { updateUserCarts } from '../utils/fetchData';
 
 export default function TrendingProductsCard({
   thumb, name, price, colSpan, id,
 }) {
   const priceRef = useRef();
+  async function addToCart(productId) {
+    const { id: userId } = getUserData();
+
+    await updateUserCarts({
+      userId,
+      productId,
+      quantity: 1,
+    })
+      .then((res) => (res.data ? toast.success(res.data.message) : toast.error(res.message)))
+      .catch((err) => console.log(err));
+  }
+
   return (
     <div className={`card bg-orange-100 h-96 w-full md:py-8 md:px-7 sm:py-7 sm:px-6 py-8 px-6 ${colSpan}`}>
       <div className="home_decor_thumb h-4/6 w-full relative">
@@ -18,7 +33,11 @@ export default function TrendingProductsCard({
         <h3 className="max-w-1/2 lg:text-lg md:text-xl text-base text-left font-semibold">{name}</h3>
         <div className="flex justify-between">
           {/* eslint-disable-next-line no-restricted-globals */}
-          <button type="button" className="flex justify-center items-center font-bold w-12 h-12 bg-orange-800 text-orange-200  rounded-lg">
+          <button
+            type="button"
+            onClick={() => { addToCart(id); }}
+            className="flex justify-center items-center font-bold w-12 h-12 bg-orange-800 text-orange-200 rounded-lg"
+          >
             <i className="fa-solid fa-cart-shopping text-lg" />
           </button>
           <div className="price">

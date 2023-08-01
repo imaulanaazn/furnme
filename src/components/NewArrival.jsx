@@ -2,8 +2,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import totalCards from '../utils/totalCards';
-import { getNewArrivalProducts } from '../utils/fetchData';
+import { getNewArrivalProducts, updateUserCarts } from '../utils/fetchData';
+import getUserData from '../utils/getUserData';
 
 export default function NewArrival() {
   const [newArrivalProducts, setNewArrivalProducts] = useState([]);
@@ -20,6 +22,18 @@ export default function NewArrival() {
     }
     callApi();
   }, []);
+
+  async function addToCart(productId) {
+    const { id: userId } = getUserData();
+
+    await updateUserCarts({
+      userId,
+      productId,
+      quantity: 1,
+    })
+      .then((res) => (res.data ? toast.success(res.data.message) : toast.error(res.message)))
+      .catch((err) => console.log(err));
+  }
 
   return (
     <section className="our-product w-full xl:px-20 lg:px-12 md:px-16 sm:px-10 px-6 xl:my-20 lg:my-16 md:my-24 my-12">
@@ -47,11 +61,11 @@ export default function NewArrival() {
                     </p>
                     <p className="text-left lg:text-sm md:text-lg text-base font-semibold">
                       $
-                      {product.price}
+                      {product.discount ? `${product.price - ((product.price * product.discount) / 100)}` : product.price}
                       <br />
                       <span className="text-slate-600 font-light text-sm">
                         <del>
-                          {product.discount ? `$${product.price - ((product.price * product.discount) / 100)}` : ' '}
+                          {product.discount ? `$${product.price}` : <p className="opacity-0">.</p>}
                         </del>
                       </span>
                     </p>
@@ -65,7 +79,7 @@ export default function NewArrival() {
                           ))
                       }
                     </div>
-                    <button type="button">
+                    <button type="button" onClick={() => { addToCart(product._id); }}>
                       <i className="fa-solid fa-cart-shopping lg:text-2xl md:text-xl text-lg bg-orange-200 py-1 px-2 rounded-md text-orange-800" />
                     </button>
                   </div>

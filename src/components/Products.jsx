@@ -1,11 +1,11 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
-import {
-  useEffect, useState, useRef,
-} from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import getUserData from '../utils/getUserData';
+import { updateUserCarts, getAllProducts } from '../utils/fetchData';
 
-import { getAllProducts } from '../utils/fetchData';
 import ProductsFilter from './ProductsFilter';
 
 export default function AllProducts() {
@@ -27,6 +27,18 @@ export default function AllProducts() {
 
   function hideViewMoreBtn() {
     viewMoreBtn.current.classList.add('hidden');
+  }
+
+  async function addToCart(productId) {
+    const { id: userId } = getUserData();
+
+    await updateUserCarts({
+      userId,
+      productId,
+      quantity: 1,
+    })
+      .then((res) => (res.data ? toast.success(res.data.message) : toast.error(res.message)))
+      .catch((err) => console.log(err));
   }
 
   useEffect(() => {
@@ -119,11 +131,11 @@ export default function AllProducts() {
                     </p>
                     <p className="text-left lg:text-sm md:text-lg text-base font-semibold">
                       $
-                      {product.price}
+                      {product.discount ? `${product.price - ((product.price * product.discount) / 100)}` : product.price}
                       <br />
                       <span className="text-slate-600 font-light text-sm">
                         <del>
-                          {product.discount ? `$${product.price - ((product.price * product.discount) / 100)}` : ' '}
+                          {product.discount ? `$${product.price}` : <p className="opacity-0">.</p>}
                         </del>
                       </span>
                     </p>
@@ -137,7 +149,7 @@ export default function AllProducts() {
                           ))
                       }
                     </div>
-                    <button type="button">
+                    <button type="button" onClick={() => { addToCart(product._id); }}>
                       <i className="fa-solid fa-cart-shopping text-2xl bg-orange-200 py-1 px-2 rounded-md text-orange-800" />
                     </button>
                   </div>
