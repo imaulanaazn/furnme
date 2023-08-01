@@ -77,16 +77,20 @@ export default function ProductDetail() {
             {product.price}
           </h2>
           <div className="product-info flex items-end mt-1">
-            <p className="product-info__discount text-sm md:text-xl lg:text-sm bg-rose-500 text-white py-1 px-1 rounded">
-              {product.discount ? product.discount : ''}
-              {' '}
-              %
-            </p>
-            <span className="product-info__discounted-price text-sm md:text-base lg:text-sm text-slate-600 font-light ml-2 mr-4 md:ml-3 md:mr-5 lg:ml-2 lg:mr-4">
-              <del>
-                {product.discount ? `$${product.price - ((product.price * product.discount) / 100)}` : ' '}
-              </del>
-            </span>
+            {
+              product.discount ? (
+                <>
+                  <p className="product-info__discount text-sm md:text-xl lg:text-sm bg-rose-500 text-white py-1 px-1 rounded">
+                    {`%${product.discount}`}
+                  </p>
+                  <span className="product-info__discounted-price text-sm md:text-base lg:text-sm text-slate-600 font-light ml-2 mr-4 md:ml-3 md:mr-5 lg:ml-2 lg:mr-4">
+                    <del>
+                      {`$${product.price - ((product.price * product.discount) / 100)}`}
+                    </del>
+                  </span>
+                </>
+              ) : ''
+            }
             <div className="product-info__rating">
               {
                  Array.from({ length: Math.round(product.rating) }, (_, i) => i + 1)
