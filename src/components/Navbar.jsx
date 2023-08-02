@@ -17,7 +17,7 @@ export default function Navbar() {
     {
       name: 'Likes',
       icon: 'fa-solid fa-heart',
-      url: '/',
+      url: '/wishlist',
     },
     {
       name: 'Home',
@@ -107,7 +107,7 @@ export default function Navbar() {
           <button type="button" onClick={() => { setMobileMenuVisible(!mobileMenuVisible); }} className="lg:hidden inline">
             <i className="fa-solid fa-bars text-xl" />
           </button>
-          <Link to="/" className="lg:block hidden">
+          <Link to="/wishlist" className="lg:block hidden">
             <i className="fa-solid fa-heart text-xl text-rose-500" />
           </Link>
           <Link to="/cart" className="lg:inline hidden">

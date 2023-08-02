@@ -10,6 +10,7 @@ import MyCart from './pages/MyCart';
 import ProductDetail from './pages/ProductDetail';
 import Checkout from './pages/Checkout';
 import Success from './pages/Success';
+import WishList from './pages/WishList';
 // eslint-disable-next-line import/no-unresolved
 import 'swiper/css';
 // eslint-disable-next-line import/no-unresolved
@@ -28,6 +29,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/success" element={<Success />} />
         <Route path="/cart" element={isLogin ? <MyCart /> : <Navigate to="/auth" />} />
+        <Route path="/wishlist" element={<WishList />} />
         <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>
     </div>
