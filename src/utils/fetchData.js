@@ -236,16 +236,102 @@ async function getRecentlyViewedProd() {
   }
 }
 
+async function addRecentlyViewedProd(productId) {
+  const userData = getUserData();
+
+  try {
+    const res = await axios.put(`${ROOT_URL}/users/${userData.id}/recently-viewed`, { productId });
+    const { data } = res;
+
+    return {
+      success: true,
+      data,
+      message: 'data retreived successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'failed to retreive data',
+    };
+  }
+}
+
+async function updateLikedProd(productId) {
+  const userData = getUserData();
+
+  try {
+    const res = await axios.put(`${ROOT_URL}/users/${userData.id}/liked-products`, { productId });
+    const { data } = res;
+
+    return {
+      success: true,
+      data,
+      message: 'data retreived successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'failed to retreive data',
+    };
+  }
+}
+
+async function getLikedProd(productId) {
+  const userData = getUserData();
+
+  try {
+    const res = await axios.get(`${ROOT_URL}/users/${userData.id}/liked-products`, { productId });
+    const { data } = res;
+
+    return {
+      success: true,
+      data,
+      message: 'data retreived successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'failed to retreive data',
+    };
+  }
+}
+
+async function getFLashSaleProd() {
+  try {
+    const res = await axios.get(`${ROOT_URL}/products/flash-sale`);
+    const { data } = res;
+
+    return {
+      success: true,
+      data,
+      message: 'data retreived successfully',
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      message: 'failed to retreive data',
+    };
+  }
+}
+
 export {
   getCategories,
   getSpecialDiscount,
   getTrendingProducts,
   getRecommendedProducts,
   getRecentlyViewedProd,
+  addRecentlyViewedProd,
   getNewArrivalProducts,
   getAllProducts,
   getProductById,
   getUserCarts,
   updateUserCarts,
   deleteUserCarts,
+  updateLikedProd,
+  getLikedProd,
+  getFLashSaleProd,
 };
