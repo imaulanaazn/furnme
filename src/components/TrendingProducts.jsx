@@ -27,20 +27,14 @@ export default function TrendingProducts() {
           i === 4 ? (
             <TrendingProductsCard
               key={product._id}
-              thumb={product.images[0]}
-              id={`${product._id}`}
-              name={product.name}
-              price={product.price}
+              product={product}
               colSpan="col-span-2"
             />
           )
             : (
               <TrendingProductsCard
                 key={product._id}
-                thumb={product.images[0]}
-                id={`${product._id}`}
-                name={product.name}
-                price={product.price}
+                product={product}
                 colSpan="col-span-1"
               />
             )
