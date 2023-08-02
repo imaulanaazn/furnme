@@ -2,6 +2,7 @@ import {
   arrayOf, number, string, func,
 } from 'prop-types';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function InCartProduct({
   product, userId, updateCart, removeProduct,
@@ -20,7 +21,9 @@ export default function InCartProduct({
     <div className="product-1 my-8 flex w-full items-center text-slate-600 text-center">
       <div className="product-item flex-1 text-center">
         <div className="thumb lg:w-24 w-16 lg:h-24 h-16 mx-auto">
-          <img src={product?.images[0]} className="w-full h-full object-cover object-center" alt="" />
+          <Link to={`/product/${product.productId}`}>
+            <img src={product?.images[0]} className="w-full h-full object-cover object-center" alt="" />
+          </Link>
         </div>
         <div className="text">
           <h1 className="mt-2 text-center font-bold lg:text-base md:text-xl">{product?.name}</h1>

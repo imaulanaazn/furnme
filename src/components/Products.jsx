@@ -164,7 +164,6 @@ export default function AllProducts() {
             className={`${visible === products.length || products.length < 12 ? 'hidden' : ''} block mx-auto mt-10 lg:text-base md:text-lg py-2 px-5 border border-solid border-slate-700 rounded-md`}
           >
             view more
-
           </button>
         </div>
       </div>
