@@ -2,8 +2,13 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
-import { getProductById } from '../utils/fetchData';
+import {
+  getProductById, updateUserCarts, addRecentlyViewedProd, updateLikedProd,
+  getLikedProd,
+} from '../utils/fetchData';
+import getUserData from '../utils/getUserData';
 
 const productInitialData = {
   category: [{
@@ -28,7 +33,37 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(productInitialData);
   const { id: productId } = useParams();
   const [prodQuantity, setProdQuantity] = useState(1);
-  // const navigate = useNavigate();
+  const [isProductLiked, setProductLiked] = useState(false);
+
+  async function addToCart() {
+    const { id: userId } = getUserData();
+
+    await updateUserCarts({
+      userId,
+      productId,
+      quantity: prodQuantity,
+    })
+      .then((res) => (res.data ? toast.success(res.data.message) : toast.error(res.message)))
+      .catch((err) => console.log(err));
+  }
+
+  async function toggleLikeProd() {
+    setProductLiked(!isProductLiked);
+
+    await updateLikedProd(productId)
+      .then((res) => (res.data ? toast.success(res.data.message) : toast.error(res.message)))
+      .catch((err) => console.log(err));
+  }
+
+  useEffect(() => {
+    async function callAPI() {
+      await addRecentlyViewedProd(productId)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
+
+    callAPI();
+  }, []);
 
   useEffect(() => {
     async function callAPI() {
@@ -42,7 +77,18 @@ export default function ProductDetail() {
     callAPI();
   }, []);
 
-  console.log(product);
+  useEffect(() => {
+    async function callAPI() {
+      await getLikedProd(productId)
+        .then((res) => {
+          const isLiked = res.data.some((prod) => prod._id === productId);
+          setProductLiked(!!isLiked);
+        })
+        .catch((err) => console.log(err));
+    }
+
+    callAPI();
+  }, [productId]);
 
   return (
     <>
@@ -103,8 +149,8 @@ export default function ProductDetail() {
           <p className="product-desc my-6 md:my-8 lg:my-6 md:text-lg lg:text-base text-slate-700 max-w-md">
             {product.description}
           </p>
-          <button type="button" className="product-like flex items-center justify-center">
-            <i className="fa-solid fa-heart text-2xl md:text-3xl lg:text-2xl text-slate-300 hover:text-rose-500 transition-all" />
+          <button type="button" onClick={() => { toggleLikeProd(); }} className="product-like flex items-center justify-center">
+            <i className={`fa-solid fa-heart text-2xl md:text-3xl lg:text-2xl ${isProductLiked ? 'text-rose-500' : 'text-slate-300'} transition-all`} />
           </button>
           <form className="product-quantity my-4 md:my-5 lg:my-4 w-max" onSubmit={() => { }}>
             <div className="product-quantity__counter flex space-x-2 mb-4 md:mb-5 lg:mb-4">
@@ -135,6 +181,7 @@ export default function ProductDetail() {
             </div>
             <button
               type="submit"
+              onClick={(e) => { e.preventDefault(); addToCart(); }}
               className="product-cart__add flex items-center h-10 w-full md:h-11 px-4 border border-orange-200
                  bg-orange-200 hover:bg-orange-300 rounded-md transition-all"
             >
